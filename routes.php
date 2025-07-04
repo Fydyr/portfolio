@@ -21,11 +21,11 @@ $router->get('/', function () {
 });
 
 // À propos (correspond à /index.php/about)
-$router->get('/about', function () {
-    include_once 'controllers/HomeController.php';
-    $controller = new HomeController();
-    $controller->about();
-});
+// $router->get('/about', function () {
+//     include_once 'controllers/HomeController.php';
+//     $controller = new HomeController();
+//     $controller->about();
+// });
 
 // Authentification
 // $router->get('/login', function () {
