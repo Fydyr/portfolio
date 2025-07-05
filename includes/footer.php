@@ -28,11 +28,11 @@
                         <div class="footer-stats">
                             <div class="stat-item">
                                 <span class="stat-number counter" data-target="19">0</span>
-                                <span class="stat-label">Projets</span>
+                                <span class="stat-label">Projets réalisé</span>
                             </div>
                             <div class="stat-item">
-                                <span class="stat-number counter" data-target="3">0</span>
-                                <span class="stat-label">Années</span>
+                                <span class="stat-number counter" data-target="2">0</span>
+                                <span class="stat-label">Année de BUT<br/>(actuellement)</span>
                             </div>
                         </div>
                     </div>
