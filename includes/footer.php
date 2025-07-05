@@ -65,7 +65,7 @@
                                 <a href="https://www.linkedin.com/in/enzo-fournier-2746ba2b3/" target="_blank" class="social-link linkedin" title="LinkedIn">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
-                                <a href="https://discord.com/users/652648082663538719" target="_blank" class="social-link discord" title="Discord"><i class="fab fa-discord"></i></a>
+                                <a href="https://discord.gg/RT2XsGFFEr" target="_blank" class="social-link discord" title="Discord"><i class="fab fa-discord"></i></a>
                             </div>
                         </div>
                     </div>
