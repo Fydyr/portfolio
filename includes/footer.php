@@ -11,18 +11,17 @@
             <div class="row g-4">
 
                 <!-- Colonne 1: À propos -->
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-4 col-md-12">
                     <div class="footer-widget">
                         <div class="footer-brand mb-4">
                             <h3 class="footer-title">
                                 <span class="brand-icon">&lt;/&gt;</span>
                                 <?php echo $site_title; ?>
                             </h3>
-                            <p class="footer-tagline">Développeur Web • Créatif • Passionné</p>
+                            <p class="footer-tagline">Développeur Web & Application • Créatif • Passionné</p>
                         </div>
                         <p class="footer-description">
-                            Passionné par la création d'expériences numériques exceptionnelles,
-                            je transforme vos idées en solutions web innovantes et performantes.
+                            Passionné par la création d'expériences numériques.
                         </p>
 
                         <!-- Stats -->
@@ -40,7 +39,7 @@
                 </div>
 
                 <!-- Colonne 2: Contact & Réseaux -->
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-4 col-md-12">
                     <div class="footer-widget">
                         <h4 class="footer-widget-title">Restons connectés</h4>
 
@@ -66,26 +65,27 @@
                                 <a href="https://www.linkedin.com/in/enzo-fournier-2746ba2b3/" target="_blank" class="social-link linkedin" title="LinkedIn">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
+                                <a href="https://discord.com/users/652648082663538719" target="_blank" class="social-link discord" title="Discord"><i class="fab fa-discord"></i></a>
                             </div>
                         </div>
-
-                        <!-- Navigation rapide -->
-                        <div class="footer-nav mt-4">
-                            <h5 class="nav-title">Navigation</h5>
-                            <ul class="nav-links">
-                                <?php foreach ($nav_items as $page => $item): ?>
-                                    <?php if ($page !== 'logout' && $page !== 'admin'): ?>
-                                        <li>
-                                            <a href="<?php echo $item['url']; ?>" class="footer-link">
-                                                <span class="link-icon"><?php echo $item['icon']; ?></span>
-                                                <?php echo $item['title']; ?>
-                                            </a>
-                                        </li>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
                     </div>
+                </div>
+
+                <!-- Navigation rapide -->
+                <div class="col-lg-4 col-md-12">
+                    <h4 class="footer-widget-title">Navigation</h4>
+                    <ul class="nav-links">
+                        <?php foreach ($nav_items as $page => $item): ?>
+                            <?php if ($page !== 'logout' && $page !== 'admin'): ?>
+                                <li>
+                                    <a href="<?php echo $item['url']; ?>" class="footer-link">
+                                        <span class="link-icon"><?php echo $item['icon']; ?></span>
+                                        <?php echo $item['title']; ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -107,7 +107,6 @@
                 <div class="col-md-6">
                     <div class="footer-legal">
                         <ul class="legal-links">
-                            <li><a href="#privacy">Politique de confidentialité</a></li>
                             <li><a href="#terms">Mentions légales</a></li>
                         </ul>
                     </div>
