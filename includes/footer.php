@@ -8,7 +8,7 @@
     <!-- Footer principal -->
     <div class="footer-main">
         <div class="container">
-            <div class="row g-4">
+            <div class="row g-4 justify-content-center">
 
                 <!-- Colonne 1: À propos -->
                 <div class="col-lg-4 col-md-12">
@@ -69,23 +69,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Navigation rapide -->
-                <div class="col-lg-4 col-md-12">
-                    <h4 class="footer-widget-title">Navigation</h4>
-                    <ul class="nav-links">
-                        <?php foreach ($nav_items as $page => $item): ?>
-                            <?php if ($page !== 'logout' && $page !== 'admin'): ?>
-                                <li>
-                                    <a href="<?php echo $item['url']; ?>" class="footer-link">
-                                        <span class="link-icon"><?php echo $item['icon']; ?></span>
-                                        <?php echo $item['title']; ?>
-                                    </a>
-                                </li>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </ul>
                 </div>
             </div>
         </div>
