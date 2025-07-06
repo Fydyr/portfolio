@@ -11,11 +11,4 @@ class HomeController extends BaseController
             'title' => 'Accueil',
         ]);
     }
-
-    public function about()
-    {
-        echo $this->view('about', [
-            'title' => 'À propos de nous'
-        ]);
-    }
 }
