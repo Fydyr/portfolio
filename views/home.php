@@ -270,10 +270,6 @@
             }
         }
 
-        
-
-        
-
         .language-item {
             background: rgba(255, 255, 255, 0.05);
             border-radius: var(--border-radius-sm);
