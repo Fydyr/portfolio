@@ -1,5 +1,4 @@
 <?php ob_start(); ?>
-<h1><?= $title ?></h1>
 
 <!DOCTYPE html>
 <html lang="fr">
