@@ -20,12 +20,12 @@ $router->get('/', function () {
     $controller->index();
 });
 
-// À propos (correspond à /index.php/about)
-// $router->get('/about', function () {
-//     include_once 'controllers/HomeController.php';
-//     $controller = new HomeController();
-//     $controller->about();
-// });
+// À propos (correspond à /index.php/projects)
+$router->get('/projects', function () {
+    include_once './controllers/ProjectsController.php';
+    $controller = new ProjectsController();
+    $controller->projects();
+});
 
 // Authentification
 // $router->get('/login', function () {
