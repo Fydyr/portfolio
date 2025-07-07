@@ -328,7 +328,7 @@
                 <i class="bi bi-laptop"></i>
             </div>
             <h1>Mes projets</h1>
-            <p class="lead text-secondary">Voici la plupart des projets que j'ai pu réalisé</p>
+            <h2>Voici la plupart des projets que j'ai pu réalisé</h2>
         </div>
 </div>
 
