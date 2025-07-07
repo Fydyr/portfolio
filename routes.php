@@ -20,11 +20,25 @@ $router->get('/', function () {
     $controller->index();
 });
 
-// À propos (correspond à /index.php/projects)
+// Page des projets (correspond à /index.php/projects)
 $router->get('/projects', function () {
     include_once './controllers/ProjectsController.php';
     $controller = new ProjectsController();
     $controller->projects();
+});
+
+// Page de contact (correspond à /index.php/contact)
+$router->get('/contact', function () {
+    include_once './controllers/ContactController.php';
+    $controller = new ContactController();
+    $controller->contact();
+});
+
+// Page des mentions légals (correspond à /index.php/legals-mentions)
+$router->get('/legal-mention', function () {
+    include_once './controllers/LegalMentionsController.php';
+    $controller = new LegalMentionsController();
+    $controller->legalMentions();
 });
 
 // Authentification

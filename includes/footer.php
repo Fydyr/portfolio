@@ -90,7 +90,7 @@
                 <div class="col-md-6">
                     <div class="footer-legal">
                         <ul class="legal-links">
-                            <li><a href="#terms">Mentions légales</a></li>
+                            <li><a href="<?= url('legal-mention')?>">Mentions légales</a></li>
                         </ul>
                     </div>
                 </div>
