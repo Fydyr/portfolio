@@ -32,7 +32,7 @@
                             </div>
                             <div class="stat-item">
                                 <span class="stat-number counter" data-target="2">0</span>
-                                <span class="stat-label">Année de BUT<br/>(actuellement)</span>
+                                <span class="stat-label">Année de BUT<br />(actuellement)</span>
                             </div>
                         </div>
                     </div>
@@ -186,16 +186,6 @@
                 alert.style.transform = 'translateY(-20px)';
                 setTimeout(() => alert.remove(), 500);
             }, 5000);
-        });
-
-        // Navigation active
-        const navLinks = document.querySelectorAll('.nav-link');
-        const currentUrl = window.location.href;
-
-        navLinks.forEach(link => {
-            if (currentUrl.includes(link.getAttribute('href'))) {
-                link.classList.add('active');
-            }
         });
 
         // Compteurs animés

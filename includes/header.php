@@ -642,7 +642,14 @@ if (isset($_SESSION['admin'])) {
                     <ul class="navbar-nav ms-auto">
                         <?php foreach ($nav_items as $page => $item): ?>
                             <li class="nav-item">
-                                <a class="nav-link <?php echo (strpos($_SERVER['REQUEST_URI'], $page) !== false) ? 'active' : ''; ?>"
+                                <?php
+                                // Logique plus précise pour détecter la page active
+                                $current_page = basename($_SERVER['REQUEST_URI'], '.php');
+                                $is_active = ($current_page === $page) ||
+                                    ($_SERVER['REQUEST_URI'] === '/' && $page === 'index') ||
+                                    (strpos($_SERVER['REQUEST_URI'], $page) !== false && $page !== 'index');
+                                ?>
+                                <a class="nav-link <?php echo $is_active ? 'active' : ''; ?>"
                                     href="<?php echo $item['url']; ?>">
                                     <span class="nav-icon"><?php echo $item['icon']; ?></span>
                                     <span class="nav-text"><?php echo $item['title']; ?></span>
