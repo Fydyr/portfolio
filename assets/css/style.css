@@ -779,6 +779,7 @@ a:hover {
     margin-bottom: var(--spacing-sm);
     border-left: 4px solid var(--primary-color);
     transition: var(--transition);
+    color: var(--text-primary);
 }
 
 .passion-item:hover {
@@ -794,6 +795,7 @@ a:hover {
     display: inline-block;
     border: var(--border-subtle);
     transition: var(--transition);
+    color: var(--text-primary);
 }
 
 .language-item:hover {
