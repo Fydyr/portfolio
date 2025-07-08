@@ -381,7 +381,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <p><strong class="text-primary">Nom de l'hébergeur :</strong><br>
-                                    <span class="text-secondary">JrCanDev</span>
+                                    <span class="text-secondary"><a href="https://jrcan.dev" target="_blank" class="text-decoration-none text-reset">JrCanDev</a></span>
                                 </p>
                             </div>
                             <div class="col-md-4">
@@ -522,7 +522,7 @@
                         <p>Pour toute question concernant ce site portfolio, vous pouvez me contacter :</p>
                         <div class="d-flex align-items-center">
                             <i class="fas fa-envelope text-primary me-3"></i>
-                            <span><strong>Par email :</strong> enzofournier.contact@gmail.com</span>
+                            <span class="text-secondary"><strong class="text-success">Par email :</strong> enzofournier.contact@gmail.com</span>
                         </div>
                     </div>
                 </div>
@@ -537,7 +537,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <a href="index.php" class="btn btn-primary">
+                        <a href="/" class="btn btn-primary">
                             <i class="fas fa-home me-2"></i>
                             Retour à l'accueil
                         </a>
