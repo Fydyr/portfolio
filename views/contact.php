@@ -144,9 +144,9 @@
     <script>
         // ⚠️ CONFIGURATION EMAILJS - À REMPLACER PAR TES VALEURS
         const EMAIL_CONFIG = {
-            serviceID: 'service_xxxxxxx', // Service ID depuis emailjs.com
-            templateID: 'template_xxxxxxx', // Template ID depuis emailjs.com
-            publicKey: 'xxxxxxxxxxxxxxxxx' // Public Key depuis emailjs.com
+            serviceID: 'service_u8szg5e', // Service ID depuis emailjs.com
+            templateID: 'template_44x6gab', // Template ID depuis emailjs.com
+            publicKey: 'urMgueUb4s3PG7SLq' // Public Key depuis emailjs.com
         };
 
         // Initialisation d'EmailJS
