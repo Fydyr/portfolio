@@ -27,15 +27,8 @@ $router->get('/projects', function () {
     $controller->projects();
 });
 
-// Page de contact - GET (affichage du formulaire)
+// Page de contact (correspond à /index.php/contact)
 $router->get('/contact', function () {
-    include_once './controllers/ContactController.php';
-    $controller = new ContactController();
-    $controller->contact();
-});
-
-// Page de contact - POST (traitement du formulaire)
-$router->post('/contact', function () {
     include_once './controllers/ContactController.php';
     $controller = new ContactController();
     $controller->contact();

@@ -1,7 +1,5 @@
 {
     "require": {
-        "bramus/router": "^1.6",
-        "phpmailer/phpmailer": "^6.10",
-        "vlucas/phpdotenv": "^5.6"
+        "bramus/router": "^1.6"
     }
 }
