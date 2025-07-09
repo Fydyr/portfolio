@@ -27,14 +27,21 @@ $router->get('/projects', function () {
     $controller->projects();
 });
 
-// Page de contact (correspond à /index.php/contact)
+// Page de contact - GET (affichage du formulaire)
 $router->get('/contact', function () {
     include_once './controllers/ContactController.php';
     $controller = new ContactController();
     $controller->contact();
 });
 
-// Page des mentions légals (correspond à /index.php/legals-mentions)
+// Page de contact - POST (traitement du formulaire)
+$router->post('/contact', function () {
+    include_once './controllers/ContactController.php';
+    $controller = new ContactController();
+    $controller->contact();
+});
+
+// Page des mentions légales (correspond à /index.php/legals-mentions)
 $router->get('/legal-mention', function () {
     include_once './controllers/LegalMentionsController.php';
     $controller = new LegalMentionsController();
@@ -81,6 +88,7 @@ $router->get('/debug', function () {
     echo "<li><a href='" . url('') . "'>Accueil</a></li>";
     echo "<li><a href='" . url('users') . "'>Utilisateurs</a></li>";
     echo "<li><a href='" . url('test') . "'>Test</a></li>";
+    echo "<li><a href='" . url('contact') . "'>Contact</a></li>";
     echo "</ul>";
 });
 
