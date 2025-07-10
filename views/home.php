@@ -140,6 +140,85 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Section Parcours scolaire -->
+            <div class="card fade-in mt-5">
+                <div class="card-body">
+                    <h3><i class="fas fa-graduation-cap icon-highlight"></i>Parcours scolaire</h3>
+
+                    <div class="timeline">
+                        <!-- Études actuelles -->
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="status-badge">En cours</div>
+                                <div class="timeline-period">2023 - 2026</div>
+                                <div class="timeline-title">BUT Informatique</div>
+                                <div class="timeline-subtitle">IUT de Calais</div>
+                                <div class="timeline-description">
+                                    Formation universitaire technologique spécialisée en informatique.
+                                    Actuellement en 2e année, apprentissage approfondi du développement web,
+                                    des bases de données, de l'algorithmique et des méthodologies de projet.
+                                </div>
+                                <div class="timeline-details">
+                                    <span class="detail-badge"><i class="fas fa-code"></i> Développement</span>
+                                    <span class="detail-badge"><i class="fas fa-database"></i> Base de données</span>
+                                    <span class="detail-badge"><i class="fas fa-project-diagram"></i> Gestion de projet</span>
+                                    <span class="detail-badge"><i class="fas fa-network-wired"></i> Réseaux</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Baccalauréat -->
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="status-badge completed">Obtenu</div>
+                                <div class="timeline-period">2020 - 2023</div>
+                                <div class="timeline-title">Baccalauréat Général</div>
+                                <div class="timeline-subtitle">Lycée Mariette - Boulogne-Sur-Mer</div>
+                                <div class="timeline-description">
+                                    Baccalauréat général avec spécialités Mathématiques et NSI (Numérique et Sciences Informatiques).
+                                    Formation solide en sciences et découverte approfondie de la programmation.
+                                </div>
+                                <div class="timeline-details">
+                                    <span class="detail-badge"><i class="fas fa-square-root-alt"></i> Mathématiques</span>
+                                    <span class="detail-badge"><i class="fas fa-microchip"></i> NSI</span>
+                                    <span class="detail-badge"><i class="bi bi-filetype-py"></i> Python</span>
+                                    <span class="detail-badge"><i class="fas fa-chart-line"></i> Algorithmique</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Collège -->
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="status-badge completed">Obtenu</div>
+                                <div class="timeline-period">2016 - 2020</div>
+                                <div class="timeline-title">Diplôme National du Brevet</div>
+                                <div class="timeline-subtitle">Collège Pilâtre de Rozier - Wimille</div>
+                                <div class="timeline-description">
+                                    Formation secondaire complète avec acquisition des fondamentaux
+                                    en sciences, littérature et découverte de la technologie.
+                                </div>
+                                <div class="timeline-details">
+                                    <span class="detail-badge"><i class="fas fa-atom"></i> Sciences</span>
+                                    <span class="detail-badge"><i class="fas fa-book-open"></i> Littérature</span>
+                                    <span class="detail-badge"><i class="fas fa-cogs"></i> Technologie</span>
+                                    <span class="detail-badge"><i class="fas fa-globe"></i> Langues</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -179,6 +258,22 @@
             badge.addEventListener('mouseleave', function() {
                 this.style.boxShadow = '';
             });
+        });
+
+        // Animation au scroll pour les éléments de timeline
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.style.animationPlayState = 'paused';
+            timelineObserver.observe(item);
         });
     </script>
 </body>
