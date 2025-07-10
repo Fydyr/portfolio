@@ -219,6 +219,80 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Lien vers les réseaux sociaux -->
+            <div class="card fade-in mb-4">
+                <div class="card-header">
+                    <h2 class="mb-0">
+                        <i class="fas fa-user-circle me-2"></i>
+                        Mes réseaux sociaux
+                    </h2>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <h3 class="text-primary">
+                                <a href="https://github.com/Fydyr" target="_blank" class="text-decoration-none">
+                                    <i class="fab fa-github text-muted me-2"></i>
+                                    Github
+                                </a>
+                            </h3>
+                            <p class="text-muted small">Découvrez mes projets open source</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <h3 class="text-primary">
+                                <a href="https://www.linkedin.com/in/enzo-fournier-2746ba2b3/" target="_blank" class="text-decoration-none">
+                                    <i class="fab fa-linkedin-in text-muted me-2"></i>
+                                    Linkedin
+                                </a>
+                            </h3>
+                            <p class="text-muted small">Mon profil professionnel</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <h3 class="text-primary">
+                                <a href="https://discord.gg/RT2XsGFFEr" target="_blank" class="text-decoration-none">
+                                    <i class="fab fa-discord text-muted me-2"></i>
+                                    Discord
+                                </a>
+                            </h3>
+                            <p class="text-muted small">Rejoignez ma communauté</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section qui mène à mon CV -->
+            <div class="card fade-in mt-5">
+                <div class="card-header">
+                    <h2 class="mb-0">
+                        <i class="fas fa-file-alt icon-highlight"></i>
+                        Mon CV
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <p>Pour en savoir plus sur mon parcours, mes compétences et mes expériences, consultez mon CV.</p>
+                    <a href="../assets/docs/mon_cv.pdf" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-file-download"></i> Télécharger le CV
+                    </a>
+                </div>
+            </div>
+
+            <!-- Section qui mène aux projets -->
+            <div class="card fade-in mt-5">
+                <div class="card-header">
+                    <h2 class="mb-0">
+                        <i class="fas fa-project-diagram icon-highlight"></i>
+                        Mes projets
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <p>Découvrez mes projets récents et mes contributions open source.</p>
+                    <a href="<?= url('projects') ?>" class="btn btn-primary">
+                        <i class="fas fa-folder-open"></i> Voir les projets
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
