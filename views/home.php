@@ -143,9 +143,14 @@
 
             <!-- Section Parcours scolaire -->
             <div class="card fade-in mt-5">
-                <div class="card-body">
-                    <h3><i class="fas fa-graduation-cap icon-highlight"></i>Parcours scolaire</h3>
+                <div class="card-header">
+                    <h2 class="mb-0">
+                        <i class="fas fa-graduation-cap icon-highlight"></i>
+                        Parcours scolaire
+                    </h2>
+                </div>
 
+                <div class="card-body">
                     <div class="timeline">
                         <!-- Études actuelles -->
                         <div class="timeline-item">
