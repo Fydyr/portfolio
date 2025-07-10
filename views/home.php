@@ -277,8 +277,8 @@
                 </div>
                 <div class="card-body">
                     <p>Pour en savoir plus sur mon parcours, mes compétences et mes expériences, consultez mon CV.</p>
-                    <a href="../assets/docs/mon_cv.pdf" class="btn btn-primary" target="_blank">
-                        <i class="fas fa-file-download"></i> Télécharger le CV
+                    <a href="../assets/docs/mon_cv.pdf" class="btn btn-primary" target="_blank" download="mon_cv.pdf">
+                        <i class="fas fa-file-download"></i> Télécharger mon CV
                     </a>
                 </div>
             </div>
@@ -294,7 +294,7 @@
                 <div class="card-body">
                     <p>Découvrez mes projets récents et mes contributions open source.</p>
                     <a href="<?= url('projects') ?>" class="btn btn-primary">
-                        <i class="fas fa-folder-open"></i> Voir les projets
+                        <i class="fas fa-folder-open"></i> Voir mes projets
                     </a>
                 </div>
             </div>
