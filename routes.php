@@ -42,17 +42,17 @@ $router->get('/legal-mention', function () {
 });
 
 // Authentification
-// $router->get('/login', function () {
-//     include_once 'controllers/AuthController.php';
-//     $controller = new AuthController();
-//     $controller->showLogin();
-// });
+$router->get('/login', function () {
+    include_once 'controllers/LoginController.php';
+    $controller = new LoginController();
+    $controller->login();
+});
 
-// $router->post('/login', function () {
-//     include_once 'controllers/AuthController.php';
-//     $controller = new AuthController();
-//     $controller->handleLogin();
-// });
+$router->post('/login', function () {
+    include_once 'controllers/LoginController.php';
+    $controller = new LoginController();
+    $controller->login();
+});
 
 // $router->get('/logout', function () {
 //     include_once 'controllers/AuthController.php';
