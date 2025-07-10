@@ -63,8 +63,8 @@
                         <div class="col-md-4">
                             <div class="d-flex flex-column align-items-center p-3 rounded bg-glass border-glow h-100">
                                 <div class="text-primary mb-2" style="font-size: 2rem;">📧</div>
-                                <h6 class="text-accent">Contactez-nous</h6>
-                                <p class="text-secondary small mb-0">Nous sommes là pour aider</p>
+                                <h6 class="text-accent">Contactez-moi</h6>
+                                <p class="text-secondary small mb-0">Je suis là pour aider</p>
                             </div>
                         </div>
                     </div>
@@ -85,50 +85,50 @@
 
             <!-- Liste des suggestions détaillées -->
             <div class="card slide-in-left">
-            <div class="card-header">
-                <h4 class="mb-0">
-                    <i class="fas fa-info-circle text-info me-2"></i>
-                    Conseils pour continuer
-                </h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <ul class="list-unstyled">
-                            <li class="d-flex align-items-start mb-3">
-                                <span class="badge bg-primary rounded-pill me-3 mt-1">1</span>
-                                <div>
-                                    <strong class="text-accent">Vérifiez l'URL</strong>
-                                    <p class="text-secondary small mb-0">Assurez-vous que l'adresse est correcte</p>
-                                </div>
-                            </li>
-                            <li class="d-flex align-items-start mb-3">
-                                <span class="badge bg-secondary rounded-pill me-3 mt-1">2</span>
-                                <div>
-                                    <strong class="text-accent">Utilisez la navigation</strong>
-                                    <p class="text-secondary small mb-0">Explorez le menu principal</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="list-unstyled">
-                            <li class="d-flex align-items-start mb-3">
-                                <span class="badge bg-success rounded-pill me-3 mt-1">3</span>
-                                <div>
-                                    <strong class="text-accent">Recherchez</strong>
-                                    <p class="text-secondary small mb-0">Utilisez notre fonction de recherche</p>
-                                </div>
-                            </li>
-                            <li class="d-flex align-items-start mb-3">
-                                <span class="badge bg-warning rounded-pill me-3 mt-1">4</span>
-                                <div>
-                                    <strong class="text-accent">Contactez le support</strong>
-                                    <p class="text-secondary small mb-0">Si le problème persiste</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-info-circle text-info me-2"></i>
+                        Conseils pour continuer
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="d-flex align-items-start mb-3">
+                                    <span class="badge bg-primary rounded-pill me-3 mt-1">1</span>
+                                    <div>
+                                        <strong class="text-accent">Vérifiez l'URL</strong>
+                                        <p class="text-secondary small mb-0">Assurez-vous que l'adresse est correcte</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start mb-3">
+                                    <span class="badge bg-secondary rounded-pill me-3 mt-1">2</span>
+                                    <div>
+                                        <strong class="text-accent">Utilisez la navigation</strong>
+                                        <p class="text-secondary small mb-0">Explorez le menu principal</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="d-flex align-items-start mb-3">
+                                    <span class="badge bg-success rounded-pill me-3 mt-1">3</span>
+                                    <div>
+                                        <strong class="text-accent">Recherchez</strong>
+                                        <p class="text-secondary small mb-0">Utilisez notre fonction de recherche</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start mb-3">
+                                    <span class="badge bg-warning rounded-pill me-3 mt-1">4</span>
+                                    <div>
+                                        <strong class="text-accent">Contactez le support</strong>
+                                        <p class="text-secondary small mb-0">Si le problème persiste</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
