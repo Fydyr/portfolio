@@ -26,6 +26,8 @@
             <h1>Mes projets</h1>
             <h2>Voici la plupart des projets que j'ai pu réalisé</h2>
         </div>
+
+        <p>Aucun projet n'est présent sur la page pour le moment, ils seront bientôt ajouté</p>
 </div>
 
 <!-- Bootstrap JS -->
