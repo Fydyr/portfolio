@@ -1,4 +1,5 @@
 <?php
+global $pdo;
 $host = 'localhost';
 $db = 'database'; // Le vrai nom de la bdd
 $user = 'root'; // Le user

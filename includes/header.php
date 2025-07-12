@@ -1,6 +1,7 @@
 <?php
 //import bdd
-include_once 'includes/db.php';
+include_once __DIR__ . '/db.php';
+global $pdo;
 
 // Démarrer la session
 session_start();
