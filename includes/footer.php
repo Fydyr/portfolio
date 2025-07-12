@@ -5,40 +5,40 @@
 
 // Compteur de visites
 // Nom du fichier pour stocker le compteur
-$fichier_compteur = '../assets/docs/compteur.txt';
+// $fichier_compteur = '../assets/docs/compteur.txt';
 
-// Fonction pour lire le nombre de visiteurs
-function lire_compteur($fichier) {
-    if (file_exists($fichier)) {
-        $compteur = file_get_contents($fichier);
-        return (int)$compteur;
-    }
-    return 0;
-}
+// // Fonction pour lire le nombre de visiteurs
+// function lire_compteur($fichier) {
+//     if (file_exists($fichier)) {
+//         $compteur = file_get_contents($fichier);
+//         return (int)$compteur;
+//     }
+//     return 0;
+// }
 
-// Fonction pour écrire le nombre de visiteurs
-function ecrire_compteur($fichier, $nombre) {
-    file_put_contents($fichier, $nombre);
-}
+// // Fonction pour écrire le nombre de visiteurs
+// function ecrire_compteur($fichier, $nombre) {
+//     file_put_contents($fichier, $nombre);
+// }
 
-// Fonction pour vérifier si c'est un nouveau visiteur
-function est_nouveau_visiteur() {
-    session_start();
-    if (!isset($_SESSION['visite_comptee'])) {
-        $_SESSION['visite_comptee'] = true;
-        return true;
-    }
-    return false;
-}
+// // Fonction pour vérifier si c'est un nouveau visiteur
+// function est_nouveau_visiteur() {
+//     session_start();
+//     if (!isset($_SESSION['visite_comptee'])) {
+//         $_SESSION['visite_comptee'] = true;
+//         return true;
+//     }
+//     return false;
+// }
 
-// Logique principale du compteur
-$compteur_actuel = lire_compteur($fichier_compteur);
+// // Logique principale du compteur
+// $compteur_actuel = lire_compteur($fichier_compteur);
 
-// Incrémenter seulement si c'est un nouveau visiteur dans cette session
-if (est_nouveau_visiteur()) {
-    $compteur_actuel++;
-    ecrire_compteur($fichier_compteur, $compteur_actuel);
-}
+// // Incrémenter seulement si c'est un nouveau visiteur dans cette session
+// if (est_nouveau_visiteur()) {
+//     $compteur_actuel++;
+//     ecrire_compteur($fichier_compteur, $compteur_actuel);
+// }
 ?>
 
 <!-- Footer -->
@@ -74,10 +74,10 @@ if (est_nouveau_visiteur()) {
                                 <span class="stat-number counter" data-target="2">0</span>
                                 <span class="stat-label">Année de BUT<br />(actuellement)</span>
                             </div>
-                            <div class="stat-item">
+                            <!-- <div class="stat-item">
                                 <span class="stat-number counter" data-target="<?php echo number_format($compteur_actuel, 0, ',', ' '); ?>">0</span>
                                 <span class="stat-label">Visiteurs</span>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
