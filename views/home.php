@@ -30,6 +30,18 @@
             <p class="lead text-secondary">Développeur passionné • 2e année BUT Informatique • @fydyr</p>
         </div>
 
+        <div class="card fade-in mb-2">
+            <div class="card-header">
+                <h2 class="mb-0">
+                    <i class="bi bi-chat-square-dots-fill"></i>
+                    Objectif professionnel
+                </h2>
+            </div>
+            <div class="card-body">
+                <p>Je souhaite évoluer en tant que <strong>développeur backend</strong>, en concevant des applications performantes et sécurisées, adaptées aux environnements exigeants.</p>
+            </div>
+        </div>
+
         <div class="container">
             <div class="info-grid">
                 <!-- Section Qui suis-je -->
