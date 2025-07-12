@@ -1,4 +1,15 @@
 <?php
+//import bdd
+include_once 'includes/db.php';
+
+// Démarrer la session
+session_start();
+
+// récupérer le nombre de projets sur la bdd
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM projects");
+$stmt->execute();
+$project_count = $stmt->fetchColumn();
+
 // Configuration du site
 $site_title = "Enzo Fournier";
 $site_tagline = "";

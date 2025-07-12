@@ -67,7 +67,7 @@
                         <!-- Stats -->
                         <div class="footer-stats">
                             <div class="stat-item">
-                                <span class="stat-number counter" data-target="19">0</span>
+                                <span class="stat-number counter" data-target="<?= $project_count ?>">0</span>
                                 <span class="stat-label">Projets réalisé</span>
                             </div>
                             <div class="stat-item">
