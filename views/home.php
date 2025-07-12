@@ -57,7 +57,7 @@
                             <strong><i class="fas fa-at icon-highlight"></i>Pseudo :</strong> fydyr
                         </div>
                         <div class="passion-item">
-                            <strong><i class="fas fa-map-marker-alt icon-highlight"></i>Localisation :</strong> France
+                            <strong><i class="fas fa-map-marker-alt icon-highlight"></i>Localisation :</strong> France, Haut-De-France
                         </div>
                         <div class="passion-item">
                             <strong><i class="fas fa-birthday-cake icon-highlight"></i>Âge :</strong> 20 ans
