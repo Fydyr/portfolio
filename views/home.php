@@ -111,6 +111,9 @@
                             <span class="tech-badge tools">Git</span>
                             <span class="tech-badge tools">Docker</span>
                             <span class="tech-badge tools">VS Code</span>
+                            <span class="tech-badge tools">phpMyAdmin</span>
+                            <span class="tech-badge tools">WAMP</span>
+                            <span class="tech-badge tools">MAMP</span>
                         </div>
                     </div>
                 </div>
@@ -123,7 +126,7 @@
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <div class="passion-item">
-                                <strong><i class="fas fa-music icon-highlight"></i>Musique :</strong> Musique de jeux
+                                <strong><i class="fas fa-music icon-highlight"></i>Musique :</strong> Musique de jeux, variété française, pop
                             </div>
                             <div class="passion-item">
                                 <strong><i class="fas fa-gamepad icon-highlight"></i>Gaming :</strong> Jeux de réflexion, de stratégie, de musique et d'action
