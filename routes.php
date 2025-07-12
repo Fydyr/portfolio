@@ -79,7 +79,6 @@ $router->get('/debug', function () {
     echo "<h3>🧪 Tests :</h3>";
     echo "<ul>";
     echo "<li><a href='" . url('') . "'>Accueil</a></li>";
-    echo "<li><a href='" . url('users') . "'>Utilisateurs</a></li>";
     echo "<li><a href='" . url('test') . "'>Test</a></li>";
     echo "<li><a href='" . url('contact') . "'>Contact</a></li>";
     echo "</ul>";
