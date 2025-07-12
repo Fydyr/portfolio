@@ -1,5 +1,6 @@
 <?php
 // Configuration du site
+$site_title = "Enzo Fournier";
 $site_tagline = "";
 $current_page = basename($_SERVER['PHP_SELF'], '.php');
 
