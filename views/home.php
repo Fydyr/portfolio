@@ -46,8 +46,13 @@
             <div class="info-grid">
                 <!-- Section Qui suis-je -->
                 <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="mb-0">
+                            <i class="fas fa-user icon-highlight"></i>
+                            Qui suis-je ?
+                        </h3>
+                    </div>
                     <div class="card-body">
-                        <h3><i class="fas fa-user icon-highlight"></i>Qui suis-je ?</h3>
                         <div class="passion-item">
                             <strong><i class="fas fa-at icon-highlight"></i>Pseudo :</strong> fydyr
                         </div>
@@ -65,8 +70,13 @@
 
                 <!-- Section Langages -->
                 <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="mb-0">
+                            <i class="fas fa-code icon-highlight"></i>
+                            Langages utilisés
+                        </h3>
+                    </div>
                     <div class="card-body">
-                        <h3><i class="fas fa-code icon-highlight"></i>Langages utilisés</h3>
                         <div class="mt-3">
                             <span class="language-item">JavaScript/TypeScript</span>
                             <span class="language-item">Python</span>
@@ -82,8 +92,13 @@
 
                 <!-- Section Technologies Frontend -->
                 <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="mb-0">
+                            <i class="fas fa-palette icon-highlight"></i>
+                            Frontend
+                        </h3>
+                    </div>
                     <div class="card-body">
-                        <h3><i class="fas fa-palette icon-highlight"></i>Frontend</h3>
                         <div class="mt-3">
                             <span class="tech-badge">Vue.js</span>
                             <span class="tech-badge">Flutter</span>
@@ -94,8 +109,13 @@
 
                 <!-- Section Technologies Backend -->
                 <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="mb-0">
+                            <i class="fas fa-server icon-highlight"></i>
+                            Backend
+                        </h3>
+                    </div>
                     <div class="card-body">
-                        <h3><i class="fas fa-server icon-highlight"></i>Backend</h3>
                         <div class="mt-3">
                             <span class="tech-badge backend">Node.js</span>
                             <span class="tech-badge backend">Express</span>
@@ -105,8 +125,13 @@
 
                 <!-- Section Base de données -->
                 <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="mb-0">
+                            <i class="fas fa-database icon-highlight"></i>
+                            Base de données
+                        </h3>
+                    </div>
                     <div class="card-body">
-                        <h3><i class="fas fa-database icon-highlight"></i>Base de données</h3>
                         <div class="mt-3">
                             <span class="tech-badge database">MySQL</span>
                             <span class="tech-badge database">MongoDB</span>
@@ -117,8 +142,13 @@
 
                 <!-- Section Outils -->
                 <div class="card fade-in">
+                    <div class="card-header">
+                        <h3 class="mb-0">
+                            <i class="fas fa-tools icon-highlight"></i>
+                            Outils
+                        </h3>
+                    </div>
                     <div class="card-body">
-                        <h3><i class="fas fa-tools icon-highlight"></i>Outils</h3>
                         <div class="mt-3">
                             <span class="tech-badge tools">Git</span>
                             <span class="tech-badge tools">Docker</span>
@@ -133,9 +163,13 @@
 
             <!-- Section Passions -->
             <div class="card fade-in mt-5">
-                <div class="card-body">
-                    <h3><i class="fas fa-heart icon-highlight"></i>Mes passions</h3>
-                    <div class="row mt-4">
+                <div class="card-header">
+                        <h2 class="mb-0">
+                            <i class="fas fa-heart icon-highlight"></i>
+                            Mes passions
+                        </h2>
+                    </div>
+                <div class="card-body">                    <div class="row mt-4">
                         <div class="col-md-6">
                             <div class="passion-item">
                                 <strong><i class="fas fa-music icon-highlight"></i>Musique :</strong> Musique de jeux, variété française, pop
