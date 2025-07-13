@@ -30,19 +30,20 @@
             <p class="lead text-secondary">Développeur passionné • 2e année BUT Informatique • @fydyr</p>
         </div>
 
-        <div class="card fade-in mb-2">
-            <div class="card-header">
-                <h2 class="mb-0">
-                    <i class="bi bi-chat-square-dots-fill"></i>
-                    Objectif professionnel
-                </h2>
-            </div>
-            <div class="card-body">
-                <p>Je souhaite évoluer en tant que <strong>développeur backend</strong>, en concevant des applications performantes et sécurisées, adaptées aux environnements exigeants.</p>
-            </div>
-        </div>
+
 
         <div class="container">
+            <div class="card fade-in mt-5">
+                <div class="card-header">
+                    <h2 class="mb-0">
+                        <i class="bi bi-chat-square-dots-fill"></i>
+                        Objectif professionnel
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <p>Je souhaite évoluer en tant que <strong>développeur backend</strong>, en concevant des applications performantes et sécurisées, adaptées aux environnements exigeants.</p>
+                </div>
+            </div>
             <div class="info-grid">
                 <!-- Section Qui suis-je -->
                 <div class="card fade-in">
@@ -164,12 +165,13 @@
             <!-- Section Passions -->
             <div class="card fade-in mt-5">
                 <div class="card-header">
-                        <h2 class="mb-0">
-                            <i class="fas fa-heart icon-highlight"></i>
-                            Mes passions
-                        </h2>
-                    </div>
-                <div class="card-body">                    <div class="row mt-4">
+                    <h2 class="mb-0">
+                        <i class="fas fa-heart icon-highlight"></i>
+                        Mes passions
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-4">
                         <div class="col-md-6">
                             <div class="passion-item">
                                 <strong><i class="fas fa-music icon-highlight"></i>Musique :</strong> Musique de jeux, variété française, pop
