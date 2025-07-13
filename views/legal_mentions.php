@@ -84,6 +84,11 @@
                                     <span class="text-secondary">19 Rue Louis David, 62100 Calais</span>
                                 </p>
                             </div>
+                            <div class="col-md-4">
+                                <p><strong class="text-primary">Lien de l'hébergeur :</strong><br>
+                                    <span class="text-secondary"><a href="https://jrcan.dev" target="_blank" class="text-decoration-none text-reset">https://jrcan.dev</a></span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
