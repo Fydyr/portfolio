@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,20 +19,23 @@
 </head>
 
 <div class="container-fluid">
-        <!-- Header Section -->
-        <div class="profile-header fade-in">
-            <div class="profile-avatar">
-                <i class="bi bi-laptop"></i>
-            </div>
-            <h1>Mes projets</h1>
-            <h2>Voici la plupart des projets que j'ai pu réalisé</h2>
+    <!-- Header Section -->
+    <div class="profile-header fade-in">
+        <div class="profile-avatar">
+            <i class="bi bi-laptop"></i>
         </div>
+        <h1>Mes projets</h1>
+        <h2>Voici la plupart des projets que j'ai pu réalisé</h2>
+    </div>
 
+    <div class="container">
         <p>Aucun projet n'est présent sur la page pour le moment, ils seront bientôt ajouté</p>
+    </div>
 </div>
 
 <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
 </html>
 
 <?php $content = ob_get_clean();

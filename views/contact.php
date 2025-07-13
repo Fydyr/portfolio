@@ -31,107 +31,109 @@
             <h2>Formulaire pour me contacter</h2>
         </div>
 
-        <!-- Container pour les messages de statut -->
-        <div id="message-container"></div>
+        <div class="container">
+            <!-- Container pour les messages de statut -->
+            <div id="message-container"></div>
 
-        <!-- Formulaire de contact avec EmailJS -->
-        <div class="card fade-in mb-4">
-            <div class="card-body">
-                <form id="contact-form">
-                    <div class="mb-3">
-                        <label for="user_name" class="form-label">Nom *</label>
-                        <input type="text"
-                            class="form-control"
-                            id="user_name"
-                            name="user_name"
-                            placeholder="Votre nom complet"
-                            required>
-                    </div>
+            <!-- Formulaire de contact avec EmailJS -->
+            <div class="card fade-in mb-4">
+                <div class="card-body">
+                    <form id="contact-form">
+                        <div class="mb-3">
+                            <label for="user_name" class="form-label">Nom *</label>
+                            <input type="text"
+                                class="form-control"
+                                id="user_name"
+                                name="user_name"
+                                placeholder="Votre nom complet"
+                                required>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="user_email" class="form-label">Email *</label>
-                        <input type="email"
-                            class="form-control"
-                            id="user_email"
-                            name="user_email"
-                            placeholder="votre.email@exemple.com"
-                            required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="user_email" class="form-label">Email *</label>
+                            <input type="email"
+                                class="form-control"
+                                id="user_email"
+                                name="user_email"
+                                placeholder="votre.email@exemple.com"
+                                required>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="subject" class="form-label">Sujet *</label>
-                        <input type="text"
-                            class="form-control"
-                            id="subject"
-                            name="subject"
-                            placeholder="Sujet de votre message"
-                            required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Sujet *</label>
+                            <input type="text"
+                                class="form-control"
+                                id="subject"
+                                name="subject"
+                                placeholder="Sujet de votre message"
+                                required>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Message *</label>
-                        <textarea class="form-control"
-                            id="message"
-                            name="message"
-                            rows="6"
-                            placeholder="Votre message détaillé..."
-                            required></textarea>
-                    </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message *</label>
+                            <textarea class="form-control"
+                                id="message"
+                                name="message"
+                                rows="6"
+                                placeholder="Votre message détaillé..."
+                                required></textarea>
+                        </div>
 
-                    <!-- Protection anti-spam (honeypot) -->
-                    <div class="mb-3" style="display: none;">
-                        <label for="honeypot">Ne pas remplir ce champ</label>
-                        <input type="text" id="honeypot" name="honeypot" tabindex="-1">
-                    </div>
+                        <!-- Protection anti-spam (honeypot) -->
+                        <div class="mb-3" style="display: none;">
+                            <label for="honeypot">Ne pas remplir ce champ</label>
+                            <input type="text" id="honeypot" name="honeypot" tabindex="-1">
+                        </div>
 
-                    <div class="d-flex justify-content-between align-items-center">
-                        <button type="submit" class="btn btn-primary" id="submit-btn">
-                            <i class="fas fa-paper-plane me-2"></i>
-                            <span id="btn-text">Envoyer le message</span>
-                        </button>
-                        <small class="text-muted">* Champs obligatoires</small>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- Lien vers les réseaux sociaux -->
-        <div class="card fade-in mb-4">
-            <div class="card-header">
-                <h2 class="mb-0">
-                    <i class="fas fa-user-circle me-2"></i>
-                    Mes réseaux sociaux
-                </h2>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button type="submit" class="btn btn-primary" id="submit-btn">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                <span id="btn-text">Envoyer le message</span>
+                            </button>
+                            <small class="text-muted">* Champs obligatoires</small>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <h3 class="text-primary">
-                            <a href="https://github.com/Fydyr" target="_blank" class="text-decoration-none">
-                                <i class="fab fa-github text-muted me-2"></i>
-                                Github
-                            </a>
-                        </h3>
-                        <p class="text-muted small">Découvrez mes projets open source</p>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <h3 class="text-primary">
-                            <a href="https://www.linkedin.com/in/enzo-fournier-2746ba2b3/" target="_blank" class="text-decoration-none">
-                                <i class="fab fa-linkedin-in text-muted me-2"></i>
-                                Linkedin
-                            </a>
-                        </h3>
-                        <p class="text-muted small">Mon profil professionnel</p>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <h3 class="text-primary">
-                            <a href="https://discord.gg/RT2XsGFFEr" target="_blank" class="text-decoration-none">
-                                <i class="fab fa-discord text-muted me-2"></i>
-                                Discord
-                            </a>
-                        </h3>
-                        <p class="text-muted small">Rejoignez ma communauté</p>
+            <!-- Lien vers les réseaux sociaux -->
+            <div class="card fade-in mb-4">
+                <div class="card-header">
+                    <h2 class="mb-0">
+                        <i class="fas fa-user-circle me-2"></i>
+                        Mes réseaux sociaux
+                    </h2>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <h3 class="text-primary">
+                                <a href="https://github.com/Fydyr" target="_blank" class="text-decoration-none">
+                                    <i class="fab fa-github text-muted me-2"></i>
+                                    Github
+                                </a>
+                            </h3>
+                            <p class="text-muted small">Découvrez mes projets open source</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <h3 class="text-primary">
+                                <a href="https://www.linkedin.com/in/enzo-fournier-2746ba2b3/" target="_blank" class="text-decoration-none">
+                                    <i class="fab fa-linkedin-in text-muted me-2"></i>
+                                    Linkedin
+                                </a>
+                            </h3>
+                            <p class="text-muted small">Mon profil professionnel</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <h3 class="text-primary">
+                                <a href="https://discord.gg/RT2XsGFFEr" target="_blank" class="text-decoration-none">
+                                    <i class="fab fa-discord text-muted me-2"></i>
+                                    Discord
+                                </a>
+                            </h3>
+                            <p class="text-muted small">Rejoignez ma communauté</p>
+                        </div>
                     </div>
                 </div>
             </div>
