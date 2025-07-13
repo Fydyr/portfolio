@@ -54,10 +54,18 @@ $router->post('/login', function () {
     $controller->login();
 });
 
+// page de déconnexion
 $router->get('/logout', function () {
     include_once 'controllers/LogoutController.php';
     $controller = new LogoutController();
     $controller->logout();
+});
+
+// Page d'administration (correspond à /index.php/admin)
+$router->get('/admin', function () {
+    include_once 'controllers/AdminController.php';
+    $controller = new AdminController();
+    $controller->admin();
 });
 
 // Routes de test
