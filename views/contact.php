@@ -144,7 +144,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // ⚠️ CONFIGURATION EMAILJS - À REMPLACER PAR TES VALEURS
         const EMAIL_CONFIG = {
             serviceID: 'service_u8szg5e', // Service ID depuis emailjs.com
             templateID: 'template_44x6gab', // Template ID depuis emailjs.com
