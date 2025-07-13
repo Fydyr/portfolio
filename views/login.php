@@ -28,6 +28,11 @@
         <h2>Page de connexion</h2>
     </div>
     <div class="container">
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <div class="alert alert-info">Vous êtes déjà connecté.</div>
+        <?php else: ?>
+            <!-- ...formulaire de connexion... -->
+        <?php endif; ?>
         <!-- formulaire de connexion -->
         <div class="card fade-in mb-4">
             <div class="card-body">

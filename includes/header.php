@@ -24,7 +24,7 @@ $nav_items = [
 ];
 
 // Gestion de l'authentification
-if (isset($_SESSION['admin'])) {
+if (isset($_SESSION['user_id'])) {
     $nav_items['admin'] = ['title' => 'Admin', 'icon' => '⚙️', 'url' => url('admin')];
     $nav_items['logout'] = ['title' => 'Déconnexion', 'icon' => '🚪', 'url' => url('logout')];
 } else {

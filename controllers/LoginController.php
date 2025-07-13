@@ -7,6 +7,11 @@ class LoginController extends BaseController
 {
     public function login()
     {
+        // Si déjà connecté, redirige vers l'accueil
+        if (isset($_SESSION['user_id'])) {
+            header('Location: /');
+            exit;
+        }
         // Si la requête est POST, on traite la connexion
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors = [];
@@ -29,7 +34,7 @@ class LoginController extends BaseController
                 $stmt->execute([$email]);
                 $user = $stmt->fetch();
 
-                if ($user && password_verify($mdp, $user['mdp'])) {
+                if ($user && password_verify($mdp, $user['password'])) {
                     session_start();
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_mail'] = $user['mail'];

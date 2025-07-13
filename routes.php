@@ -54,11 +54,11 @@ $router->post('/login', function () {
     $controller->login();
 });
 
-// $router->get('/logout', function () {
-//     include_once 'controllers/AuthController.php';
-//     $controller = new AuthController();
-//     $controller->logout();
-// });
+$router->get('/logout', function () {
+    include_once 'controllers/LogoutController.php';
+    $controller = new LogoutController();
+    $controller->logout();
+});
 
 // Routes de test
 $router->get('/test', function () {
