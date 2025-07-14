@@ -1,7 +1,7 @@
 <?php
 
 // Inclusion du header avec chemin absolu
-$header_path = __DIR__ . '/includes/header.php';
+$header_path = __DIR__ . '../includes/header.php';
 if (file_exists($header_path)) {
     include $header_path;
 } else {
