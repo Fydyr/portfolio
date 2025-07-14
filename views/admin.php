@@ -16,8 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Style CSS personnalisé -->
     <link href="../assets/css/style.css" rel="stylesheet">
-    <!-- EmailJS SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -39,7 +37,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Ajout de projet</h5>
                         <p class="card-text">Ajouter un nouveau projet dans la page des projets.</p>
-                        <a href="#" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Ajouter</a>
+                        <a href="<?= url('admin/add-project')?>" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Ajouter</a>
                     </div>
                 </div>
             </div>
