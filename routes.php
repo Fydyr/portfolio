@@ -7,7 +7,7 @@ if (!function_exists('view')) {
 
 // Middleware admin
 $router->before('GET|POST', '/admin/.*', function () {
-    if (!isset($_SESSION['admin'])) {
+    if (!isset($_SESSION['user_id'])) {
         flash('error', 'Accès non autorisé');
         redirect('login');
     }
@@ -68,7 +68,14 @@ $router->get('/admin', function () {
     $controller->admin();
 });
 
-// Routes de test
+// Page d'ajout de projet (correspond à /index.php/admin/add-project)
+$router->get('/admin/add-project', function () {
+    include_once 'controllers/AdminController.php';
+    $controller = new AdminController();
+    $controller->addProject();
+});
+
+// ==== Routes de test =====
 $router->get('/test', function () {
     echo "<h1>✅ Test route fonctionne !</h1>";
     echo "<p><strong>URL:</strong> " . $_SERVER['REQUEST_URI'] . "</p>";
@@ -92,7 +99,7 @@ $router->get('/debug', function () {
     echo "</ul>";
 });
 
-// 404
+// ==== 404 ====
 $router->set404(function () {
     header('HTTP/1.1 404 Not Found');
     echo view('404', ['title' => '404 - Page non trouvée']);
