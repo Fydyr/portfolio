@@ -3,7 +3,7 @@ require_once 'BaseController.php';
 require_once __DIR__ . '/../includes/db.php'; // Connexion à la BDD
 global $pdo;
 
-class LoginController extends BaseController
+class AccountController extends BaseController
 {
     public function login()
     {
@@ -51,5 +51,14 @@ class LoginController extends BaseController
             // Affiche simplement le formulaire
             echo $this->view('login');
         }
+    }
+
+    public function logout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+        header('Location: /');
+        exit;
     }
 }

@@ -43,21 +43,21 @@ $router->get('/legal-mention', function () {
 
 // Authentification
 $router->get('/login', function () {
-    include_once 'controllers/LoginController.php';
-    $controller = new LoginController();
+    include_once 'controllers/AccountController.php';
+    $controller = new AccountController();
     $controller->login();
 });
 
 $router->post('/login', function () {
-    include_once 'controllers/LoginController.php';
-    $controller = new LoginController();
+    include_once 'controllers/AccountController.php';
+    $controller = new AccountController();
     $controller->login();
 });
 
 // page de déconnexion
 $router->get('/logout', function () {
-    include_once 'controllers/LogoutController.php';
-    $controller = new LogoutController();
+    include_once 'controllers/AccountController.php';
+    $controller = new AccountController();
     $controller->logout();
 });
 
