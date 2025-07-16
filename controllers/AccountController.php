@@ -38,7 +38,7 @@ class AccountController extends BaseController
                     session_start();
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_mail'] = $user['mail'];
-                    header('Location: /');
+                    header('Location:' . url('admin'));
                     exit;
                 } else {
                     $errors[] = 'Email ou mot de passe incorrect.';
