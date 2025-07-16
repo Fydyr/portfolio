@@ -75,6 +75,12 @@ $router->get('/admin/add-project', function () {
     $controller->addProject();
 });
 
+$router->post('/admin/add-project', function () {
+    include_once 'controllers/AdminController.php';
+    $controller = new AdminController();
+    $controller->addProject();
+});
+
 // ==== Routes de test =====
 $router->get('/test', function () {
     echo "<h1>✅ Test route fonctionne !</h1>";
