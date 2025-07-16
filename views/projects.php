@@ -25,11 +25,27 @@
             <i class="bi bi-laptop"></i>
         </div>
         <h1>Mes projets</h1>
-        <h2>Voici la plupart des projets que j'ai pu réalisé</h2>
+        <h2>Voici la plupart des projets que j'ai pu réaliser</h2>
     </div>
 
     <div class="container">
-        <p>Aucun projet n'est présent sur la page pour le moment, ils seront bientôt ajouté</p>
+        <div class="row">
+            <?php foreach ($projects as $project): ?>
+                <div class="col-md-4 mb-4">
+                    <a href="<?= url('projects')?>/<?= $project['id'] ?>" class="text-decoration-none text-dark">
+                        <div class="card project-card h-100">
+                            <img src="/assets/img/projects/<?= htmlspecialchars($project['img1']) ?>" class="card-img-top" alt="<?= htmlspecialchars($project['title']) ?>">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= htmlspecialchars($project['title']) ?></h5>
+                                <p class="card-text">
+                                    <?= htmlspecialchars(mb_strimwidth($project['description'], 0, 100, '...')) ?>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
 </div>
 
