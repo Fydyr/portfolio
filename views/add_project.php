@@ -98,8 +98,7 @@
                                 <label for="projectLink" class="form-label">Lien du projet</label>
                                 <input type="url" class="form-control" id="projectLink" name="projectLink"
                                     value="<?= htmlspecialchars($_SESSION['form_data']['projectLink'] ?? '') ?>"
-                                    placeholder="https://example.com" required>
-                                <div class="invalid-feedback">Veuillez saisir un lien valide pour le projet.</div>
+                                    placeholder="https://example.com">
                             </div>
 
                             <div class="mb-3">
@@ -108,13 +107,6 @@
                                     value="<?= htmlspecialchars($_SESSION['form_data']['projectLanguage'] ?? '') ?>"
                                     placeholder="HTML, CSS, JavaScript" required>
                                 <div class="invalid-feedback">Veuillez saisir les langages utilisés dans le projet.</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="projectDate" class="form-label">Date de création</label>
-                                <input type="date" class="form-control" id="projectDate" name="projectDate"
-                                    value="<?= htmlspecialchars($_SESSION['form_data']['projectDate'] ?? '') ?>" required>
-                                <div class="invalid-feedback">Veuillez sélectionner une date de création pour le projet.</div>
                             </div>
 
                             <div class="mb-3">

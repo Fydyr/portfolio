@@ -52,13 +52,12 @@ class AdminController extends BaseController
             $projectData = [
                 'title' => trim($_POST['projectName']),
                 'description' => trim($_POST['projectDescription']),
-                'link' => trim($_POST['projectLink']),
+                'link' => trim($_POST['projectLink']) ?: null,
                 'img1' => $imageFiles[0] ?? null,
                 'img2' => $imageFiles[1] ?? null,
                 'img3' => $imageFiles[2] ?? null,
                 'visibilite' => ($_POST['projectStatus'] === 'visible') ? 1 : 0,
                 'languages' => trim($_POST['projectLanguage']),
-                'time' => $_POST['projectDate'] ?? null
             ];
 
             // Insertion en base de données
@@ -91,18 +90,13 @@ class AdminController extends BaseController
         }
 
         // Validation du lien
-        if (empty($_POST['projectLink']) || !filter_var($_POST['projectLink'], FILTER_VALIDATE_URL)) {
-            $errors[] = 'Veuillez saisir un lien valide.';
-        }
+        if (!empty($_POST['projectLink']) && !filter_var($_POST['projectLink'], FILTER_VALIDATE_URL)) {
+        $errors[] = 'Veuillez saisir un lien valide.';
+    }
 
         // Validation des langages
         if (empty($_POST['projectLanguage'])) {
             $errors[] = 'Veuillez saisir les langages utilisés.';
-        }
-
-        // Validation de la date
-        if (empty($_POST['projectDate'])) {
-            $errors[] = 'Veuillez sélectionner une date de création.';
         }
 
         return $errors;
