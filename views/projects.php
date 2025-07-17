@@ -32,7 +32,7 @@
         <div class="row">
             <?php foreach ($projects as $project): ?>
                 <div class="col-md-4 mb-4">
-                    <a href="<?= url('projects')?>/<?= $project['id'] ?>" class="text-decoration-none text-dark">
+                    <a href="<?= url('project-detail/' . $project['id']) ?>" class="text-decoration-none text-dark">
                         <div class="card project-card h-100">
                             <div class="ratio ratio-4x3">
                                 <img src="/assets/img/projects/<?= htmlspecialchars($project['img1']) ?>" class="card-img-top" alt="<?= htmlspecialchars($project['title']) ?>">

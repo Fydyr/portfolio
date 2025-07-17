@@ -27,6 +27,13 @@ $router->get('/projects', function () {
     $controller->projects();
 });
 
+// Détail d'un projet (correspond à /index.php/project-detail/{id})
+$router->get('/project-detail/(\d+)', function ($id) {
+    include_once './controllers/ProjectsController.php';
+    $controller = new ProjectsController();
+    $controller->projectDetail($id);
+});
+
 // Page de contact (correspond à /index.php/contact)
 $router->get('/contact', function () {
     include_once './controllers/ContactController.php';
