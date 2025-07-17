@@ -110,6 +110,21 @@ class AdminController extends BaseController
 
     private function processImages()
     {
+
+        $uploadDir = __DIR__ . '/../assets/img/projects/';
+
+        // Vérifie si le dossier est accessible en écriture
+        if (!is_writable($uploadDir)) {
+            // Tente de changer les permissions à 0755
+            if (!chmod($uploadDir, 0755)) {
+                // Si échec, tente 0777
+                if (!chmod($uploadDir, 0777)) {
+                    die("Erreur : Le dossier '$uploadDir' n'est pas accessible en écriture et les permissions n'ont pas pu être modifiées.");
+                }
+            }
+        }
+
+
         $uploadedFiles = [];
         $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/projects/';
 
