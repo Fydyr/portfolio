@@ -9,7 +9,7 @@ class ProjectsController extends BaseController
     public function projects()
     {
         global $pdo;
-        $stmt = $pdo->prepare("SELECT id, title, description, link, img1 FROM projects WHERE visibilite = 1 ORDER BY time DESC");
+        $stmt = $pdo->prepare("SELECT id, title, description, link, img1 FROM projects WHERE visibilite = 1");
         $stmt->execute();
         $projects = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         echo $this->view('projects', ['projects' => $projects]);
