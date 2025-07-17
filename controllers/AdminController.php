@@ -195,8 +195,8 @@ class AdminController extends BaseController
     {
         include_once 'includes/db.php';
         global $pdo;
-        $stmt = $pdo->prepare("INSERT INTO projects (title, description, link, img1, img2, img3, visibilite, languages, time) 
-                VALUES (:title, :description, :link, :img1, :img2, :img3, :visibilite, :languages, :time)");
+        $stmt = $pdo->prepare("INSERT INTO projects (title, description, link, img1, img2, img3, visibilite, languages) 
+                VALUES (:title, :description, :link, :img1, :img2, :img3, :visibilite, :languages)");
 
         $result = $stmt->execute([
             ':title' => $data['title'],
@@ -207,7 +207,6 @@ class AdminController extends BaseController
             ':img3' => $data['img3'],
             ':visibilite' => $data['visibilite'],
             ':languages' => $data['languages'],
-            ':time' => $data['time']
         ]);
 
         if (!$result) {
