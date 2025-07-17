@@ -49,20 +49,20 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10 col-xl-8">
                     <div class="card fade-in">
-                        <?php if (!empty($project['img1'])): ?>
-                            <div class="position-relative overflow-hidden">
-                                <img src="/assets/img/projects/<?= htmlspecialchars($project['img1']) ?>"
+                        <div class="position-relative overflow-hidden">
+                            <?php $images = [];
+                            if (!empty($project['img1'])) $images[] = htmlspecialchars($project['img1']);
+                            if (!empty($project['img2'])) $images[] = htmlspecialchars($project['img2']);
+                            if (!empty($project['img3'])) $images[] = htmlspecialchars($project['img3']); ?>
+
+                            <?php if (!empty($images)): ?>
+                                <img src="/assets/img/projects/<?= $images[0] ?>"
                                     class="card-img-top"
                                     alt="<?= htmlspecialchars($project['title']) ?>"
-                                    style="height: 400px; object-fit: cover; transition: transform 0.3s ease;">
-                                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50 opacity-0 transition-opacity"
-                                    style="transition: opacity 0.3s ease;"
-                                    onmouseover="this.style.opacity='1'"
-                                    onmouseout="this.style.opacity='0'">
-                                    <i class="bi bi-zoom-in text-white" style="font-size: 2rem;"></i>
-                                </div>
-                            </div>
-                        <?php endif; ?>
+                                    style="height: 400px; object-fit: cover; transition: transform 0.3s ease; cursor: zoom-in;"
+                                    onclick="openLightbox(0)">
+                            <?php endif; ?>
+                        </div>
 
                         <div class="card-body">
                             <!-- Titre du projet -->
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
 
-                            <!-- Technologies utilisées (si disponible) -->
+                            <!-- Langages utilisées (si disponible) -->
                             <?php if (!empty($project['languages'])): ?>
                                 <div class="mb-4">
                                     <h3 class="h5 text-accent mb-3">
@@ -109,22 +109,15 @@
                                         Galerie
                                     </h3>
                                     <div class="row g-3">
-                                        <?php if (!empty($project['img2'])): ?>
+                                        <?php foreach ($images as $i => $img): ?>
                                             <div class="col-md-6">
-                                                <img src="/assets/img/projects/<?= htmlspecialchars($project['img2']) ?>"
+                                                <img src="/assets/img/projects/<?= $img ?>"
                                                     class="img-fluid rounded shadow-card"
-                                                    alt="<?= htmlspecialchars($project['title']) ?> - Image 2"
-                                                    style="height: 200px; object-fit: cover; width: 100%;">
+                                                    alt="<?= htmlspecialchars($project['title']) ?> - Image <?= $i + 1 ?>"
+                                                    style="height: 200px; object-fit: cover; width: 100%; cursor: zoom-in;"
+                                                    onclick="openLightbox(<?= $i ?>)">
                                             </div>
-                                        <?php endif; ?>
-                                        <?php if (!empty($project['img3'])): ?>
-                                            <div class="col-md-6">
-                                                <img src="/assets/img/projects/<?= htmlspecialchars($project['img3']) ?>"
-                                                    class="img-fluid rounded shadow-card"
-                                                    alt="<?= htmlspecialchars($project['title']) ?> - Image 3"
-                                                    style="height: 200px; object-fit: cover; width: 100%;">
-                                            </div>
-                                        <?php endif; ?>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             <?php endif; ?>
@@ -133,15 +126,12 @@
                             <div class="d-flex flex-wrap gap-3 justify-content-center">
                                 <?php if (!empty($project['link'])): ?>
                                     <a href="<?= htmlspecialchars($project['link']) ?>"
-                                        class="btn btn-primary btn-lg"
-                                        target="_blank">
+                                        class="btn btn-primary btn-lg" target="_blank">
                                         <i class="bi bi-box-arrow-up-right"></i>
                                         Voir le projet
                                     </a>
                                 <?php endif; ?>
-
-                                <a href="<?= url('projects') ?>"
-                                    class="btn btn-outline-secondary btn-lg">
+                                <a href="<?= url('projects') ?>" class="btn btn-outline-secondary btn-lg">
                                     <i class="bi bi-grid-3x3-gap"></i>
                                     Autres projets
                                 </a>
@@ -150,67 +140,55 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Section similaire ou recommandations -->
-            <div class="row justify-content-center mt-5">
-                <div class="col-lg-10 col-xl-8">
-                    <div class="text-center">
-                        <h2 class="text-gradient mb-4">Explorez d'autres projets</h2>
-                        <p class="text-secondary mb-4">
-                            Découvrez mes autres réalisations et projets passionnants
-                        </p>
-                        <div class="d-flex flex-wrap gap-3 justify-content-center">
-                            <a href="<?= url('projects') ?>" class="btn btn-outline-primary">
-                                <i class="bi bi-collection"></i> Tous les projets
-                            </a>
-                            <a href="<?= url('contact') ?>" class="btn btn-outline-secondary">
-                                <i class="bi bi-envelope"></i> Me contacter
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
+
+    <!-- Lightbox HTML -->
+    <div id="lightbox" class="lightbox">
+        <button class="close" onclick="closeLightbox()">&times;</button>
+        <button class="prev" onclick="prevImage()">&#10094;</button>
+        <img id="lightbox-img" src="" alt="">
+        <button class="next" onclick="nextImage()">&#10095;</button>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Script pour les animations -->
     <script>
-        // Animation d'apparition au scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        const images = <?= json_encode($images) ?>;
+        let currentIndex = 0;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+        function openLightbox(index) {
+            currentIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = `/assets/img/projects/${images[index]}`;
+            lightbox.style.display = 'flex';
+        }
 
-        // Observer tous les éléments avec animation
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            openLightbox(currentIndex);
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            openLightbox(currentIndex);
+        }
+
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
         });
 
-        // Effet hover sur l'image principale
-        document.addEventListener('DOMContentLoaded', function() {
-            const mainImage = document.querySelector('.card-img-top');
-            if (mainImage) {
-                mainImage.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.05)';
-                });
-                mainImage.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                });
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('lightbox').style.display === 'flex') {
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'Escape') closeLightbox();
             }
         });
     </script>

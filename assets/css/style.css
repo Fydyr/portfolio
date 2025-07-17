@@ -765,6 +765,7 @@ a:hover {
         margin-top: var(--spacing-sm);
     }
 }
+
 /* ===== Timeline ====*/
 
 /* ===== FORMULAIRES ===== */
@@ -882,6 +883,59 @@ a:hover {
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
 }
+
+/* ===== Images cliquable =====*/
+
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+    display: none;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.lightbox .close,
+.lightbox .prev,
+.lightbox .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.lightbox .close {
+    top: 20px;
+    right: 30px;
+    transform: none;
+    font-size: 2.5rem;
+}
+
+.lightbox .prev {
+    left: 30px;
+}
+
+.lightbox .next {
+    right: 30px;
+}
+
+/* ===== Images cliquable =====*/
 
 /* ===== BADGES ===== */
 .badge {
