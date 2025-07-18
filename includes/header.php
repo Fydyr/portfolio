@@ -51,6 +51,9 @@ if (isset($_SESSION['user_id'])) {
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Logo du site -->
+    <link rel="icon" type="image/x-icon" href="/assets//img/logo_site.ico">
+
     <style>
         /* Variables CSS */
         :root {
