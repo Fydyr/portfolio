@@ -75,7 +75,7 @@
 
                             <!-- Description -->
                             <div class="mb-4">
-                                <h3 class="h5 text-accent mb-3">
+                                <h3 class="h5 text-primary mb-3">
                                     <i class="bi bi-file-text icon-highlight"></i>
                                     Description du projet
                                 </h3>
@@ -89,9 +89,9 @@
                             <!-- Langages utilisées (si disponible) -->
                             <?php if (!empty($project['languages'])): ?>
                                 <div class="mb-4">
-                                    <h3 class="h5 text-accent mb-3">
+                                    <h3 class="h5 text-primary mb-3">
                                         <i class="bi bi-gear icon-highlight"></i>
-                                        Langages utilisées
+                                        Technologies utilisées
                                     </h3>
                                     <div class="d-flex flex-wrap gap-2">
                                         <?php foreach (explode(',', $project['languages']) as $tech): ?>
@@ -104,7 +104,7 @@
                             <!-- Galerie d'images supplémentaires -->
                             <?php if (!empty($project['img2']) || !empty($project['img3'])): ?>
                                 <div class="mb-4">
-                                    <h3 class="h5 text-accent mb-3">
+                                    <h3 class="h5 text-primary mb-3">
                                         <i class="bi bi-images icon-highlight"></i>
                                         Galerie
                                     </h3>
