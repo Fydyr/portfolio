@@ -56,7 +56,7 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Embed pour discord -->
     <meta property="og:title" content="Portfolio de Enzo" />
-    <meta property="og:description" content="Ceci est le portfolio de Enzo Fournier\nVous pourrez trouver les différents projets réalisé par celui ci." />
+    <meta property="og:description" content="Ceci est le portfolio de Enzo Fournier. Vous pourrez trouver les différents projets réalisé par celui ci." />
     <meta property="og:image" content="/assets/img/img_logo.png" />
     <meta property="og:url" content="https://enzo-f.jrcan.dev/" />
     <meta property="og:type" content="website" />
@@ -64,7 +64,7 @@ if (isset($_SESSION['user_id'])) {
     <!-- Embed pour twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Portdolio de Enzo" />
-    <meta name="twitter:description" content="Ceci est le portfolio de Enzo Fournier\nVous pourrez trouver les différents projets réalisé par celui ci." />
+    <meta name="twitter:description" content="Ceci est le portfolio de Enzo Fournier. Vous pourrez trouver les différents projets réalisé par celui ci." />
     <meta name="twitter:image" content="/assets/img/img_logo.png" />
     <meta name="twitter:site" content="@fydyr9">
     <meta name="twitter:creator" content="@fydyr9">
