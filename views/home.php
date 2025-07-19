@@ -64,7 +64,7 @@
                             <strong><i class="fas fa-birthday-cake icon-highlight"></i>Âge :</strong> 20 ans
                         </div>
                         <div class="passion-item">
-                            <strong><i class="fas fa-graduation-cap icon-highlight"></i>Formation :</strong> 2e année de BUT informatique
+                            <strong><i class="fas fa-graduation-cap icon-highlight"></i>Formation :</strong> BUT informatique
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,8 @@
                     </div>
                     <div class="card-body">
                         <div class="mt-3">
-                            <span class="language-item">JavaScript/TypeScript</span>
+                            <span class="language-item">JavaScript</span>
+                            <span class="language-item">TypeScript</span>
                             <span class="language-item">Python</span>
                             <span class="language-item">PHP</span>
                             <span class="language-item">HTML/CSS</span>
@@ -104,6 +105,7 @@
                             <span class="tech-badge">Vue.js</span>
                             <span class="tech-badge">Flutter</span>
                             <span class="tech-badge">Bootstrap</span>
+                            <span class="tech-badge">(Py)QT</span>
                         </div>
                     </div>
                 </div>
@@ -120,6 +122,7 @@
                         <div class="mt-3">
                             <span class="tech-badge backend">Node.js</span>
                             <span class="tech-badge backend">Express</span>
+                            <span class="tech-badge backend">Axios</span>
                         </div>
                     </div>
                 </div>
@@ -151,12 +154,17 @@
                     </div>
                     <div class="card-body">
                         <div class="mt-3">
+                            <span class="tech-badge tools">phpMyAdmin</span>
                             <span class="tech-badge tools">Git</span>
                             <span class="tech-badge tools">Docker</span>
                             <span class="tech-badge tools">VS Code</span>
-                            <span class="tech-badge tools">phpMyAdmin</span>
                             <span class="tech-badge tools">WAMP</span>
                             <span class="tech-badge tools">MAMP</span>
+                            <span class="tech-badge tools">Postman</span>
+                            <span class="tech-badge tools">Figma</span>
+                            <span class="tech-badge tools">Bash</span>
+                            <span class="tech-badge tools">Node JS</span>
+                            <span class="tech-badge tools">Android Studio</span>
                         </div>
                     </div>
                 </div>
