@@ -25,7 +25,7 @@
             <i class="bi bi-laptop"></i>
         </div>
         <h1>Mes projets</h1>
-        <h2>Voici la plupart des projets que j'ai pu réaliser</h2>
+        <h2>Voici la plupart des projets que j'ai pu réaliser et qui sont publique</h2>
     </div>
 
     <div class="container">
