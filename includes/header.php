@@ -63,7 +63,7 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Embed pour twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Portdolio de Enzo" />
+    <meta name="twitter:title" content="Portfolio de Enzo" />
     <meta name="twitter:description" content="Ceci est le portfolio de Enzo Fournier. Vous pourrez trouver les différents projets réalisé par celui ci." />
     <meta name="twitter:image" content="/assets/img/img_logo.png" />
     <meta name="twitter:site" content="@fydyr9">
