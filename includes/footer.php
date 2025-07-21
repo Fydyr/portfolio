@@ -5,7 +5,7 @@
 
 // Compteur de visites
 // Nom du fichier pour stocker le compteur
-$fichier_compteur = '/assets/docs/compteur.txt';
+$fichier_compteur = __DIR__ . '/../assets/docs/compteur.txt';
 
 // Fonction pour lire le nombre de visiteurs
 function lire_compteur($fichier) {
