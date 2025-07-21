@@ -30,6 +30,8 @@ if (isset($_SESSION['user_id'])) {
 } else {
     $nav_items['login'] = ['title' => 'Connexion', 'icon' => '🔐', 'url' => url('login')];
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
