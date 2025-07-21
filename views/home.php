@@ -88,6 +88,7 @@
                             <span class="language-item">C++</span>
                             <span class="language-item">Java</span>
                             <span class="language-item">Dart</span>
+                            <span class="language-item">SQL</span>
                         </div>
                     </div>
                 </div>
@@ -105,6 +106,7 @@
                             <span class="tech-badge">Vue.js</span>
                             <span class="tech-badge">Flutter</span>
                             <span class="tech-badge">Bootstrap</span>
+                            <span class="tech-badge">W3.css</span>
                             <span class="tech-badge">(Py)QT</span>
                         </div>
                     </div>
@@ -162,7 +164,7 @@
                             <span class="tech-badge tools">MAMP</span>
                             <span class="tech-badge tools">Postman</span>
                             <span class="tech-badge tools">Figma</span>
-                            <span class="tech-badge tools">Bash</span>
+                            <span class="tech-badge tools">Bash/Shell</span>
                             <span class="tech-badge tools">Node JS</span>
                             <span class="tech-badge tools">Android Studio</span>
                         </div>
