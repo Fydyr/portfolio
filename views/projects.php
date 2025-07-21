@@ -16,14 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Style CSS personnalisé -->
     <link href="/assets/css/style.css" rel="stylesheet">
-
-    <meta property="og:title" content="<?= htmlspecialchars($project['title']) ?>" />
-    <meta property="og:description" content="<?= htmlspecialchars(mb_strimwidth($project['description'], 0, 100, '...')) ?>" />
-    <meta property="og:image" content="/assets/img/projects/<?= htmlspecialchars($project['img1']) ?>" />
-
-    <meta name="twitter:title" content="<?= htmlspecialchars($project['title']) ?>" />
-    <meta name="twitter:description" content="<?= htmlspecialchars(mb_strimwidth($project['description'], 0, 100, '...')) ?>" />
-    <meta name="twitter:image" content="/assets/img/projects/<?= htmlspecialchars($project['img1']) ?>" />
 </head>
 
 <div class="container-fluid">
