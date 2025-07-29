@@ -23,7 +23,6 @@ function ecrire_compteur($fichier, $nombre) {
 
 // Fonction pour vérifier si c'est un nouveau visiteur
 function est_nouveau_visiteur() {
-    session_start();
     if (!isset($_SESSION['visite_comptee'])) {
         $_SESSION['visite_comptee'] = true;
         return true;
