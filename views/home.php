@@ -160,8 +160,7 @@
                             <span class="tech-badge tools">Git</span>
                             <span class="tech-badge tools">Docker</span>
                             <span class="tech-badge tools">VS Code</span>
-                            <span class="tech-badge tools">WAMP</span>
-                            <span class="tech-badge tools">MAMP</span>
+                            <span class="tech-badge tools">WAMP/MAMP</span>
                             <span class="tech-badge tools">Postman</span>
                             <span class="tech-badge tools">Figma</span>
                             <span class="tech-badge tools">Bash/Shell</span>
