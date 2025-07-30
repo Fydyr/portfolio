@@ -4,6 +4,7 @@ require_once 'BaseController.php';
 
 class AdminController extends BaseController
 {
+    // ===== Page administration =====
     public function admin()
     {
         if (!isset($_SESSION['user_id'])) {
@@ -15,6 +16,7 @@ class AdminController extends BaseController
         }
     }
 
+    // ===== Page d'ajout de projet =====
     public function addProject()
     {
         if (!isset($_SESSION['user_id'])) {
@@ -91,8 +93,8 @@ class AdminController extends BaseController
 
         // Validation du lien
         if (!empty($_POST['projectLink']) && !filter_var($_POST['projectLink'], FILTER_VALIDATE_URL)) {
-        $errors[] = 'Veuillez saisir un lien valide.';
-    }
+            $errors[] = 'Veuillez saisir un lien valide.';
+        }
 
         // Validation des langages
         if (empty($_POST['projectLanguage'])) {
@@ -214,5 +216,148 @@ class AdminController extends BaseController
         }
 
         return $pdo->lastInsertId();
+    }
+
+    // ===== Page de liste des projets =====
+    public function listProjects()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('HTTP/1.1 403 Forbidden');
+            echo view('403', ['title' => '403 - Accès interdit']);
+            exit;
+        }
+
+        // Si c'est une requête POST, traiter les actions
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['projectId'])) {
+                // Vérifier si c'est une suppression
+                if (isset($_POST['delete']) && $_POST['delete'] == '1') {
+                    $this->deleteProject();
+                    return;
+                }
+                // Sinon c'est une modification de visibilité
+                elseif (isset($_POST['visible'])) {
+                    $this->toggleProjectVisibility();
+                    return;
+                }
+            }
+
+            // Si on arrive ici, la requête POST n'est pas valide
+            $_SESSION['error'] = 'Requête invalide.';
+            header('Location: ' . url('admin/projects'));
+            exit;
+        }
+
+        // Affichage de la liste des projets
+        try {
+            include_once 'includes/db.php';
+            global $pdo;
+
+            $stmt = $pdo->query("SELECT * FROM projects ORDER BY id DESC");
+            $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            echo $this->view('listProjects', ['projects' => $projects]);
+        } catch (Exception $e) {
+            $_SESSION['error'] = 'Erreur lors de la récupération des projets : ' . $e->getMessage();
+            echo $this->view('listProjects', ['projects' => []]);
+        }
+    }
+
+    // Modification de la visibilité d'un projet
+    public function toggleProjectVisibility()
+    {
+        try {
+            if (!isset($_POST['projectId']) || !isset($_POST['visible'])) {
+                throw new Exception('Données manquantes pour la modification de visibilité.');
+            }
+
+            include_once 'includes/db.php';
+            global $pdo;
+
+            $projectId = (int)$_POST['projectId'];
+            $visibility = (int)$_POST['visible'];
+
+            // Vérifier que le projet existe
+            $checkStmt = $pdo->prepare("SELECT id FROM projects WHERE id = :id");
+            $checkStmt->execute([':id' => $projectId]);
+
+            if (!$checkStmt->fetch()) {
+                throw new Exception('Le projet n\'existe pas.');
+            }
+
+            // Mettre à jour la visibilité
+            $stmt = $pdo->prepare("UPDATE projects SET visibilite = :visibilite WHERE id = :id");
+            $result = $stmt->execute([':visibilite' => $visibility, ':id' => $projectId]);
+
+            if (!$result) {
+                throw new Exception('Erreur lors de la mise à jour de la visibilité.');
+            }
+
+            $_SESSION['success'] = 'Visibilité du projet mise à jour avec succès.';
+        } catch (Exception $e) {
+            $_SESSION['error'] = 'Erreur lors de la modification de la visibilité : ' . $e->getMessage();
+        }
+
+        header('Location: ' . url('admin/projects'));
+        exit;
+    }
+
+    // suppression d'un projet
+    public function deleteProject()
+    {
+        try {
+            if (!isset($_POST['projectId'])) {
+                throw new Exception('ID du projet manquant.');
+            }
+
+            include_once 'includes/db.php';
+            global $pdo;
+
+            $projectId = (int)$_POST['projectId'];
+
+            // Récupérer les informations du projet avant suppression
+            $stmt = $pdo->prepare("SELECT img1, img2, img3 FROM projects WHERE id = :id");
+            $stmt->execute([':id' => $projectId]);
+            $project = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$project) {
+                throw new Exception('Le projet n\'existe pas.');
+            }
+
+            // Supprimer les images du projet
+            $this->deleteProjectImages($project);
+
+            // Supprimer le projet de la base de données
+            $stmt = $pdo->prepare("DELETE FROM projects WHERE id = :id");
+            $result = $stmt->execute([':id' => $projectId]);
+
+            if (!$result) {
+                throw new Exception('Erreur lors de la suppression du projet en base de données.');
+            }
+
+            $_SESSION['success'] = 'Le projet a été supprimé avec succès.';
+        } catch (Exception $e) {
+            $_SESSION['error'] = 'Erreur lors de la suppression : ' . $e->getMessage();
+        }
+
+        header('Location: ' . url('admin/projects'));
+        exit;
+    }
+
+    private function deleteProjectImages($project)
+    {
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/projects/';
+
+        foreach (['img1', 'img2', 'img3'] as $imgField) {
+            if (!empty($project[$imgField])) {
+                $filePath = $uploadDir . $project[$imgField];
+                if (file_exists($filePath)) {
+                    if (!unlink($filePath)) {
+                        // Log l'erreur mais ne pas interrompre le processus
+                        error_log("Impossible de supprimer le fichier : " . $filePath);
+                    }
+                }
+            }
+        }
     }
 }

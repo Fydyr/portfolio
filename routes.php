@@ -8,8 +8,8 @@ if (!function_exists('view')) {
 // Middleware admin
 $router->before('GET|POST', '/admin/.*', function () {
     if (!isset($_SESSION['user_id'])) {
-        flash('error', 'Accès non autorisé');
-        redirect('login');
+        header('HTTP/1.1 403 Forbidden');
+            echo view('403', ['title' => '403 - Accès interdit']);
     }
 });
 
@@ -86,6 +86,19 @@ $router->post('/admin/add-project', function () {
     include_once 'controllers/AdminController.php';
     $controller = new AdminController();
     $controller->addProject();
+});
+
+// page de gestion des projets (correspond à /index.php/admin/projects)
+$router->get('/admin/projects', function () {
+    include_once 'controllers/AdminController.php';
+    $controller = new AdminController();
+    $controller->listProjects();
+});
+
+$router->post('/admin/projects', function () {
+    include_once 'controllers/AdminController.php';
+    $controller = new AdminController();
+    $controller->listProjects();
 });
 
 // ==== Routes de test =====

@@ -48,7 +48,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Modifier les projets</h5>
                         <p class="card-text">Modifier les projets existants dans la page des projets.</p>
-                        <a href="#" class="btn btn-warning">
+                        <a href="<?= url('/admin/projects') ?>" class="btn btn-warning">
                             <i class="bi bi-pencil-square"></i> Modifier
                         </a>
                     </div>
