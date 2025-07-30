@@ -53,7 +53,7 @@
                             </div>
                             <div class="col-md-6">
                                 <p><strong class="text-primary">Email :</strong><br>
-                                    <span class="text-secondary">enzofournier.contact@gmail.com</span>
+                                    <span class="text-secondary"><a href="mailto:contact@enzofournier.com">enzofournier.contact@gmail.com</a></span>
                                 </p>
                             </div>
                         </div>
@@ -222,7 +222,7 @@
                         <p>Pour toute question concernant ce site portfolio, vous pouvez me contacter :</p>
                         <div class="d-flex align-items-center">
                             <i class="fas fa-envelope text-primary me-3"></i>
-                            <span class="text-secondary"><strong class="text-success">Par email :</strong> enzofournier.contact@gmail.com</span>
+                            <span class="text-secondary"><strong class="text-success">Par email :</strong> <a href="mailto:contact@enzofournier.com">enzofournier.contact@gmail.com</a></span>
                         </div>
                     </div>
                 </div>
