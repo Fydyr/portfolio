@@ -34,7 +34,7 @@
                 <div class="col-md-4 mb-4">
                     <a href="<?= url('project-detail/' . $project['id']) ?>" class="text-decoration-none text-dark">
                         <div class="card project-card h-100">
-                            <div class="ratio ratio-4x3">
+                            <div class="position-relative overflow-hidden">
                                 <img src="/assets/img/projects/<?= htmlspecialchars($project['img1']) ?>" class="card-img-top" alt="<?= htmlspecialchars($project['title']) ?>">
                             </div>
                             <div class="card-body">
