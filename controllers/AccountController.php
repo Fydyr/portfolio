@@ -38,6 +38,7 @@ class AccountController extends BaseController
                     session_start();
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_mail'] = $user['mail'];
+                    $_SESSION['admin'] = $user['admin'];
                     header('Location:' . url('admin'));
                     exit;
                 } else {

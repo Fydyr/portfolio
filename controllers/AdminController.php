@@ -7,7 +7,7 @@ class AdminController extends BaseController
     // ===== Page administration =====
     public function admin()
     {
-        if (!isset($_SESSION['user_id'])) {
+        if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin']) == 1) {
             header('HTTP/1.1 403 Forbidden');
             echo view('403', ['title' => '403 - Accès interdit']);
             exit;
@@ -19,7 +19,7 @@ class AdminController extends BaseController
     // ===== Page d'ajout de projet =====
     public function addProject()
     {
-        if (!isset($_SESSION['user_id'])) {
+        if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin']) == 1) {
             header('HTTP/1.1 403 Forbidden');
             echo view('403', ['title' => '403 - Accès interdit']);
             exit;
@@ -221,7 +221,7 @@ class AdminController extends BaseController
     // ===== Page de liste des projets =====
     public function listProjects()
     {
-        if (!isset($_SESSION['user_id'])) {
+        if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin']) == 1) {
             header('HTTP/1.1 403 Forbidden');
             echo view('403', ['title' => '403 - Accès interdit']);
             exit;
