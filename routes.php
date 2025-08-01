@@ -50,6 +50,13 @@ $router->get('/legal-mention', function () {
     $controller->legalMentions();
 });
 
+// page de mes réseaux sociaux (correspond à /index.php/social-networks)
+$router->get('/networks', function () {
+    include_once './controllers/NetworksController.php';
+    $controller = new NetworksController();
+    $controller->networks();
+});
+
 // ===== Routes d'authentification =====
 
 // Authentification
