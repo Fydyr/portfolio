@@ -360,4 +360,35 @@ class AdminController extends BaseController
             }
         }
     }
+
+    // ===== Page modification de projet =====
+    public function editProject($projectId){
+        if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin']) == 1) {
+            header('HTTP/1.1 403 Forbidden');
+            echo view('403', ['title' => '403 - Accès interdit']);
+            exit;
+        }
+
+        include_once 'includes/db.php';
+        global $pdo;
+
+        // Vérifier si le projet existe
+        $stmt = $pdo->prepare("SELECT * FROM projects WHERE id = :id");
+        $stmt->execute([':id' => $projectId]);
+        $project = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$project) {
+            $_SESSION['error'] = 'Le projet n\'existe pas.';
+            header('Location: ' . url('admin/projects'));
+            exit;
+        }
+
+        // Si c'est une requête POST, traiter le formulaire
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // $this->processEditProject($projectId);
+        } else {
+            // Sinon, afficher le formulaire avec les données du projet
+            echo $this->view('edit_project', ['project' => $project]);
+        }
+    }
 }

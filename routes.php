@@ -13,6 +13,8 @@ $router->before('GET|POST', '/admin/.*', function () {
     }
 });
 
+// ===== Routes principales =====
+
 // Page d'accueil (correspond à /index.php)
 $router->get('/', function () {
     include_once 'controllers/HomeController.php';
@@ -48,6 +50,8 @@ $router->get('/legal-mention', function () {
     $controller->legalMentions();
 });
 
+// ===== Routes d'authentification =====
+
 // Authentification
 $router->get('/login', function () {
     include_once 'controllers/AccountController.php';
@@ -67,6 +71,8 @@ $router->get('/logout', function () {
     $controller = new AccountController();
     $controller->logout();
 });
+
+// ===== Routes d'administration =====
 
 // Page d'administration (correspond à /index.php/admin)
 $router->get('/admin', function () {
@@ -99,6 +105,13 @@ $router->post('/admin/projects', function () {
     include_once 'controllers/AdminController.php';
     $controller = new AdminController();
     $controller->listProjects();
+});
+
+// Page d'édition de projet (correspond à /index.php/admin/projects/edit-project/{id})
+$router->get('/admin/projects/edit-project/(\d+)', function ($id) {
+    include_once 'controllers/AdminController.php';
+    $controller = new AdminController();
+    $controller->editProject($id);
 });
 
 // ==== Routes de test =====

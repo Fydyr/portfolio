@@ -69,7 +69,7 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <a href="<?= url('admin/edit-project/' . $project['id']) ?>" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i> Modifier</a>
+                                                <a href="<?= url('admin/projects/edit-project/' . $project['id']) ?>" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i> Modifier</a>
                                                 <form action="<?= url('admin/projects') ?>" method="POST" style="display:inline;" name="deleteForm">
                                                     <input type="hidden" name="projectId" value="<?= $project['id'] ?>">
                                                     <input type="hidden" name="delete" value="1">
