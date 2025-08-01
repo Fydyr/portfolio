@@ -5,7 +5,6 @@ $header_path = __DIR__ . '../includes/header.php';
 if (file_exists($header_path)) {
     include $header_path;
 } else {
-    echo "<!-- ERREUR: Header non trouvé dans: $header_path -->";
     // Essayez avec un chemin relatif
     include 'includes/header.php';
 }
@@ -20,7 +19,6 @@ $footer_path = __DIR__ . '/../includes/footer.php';
 if (file_exists($footer_path)) {
     include $footer_path;
 } else {
-    echo "<!-- ERREUR: Footer non trouvé dans: $footer_path -->";
     // Essayez avec un chemin relatif
     include 'includes/footer.php';
 }
