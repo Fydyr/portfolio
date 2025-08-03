@@ -79,16 +79,17 @@
                     </div>
                     <div class="card-body">
                         <div class="mt-3">
-                            <span class="language-item">JavaScript</span>
-                            <span class="language-item">TypeScript</span>
-                            <span class="language-item">Python</span>
-                            <span class="language-item">PHP</span>
-                            <span class="language-item">HTML/CSS</span>
-                            <span class="language-item">C</span>
-                            <span class="language-item">C++</span>
-                            <span class="language-item">Java</span>
-                            <span class="language-item">Dart</span>
-                            <span class="language-item">SQL</span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://developer.mozilla.org/fr/docs/Web/JavaScript">JavaScript</a></span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.typescriptlang.org/">TypeScript</a></span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.python.org/">Python</a></span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.php.net/">PHP</a></span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://developer.mozilla.org/fr/docs/Web/HTML">HTML</a></span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://developer.mozilla.org/fr/docs/Web/CSS">CSS</a></span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://devdocs.io/c/">C</a></span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://devdocs.io/cpp/">C++</a></span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://docs.oracle.com/en/java/">Java</a></span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://dart.dev/docs">Dart</a></span>
+                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://fr.wikipedia.org/wiki/Structured_Query_Language">SQL</a></span>
                         </div>
                     </div>
                 </div>
@@ -103,11 +104,11 @@
                     </div>
                     <div class="card-body">
                         <div class="mt-3">
-                            <span class="tech-badge">Vue.js</span>
-                            <span class="tech-badge">Flutter</span>
-                            <span class="tech-badge">Bootstrap</span>
-                            <span class="tech-badge">W3.css</span>
-                            <span class="tech-badge">(Py)QT</span>
+                            <span><a class="tech-badge" target="_blank" style="color: white !important; text-decoration: none !important;" href="http://vuejs.org/">Vue.js</a></span>
+                            <span><a class="tech-badge" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://flutter.dev/">Flutter</a></span>
+                            <span><a class="tech-badge" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://getbootstrap.com/">Bootstrap</a></span>
+                            <span><a class="tech-badge" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.w3schools.com/w3css/">W3.css</a></span>
+                            <span><a class="tech-badge" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://doc.qt.io/qtforpython-6/">(Py)QT</a></span>
                         </div>
                     </div>
                 </div>
@@ -122,9 +123,9 @@
                     </div>
                     <div class="card-body">
                         <div class="mt-3">
-                            <span class="tech-badge backend">Node.js</span>
-                            <span class="tech-badge backend">Express</span>
-                            <span class="tech-badge backend">Axios</span>
+                            <span><a class="tech-badge backend" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://nodejs.org/fr">Node.js</a></span>
+                            <span><a class="tech-badge backend" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.npmjs.com/package/express">Express</a></span>
+                            <span><a class="tech-badge backend" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.npmjs.com/package/axios">Axios</a></span>
                         </div>
                     </div>
                 </div>
@@ -139,9 +140,9 @@
                     </div>
                     <div class="card-body">
                         <div class="mt-3">
-                            <span class="tech-badge database">MySQL</span>
-                            <span class="tech-badge database">MongoDB</span>
-                            <span class="tech-badge database">PostgreSQL</span>
+                            <span><a class="tech-badge database" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.mysql.com/fr/">MySQL</a></span>
+                            <span><a class="tech-badge database" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.mongodb.com/">MongoDB</a></span>
+                            <span><a class="tech-badge database" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.postgresql.org/">PostgreSQL</a></span>
                         </div>
                     </div>
                 </div>
@@ -156,16 +157,18 @@
                     </div>
                     <div class="card-body">
                         <div class="mt-3">
-                            <span class="tech-badge tools">phpMyAdmin</span>
-                            <span class="tech-badge tools">Git</span>
-                            <span class="tech-badge tools">Docker</span>
-                            <span class="tech-badge tools">VS Code</span>
-                            <span class="tech-badge tools">WAMP/MAMP</span>
-                            <span class="tech-badge tools">Postman</span>
-                            <span class="tech-badge tools">Figma</span>
-                            <span class="tech-badge tools">Bash/Shell</span>
-                            <span class="tech-badge tools">NodeJS</span>
-                            <span class="tech-badge tools">Android Studio</span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.phpmyadmin.net/">phpMyAdmin</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://git-scm.com/">Git</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.docker.com/">Docker</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://code.visualstudio.com/">VS Code</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.wampserver.com/">WAMP</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.mamp.info/en/windows/">MAMP</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.postman.com/">Postman</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.figma.com/fr-fr/">Figma</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.pierre-giraud.com/shell-bash/commande/#:~:text=Bash%20est%20le%20(langage%20de,le%20comportement%20d'une%20console.">Bash</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://learn.microsoft.com/fr-fr/windows-hardware/drivers/debuggercmds/using-shell-commands">Shell</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://nodejs.org/fr">Node.js</a></span>
+                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://developer.android.com/studio?hl=fr">Android Studio</a></span>
                         </div>
                     </div>
                 </div>
