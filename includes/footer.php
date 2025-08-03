@@ -140,10 +140,10 @@ if (est_nouveau_visiteur()) {
             </div>
 
             <!-- Status indicator -->
-            <div class="status-indicator">
+            <!-- <div class="status-indicator">
                 <div class="status-dot"></div>
                 <span class="status-text">Disponible pour de nouveaux projets</span>
-            </div>
+            </div> -->
         </div>
     </div>
 </footer>
