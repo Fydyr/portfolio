@@ -52,8 +52,8 @@ $router->get('/legal-mention', function () {
 
 // page de mes réseaux sociaux (correspond à /index.php/social-networks)
 $router->get('/networks', function () {
-    include_once './controllers/NetworksController.php';
-    $controller = new NetworksController();
+    include_once './controllers/OtherController.php';
+    $controller = new OtherController();
     $controller->networks();
 });
 

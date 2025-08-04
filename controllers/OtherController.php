@@ -2,7 +2,7 @@
 
 require_once 'BaseController.php';
 
-class NetworksController extends BaseController
+class OtherController extends BaseController
 {
     public function networks()
     {
