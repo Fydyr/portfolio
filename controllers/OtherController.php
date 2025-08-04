@@ -8,4 +8,9 @@ class OtherController extends BaseController
     {
         echo $this->view('networks');
     }
+
+    public function price()
+    {
+        echo $this->view('price');
+    }
 }

@@ -57,6 +57,13 @@ $router->get('/networks', function () {
     $controller->networks();
 });
 
+// Page des prix des commissions (correspond à /index.php/commissions)
+$router->get('/price', function () {
+    include_once './controllers/OtherController.php';
+    $controller = new OtherController();
+    $controller->price();
+});
+
 // ===== Routes d'authentification =====
 
 // Authentification
