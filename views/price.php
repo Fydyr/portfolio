@@ -123,7 +123,7 @@
                     <div class="card-body">
                         <p>Les prix indiqués sont des estimations de base et peuvent varier en fonction de la complexité du projet, des fonctionnalités demandées et des technologies utilisées. Pour un devis précis, n'hésitez pas à me contacter.</p>
                         <p>Je suis à votre disposition pour discuter de vos besoins et vous fournir un devis personnalisé. Vous pouvez me contacter via le formulaire de <a href="<?= url('contact')?>" class="text-primary">contact</a> ou par <a href="mailto:contact@enzofournier.com" class="text-primary">email</a>.</p>
-                        <p>La maintenance et l'hébergement ainsi que le nom de domaine ne sont pas compris dans le prix, celà est à gérer de votre côté, cependant je peut vous aider à mettre en place tout ceci.</p>
+                        <p>L'hébergement ainsi que le nom de domaine ne sont pas compris dans le prix, celà est à gérer de votre côté, cependant je peut vous aider à mettre en place tout ceci.</p>
                         <a class="btn btn-primary" href="<?= url('contact')?>"><i class="bi bi-envelope-fill"></i> Me contacter</a>
                     </div>
                 </div>
