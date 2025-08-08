@@ -13,7 +13,6 @@ $project_count = $stmt->fetchColumn();
 
 // Configuration du site
 $site_title = "Enzo Fournier";
-$site_tagline = "";
 $current_page = basename($_SERVER['PHP_SELF'], '.php');
 
 // Navigation items
@@ -27,9 +26,10 @@ $nav_items = [
 if (isset($_SESSION['user_id'])) {
     $nav_items['admin'] = ['title' => 'Admin', 'icon' => '⚙️', 'url' => url('admin')];
     $nav_items['logout'] = ['title' => 'Déconnexion', 'icon' => '🚪', 'url' => url('logout')];
-} else {
-    $nav_items['login'] = ['title' => 'Connexion', 'icon' => '🔐', 'url' => url('login')];
 }
+// else {
+//     $nav_items['login'] = ['title' => 'Connexion', 'icon' => '🔐', 'url' => url('login')];
+// }
 
 
 ?>

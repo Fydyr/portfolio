@@ -8,7 +8,8 @@
 $fichier_compteur = __DIR__ . '/../assets/docs/compteur.txt';
 
 // Fonction pour lire le nombre de visiteurs
-function lire_compteur($fichier) {
+function lire_compteur($fichier)
+{
     if (file_exists($fichier)) {
         $compteur = file_get_contents($fichier);
         return (int)$compteur;
@@ -17,12 +18,14 @@ function lire_compteur($fichier) {
 }
 
 // Fonction pour écrire le nombre de visiteurs
-function ecrire_compteur($fichier, $nombre) {
+function ecrire_compteur($fichier, $nombre)
+{
     file_put_contents($fichier, $nombre);
 }
 
 // Fonction pour vérifier si c'est un nouveau visiteur
-function est_nouveau_visiteur() {
+function est_nouveau_visiteur()
+{
     if (!isset($_SESSION['visite_comptee'])) {
         $_SESSION['visite_comptee'] = true;
         return true;
@@ -96,7 +99,6 @@ if (est_nouveau_visiteur()) {
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>France</span>
                             </div>
-                            
                         </div>
 
                         <!-- Réseaux sociaux -->
@@ -113,7 +115,7 @@ if (est_nouveau_visiteur()) {
                             </div>
                             <div class="contact-item">
                                 <i class="bi bi-wifi"></i>
-                                <a href="<?= url('networks')?>">Tous mes réseaux sociaux</a>
+                                <a href="<?= url('networks') ?>">Tous mes réseaux sociaux</a>
                             </div>
                         </div>
                     </div>
@@ -139,6 +141,9 @@ if (est_nouveau_visiteur()) {
                     <div class="footer-legal">
                         <ul class="legal-links">
                             <li><a href="<?= url('legal-mention') ?>">Mentions légales</a></li>
+                        </ul>
+                        <ul class="legal-links">
+                            <li><a href="<?= url('login')?>">Se connecter</a></li>
                         </ul>
                     </div>
                 </div>
