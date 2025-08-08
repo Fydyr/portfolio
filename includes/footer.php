@@ -96,6 +96,7 @@ if (est_nouveau_visiteur()) {
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>France</span>
                             </div>
+                            
                         </div>
 
                         <!-- Réseaux sociaux -->
@@ -109,6 +110,10 @@ if (est_nouveau_visiteur()) {
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
                                 <a href="https://discord.gg/RT2XsGFFEr" target="_blank" class="social-link discord" title="Discord"><i class="fab fa-discord"></i></a>
+                            </div>
+                            <div class="contact-item">
+                                <i class="bi bi-wifi"></i>
+                                <a href="<?= url('networks')?>">Tous mes réseaux sociaux</a>
                             </div>
                         </div>
                     </div>
