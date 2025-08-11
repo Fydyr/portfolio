@@ -44,7 +44,7 @@
                     </div>
                     <div class="card-body">
                         <p>Un site vitrine statique présente votre entreprise et vos services sur quelques pages, sans contenu dynamique. Idéal pour une première présence en ligne.</p>
-                        <p class="card-text text-danger">Prix : 300 €</p>
+                        <p class="card-text text-danger">Prix : 180 €</p>
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
                     </div>
                     <div class="card-body">
                         <p>Une plateforme de publication d'articles ou un site pour présenter vos créations. Cela inclut un design personnalisé et un système de gestion de contenu simple.</p>
-                        <p class="card-text text-danger">Prix : 500 €</p>
+                        <p class="card-text text-danger">Prix : 300 €</p>
                     </div>
                 </div>
 
@@ -70,7 +70,7 @@
                     </div>
                     <div class="card-body">
                         <p>Vous avez déjà un site web, mais il est obsolète ou a besoin d'un nouveau look ? Je peux moderniser son design et améliorer son ergonomie.</p>
-                        <p class="card-text text-danger">Prix : à partir de 250 €</p>
+                        <p class="card-text text-danger">Prix : à partir de 150 €</p>
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@
                     </div>
                     <div class="card-body">
                         <p>Une application mobile avec des fonctionnalités de base, développée pour fonctionner à la fois sur iOS et Android (technologie hybride).</p>
-                        <p class="card-text text-danger">Prix : 1 000 €</p>
+                        <p class="card-text text-danger">Prix : 700 €</p>
                     </div>
                 </div>
 
