@@ -46,7 +46,6 @@
                                 <thead>
                                     <tr>
                                         <th>Nom du projet</th>
-                                        <th>Description</th>
                                         <th>Visibilité</th>
                                         <th>Actions</th>
                                     </tr>
@@ -55,7 +54,6 @@
                                     <?php foreach ($projects as $project): ?>
                                         <tr>
                                             <td><?= htmlspecialchars($project['title']) ?></td>
-                                            <td><?= htmlspecialchars($project['description']) ?></td>
                                             <td>
                                                 <form action="<?= url('admin/projects') ?>" method="POST" style="display:inline;" name="visibilityForm">
                                                     <input type="hidden" name="projectId" value="<?= $project['id'] ?>">
