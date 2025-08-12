@@ -87,7 +87,7 @@
 
                     <div class="mb-3">
                         <label for="link" class="form-label">Lien du projet</label>
-                        <input type="url" class="form-control" id="link" name="link" value="<?= htmlspecialchars($project['link']) ?>" required>
+                        <input type="url" class="form-control" id="link" name="link" value="<?= htmlspecialchars($project['link']) ?>">
                     </div>
 
                     <div class="mb-3">
