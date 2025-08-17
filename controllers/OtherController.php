@@ -13,4 +13,9 @@ class OtherController extends BaseController
     {
         echo $this->view('price');
     }
+
+    public function teapot()
+    {
+        echo $this->view('418');
+    }
 }

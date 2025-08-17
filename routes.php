@@ -64,6 +64,13 @@ $router->get('/price', function () {
     $controller->price();
 });
 
+// Page de la blague du théière (correspond à /index.php/418)
+$router->get('/418', function () {
+    include_once './controllers/OtherController.php';
+    $controller = new OtherController();
+    $controller->teapot();
+});
+
 // ===== Routes d'authentification =====
 
 // Authentification
