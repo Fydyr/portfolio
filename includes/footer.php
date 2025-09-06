@@ -73,7 +73,7 @@ if (est_nouveau_visiteur()) {
                                 <span class="stat-label">Projets réalisé</span>
                             </div>
                             <div class="stat-item">
-                                <span class="stat-number counter" data-target="2">0</span>
+                                <span class="stat-number counter" data-target="3">0</span>
                                 <span class="stat-label">Année de BUT<br />(actuellement)</span>
                             </div>
                             <div class="stat-item">
@@ -113,10 +113,6 @@ if (est_nouveau_visiteur()) {
                                 </a>
                                 <a href="https://discord.gg/RT2XsGFFEr" target="_blank" class="social-link discord" title="Discord"><i class="fab fa-discord"></i></a>
                             </div>
-                            <div class="contact-item">
-                                <i class="bi bi-wifi"></i>
-                                <a href="<?= url('networks') ?>">Tous mes réseaux sociaux</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -131,8 +127,8 @@ if (est_nouveau_visiteur()) {
                 <div class="col-md-6">
                     <div class="footer-copyright">
                         <p>
-                            &copy; <?php echo date('Y'); ?>
-                            <strong><?php echo $site_title; ?></strong>.
+                            &copy; <?= date('Y'); ?>
+                            <strong><?= $site_title; ?></strong>.
                             Tous droits réservés.
                         </p>
                     </div>

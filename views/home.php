@@ -1,4 +1,10 @@
-<?php ob_start(); ?>
+<?php ob_start(); 
+
+// Calcul dynamique de l'âge
+$birthDate = new DateTime('2005-03-15');
+$today = new DateTime();
+$age = $today->diff($birthDate)->y;
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,7 +33,7 @@
             </div>
             <h1>Enzo Fournier</h1>
             <h2>👋 Hey salut moi c'est Enzo Fournier</h2>
-            <p class="lead text-secondary">Développeur passionné • 2e année BUT Informatique • @fydyr</p>
+            <p class="lead text-secondary">Développeur passionné • 3e année BUT Informatique</p>
         </div>
 
 
@@ -61,7 +67,7 @@
                             <strong><i class="fas fa-map-marker-alt icon-highlight"></i>Localisation :</strong> France, Haut-De-France
                         </div>
                         <div class="passion-item">
-                            <strong><i class="fas fa-birthday-cake icon-highlight"></i>Âge :</strong> 20 ans
+                            <strong><i class="fas fa-birthday-cake icon-highlight"></i>Âge :</strong> <?= $age ?> ans
                         </div>
                         <div class="passion-item">
                             <strong><i class="fas fa-graduation-cap icon-highlight"></i>Formation :</strong> BUT informatique
