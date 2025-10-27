@@ -72,7 +72,7 @@ $languageCount = count($languages);
                     </div>
                     <div class="stat-card">
                         <div class="stat-number"><?= $projectCount ?? 0 ?></div>
-                        <div class="stat-label">Projets</div>
+                        <div class="stat-label">Projets visible</div>
                     </div>
                 </div>
 
