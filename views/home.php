@@ -1,9 +1,26 @@
-<?php ob_start(); 
+<?php ob_start();
 
 // Calcul dynamique de l'âge
 $birthDate = new DateTime('2005-03-15');
 $today = new DateTime();
 $age = $today->diff($birthDate)->y;
+
+// Liste des langages
+$languages = [
+    'JavaScript',
+    'TypeScript',
+    'Python',
+    'PHP',
+    'Java',
+    'C',
+    'C++',
+    'SQL',
+    'HTML/CSS',
+    'Bash',
+    'Dart',
+];
+
+$languageCount = count($languages);
 ?>
 
 <!DOCTYPE html>
@@ -19,362 +36,290 @@ $age = $today->diff($birthDate)->y;
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Style CSS personnalisé -->
     <link href="/assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container-fluid">
-        <!-- Header Section -->
-        <div class="profile-header fade-in">
-            <div class="profile-avatar">
-                <i class="fas fa-code"></i>
-            </div>
-            <h1>Enzo Fournier</h1>
-            <h2>👋 Hey salut moi c'est Enzo Fournier</h2>
-            <p class="lead text-secondary">Développeur passionné • 3e année BUT Informatique</p>
-        </div>
-
-
-
+    <!-- Hero Section -->
+    <section class="hero-section">
         <div class="container">
-            <div class="card fade-in mt-5">
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <i class="bi bi-chat-square-dots-fill"></i>
-                        Objectif professionnel
-                    </h2>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-code me-2"></i>
+                    Développeur Backend & Applications
                 </div>
-                <div class="card-body">
-                    <p>Je souhaite évoluer en tant que <strong>développeur backend</strong>, en concevant des applications performantes et sécurisées, adaptées aux environnements exigeants.</p>
-                </div>
-            </div>
-            <div class="info-grid">
-                <!-- Section Qui suis-je -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h3 class="mb-0">
-                            <i class="fas fa-user icon-highlight"></i>
-                            Qui suis-je ?
-                        </h3>
+                <h1 class="hero-title">
+                    Bonjour, je suis<br>Enzo Fournier
+                </h1>
+                <p class="hero-subtitle">
+                    Étudiant passionné en BUT Informatique, spécialisé dans le développement backend et la création d'applications.
+                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number"><?= $age ?></div>
+                        <div class="stat-label">Ans</div>
                     </div>
-                    <div class="card-body">
-                        <div class="passion-item">
-                            <strong><i class="fas fa-at icon-highlight"></i>Pseudo :</strong> fydyr
-                        </div>
-                        <div class="passion-item">
-                            <strong><i class="fas fa-map-marker-alt icon-highlight"></i>Localisation :</strong> France, Haut-De-France
-                        </div>
-                        <div class="passion-item">
-                            <strong><i class="fas fa-birthday-cake icon-highlight"></i>Âge :</strong> <?= $age ?> ans
-                        </div>
-                        <div class="passion-item">
-                            <strong><i class="fas fa-graduation-cap icon-highlight"></i>Formation :</strong> BUT informatique
-                        </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3e</div>
+                        <div class="stat-label">Année BUT Info</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number"><?= $languageCount ?></div>
+                        <div class="stat-label">Langages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number"><?= $projectCount ?? 0 ?></div>
+                        <div class="stat-label">Projets</div>
                     </div>
                 </div>
 
-                <!-- Section Langages -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h3 class="mb-0">
-                            <i class="fas fa-code icon-highlight"></i>
-                            Langages utilisés
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mt-3">
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://developer.mozilla.org/fr/docs/Web/JavaScript">JavaScript</a></span>
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.typescriptlang.org/">TypeScript</a></span>
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.python.org/">Python</a></span>
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.php.net/">PHP</a></span>
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://developer.mozilla.org/fr/docs/Web/HTML">HTML</a></span>
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://developer.mozilla.org/fr/docs/Web/CSS">CSS</a></span>
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://devdocs.io/c/">C</a></span>
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://devdocs.io/cpp/">C++</a></span>
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://docs.oracle.com/en/java/">Java</a></span>
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://dart.dev/docs">Dart</a></span>
-                            <span><a class="language-item" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://fr.wikipedia.org/wiki/Structured_Query_Language">SQL</a></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section Technologies Frontend -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h3 class="mb-0">
-                            <i class="fas fa-palette icon-highlight"></i>
-                            Frontend
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mt-3">
-                            <span><a class="tech-badge" target="_blank" style="color: white !important; text-decoration: none !important;" href="http://vuejs.org/">Vue.js</a></span>
-                            <span><a class="tech-badge" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://flutter.dev/">Flutter</a></span>
-                            <span><a class="tech-badge" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://getbootstrap.com/">Bootstrap</a></span>
-                            <span><a class="tech-badge" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.w3schools.com/w3css/">W3.css</a></span>
-                            <span><a class="tech-badge" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://doc.qt.io/qtforpython-6/">(Py)QT</a></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section Technologies Backend -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h3 class="mb-0">
-                            <i class="fas fa-server icon-highlight"></i>
-                            Backend
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mt-3">
-                            <span><a class="tech-badge backend" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://nodejs.org/fr">Node.js</a></span>
-                            <span><a class="tech-badge backend" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.npmjs.com/package/express">Express</a></span>
-                            <span><a class="tech-badge backend" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.npmjs.com/package/axios">Axios</a></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section Base de données -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h3 class="mb-0">
-                            <i class="fas fa-database icon-highlight"></i>
-                            Base de données
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mt-3">
-                            <span><a class="tech-badge database" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.mysql.com/fr/">MySQL</a></span>
-                            <span><a class="tech-badge database" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.mongodb.com/">MongoDB</a></span>
-                            <span><a class="tech-badge database" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.postgresql.org/">PostgreSQL</a></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section Outils -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h3 class="mb-0">
-                            <i class="fas fa-tools icon-highlight"></i>
-                            Outils
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mt-3">
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.phpmyadmin.net/">phpMyAdmin</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://git-scm.com/">Git</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.docker.com/">Docker</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://code.visualstudio.com/">VS Code</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.wampserver.com/">WAMP</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.mamp.info/en/windows/">MAMP</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.postman.com/">Postman</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.figma.com/fr-fr/">Figma</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://www.pierre-giraud.com/shell-bash/commande/#:~:text=Bash%20est%20le%20(langage%20de,le%20comportement%20d'une%20console.">Bash</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://learn.microsoft.com/fr-fr/windows-hardware/drivers/debuggercmds/using-shell-commands">Shell</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://nodejs.org/fr">Node.js</a></span>
-                            <span><a class="tech-badge tools" target="_blank" style="color: white !important; text-decoration: none !important;" href="https://developer.android.com/studio?hl=fr">Android Studio</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section Passions -->
-            <div class="card fade-in mt-5">
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <i class="fas fa-heart icon-highlight"></i>
-                        Mes passions
-                    </h2>
-                </div>
-                <div class="card-body">
-                    <div class="row mt-4">
-                        <div class="col-md-6">
-                            <div class="passion-item">
-                                <strong><i class="fas fa-music icon-highlight"></i>Musique :</strong> Musique de jeux, variété française, pop
-                            </div>
-                            <div class="passion-item">
-                                <strong><i class="fas fa-gamepad icon-highlight"></i>Gaming :</strong> Jeux de réflexion, de stratégie, de musique et d'action
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="passion-item">
-                                <strong><i class="fas fa-book icon-highlight"></i>Lecture :</strong> Science-fiction
-                            </div>
-                            <div class="passion-item">
-                                <strong><i class="fas fa-dice-d20 icon-highlight"></i>Jeu de société :</strong> Magic the Gathering
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section Parcours scolaire -->
-            <div class="card fade-in mt-5">
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <i class="fas fa-graduation-cap icon-highlight"></i>
-                        Parcours scolaire
-                    </h2>
-                </div>
-
-                <div class="card-body">
-                    <div class="timeline">
-                        <!-- Études actuelles -->
-                        <div class="timeline-item">
-                            <div class="timeline-icon">
-                                <i class="fas fa-laptop-code"></i>
-                            </div>
-                            <div class="timeline-content">
-                                <div class="status-badge">En cours</div>
-                                <div class="timeline-period">2023 - 2026</div>
-                                <div class="timeline-title">BUT Informatique</div>
-                                <div class="timeline-subtitle">IUT de Calais</div>
-                                <div class="timeline-description">
-                                    Formation universitaire technologique spécialisée en informatique.
-                                    Actuellement en 2e année, apprentissage approfondi du développement web,
-                                    des bases de données, de l'algorithmique et des méthodologies de projet.
-                                </div>
-                                <div class="timeline-details">
-                                    <span class="detail-badge"><i class="fas fa-code"></i> Développement</span>
-                                    <span class="detail-badge"><i class="fas fa-database"></i> Base de données</span>
-                                    <span class="detail-badge"><i class="fas fa-project-diagram"></i> Gestion de projet</span>
-                                    <span class="detail-badge"><i class="fas fa-network-wired"></i> Réseaux</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Baccalauréat -->
-                        <div class="timeline-item">
-                            <div class="timeline-icon">
-                                <i class="fas fa-calculator"></i>
-                            </div>
-                            <div class="timeline-content">
-                                <div class="status-badge completed">Obtenu</div>
-                                <div class="timeline-period">2020 - 2023</div>
-                                <div class="timeline-title">Baccalauréat Général</div>
-                                <div class="timeline-subtitle">Lycée Mariette - Boulogne-Sur-Mer</div>
-                                <div class="timeline-description">
-                                    Baccalauréat général avec spécialités Mathématiques et NSI (Numérique et Sciences Informatiques).
-                                    Formation solide en sciences et découverte approfondie de la programmation.
-                                </div>
-                                <div class="timeline-details">
-                                    <span class="detail-badge"><i class="fas fa-square-root-alt"></i> Mathématiques</span>
-                                    <span class="detail-badge"><i class="fas fa-microchip"></i> NSI</span>
-                                    <span class="detail-badge"><i class="bi bi-filetype-py"></i> Python</span>
-                                    <span class="detail-badge"><i class="fas fa-chart-line"></i> Algorithmique</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Collège -->
-                        <div class="timeline-item">
-                            <div class="timeline-icon">
-                                <i class="fas fa-book"></i>
-                            </div>
-                            <div class="timeline-content">
-                                <div class="status-badge completed">Obtenu</div>
-                                <div class="timeline-period">2016 - 2020</div>
-                                <div class="timeline-title">Diplôme National du Brevet</div>
-                                <div class="timeline-subtitle">Collège Pilâtre de Rozier - Wimille</div>
-                                <div class="timeline-description">
-                                    Formation secondaire complète avec acquisition des fondamentaux
-                                    en sciences, littérature et découverte de la technologie.
-                                </div>
-                                <div class="timeline-details">
-                                    <span class="detail-badge"><i class="fas fa-atom"></i> Sciences</span>
-                                    <span class="detail-badge"><i class="fas fa-book-open"></i> Littérature</span>
-                                    <span class="detail-badge"><i class="fas fa-cogs"></i> Technologie</span>
-                                    <span class="detail-badge"><i class="fas fa-globe"></i> Langues</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Lien vers les réseaux sociaux -->
-            <div class="card fade-in mb-4">
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <i class="fas fa-user-circle me-2"></i>
-                        Mes réseaux sociaux
-                    </h2>
-                </div>
-
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <h3 class="text-primary">
-                                <a href="https://github.com/Fydyr" target="_blank" class="text-decoration-none">
-                                    <i class="fab fa-github text-muted me-2"></i>
-                                    Github
-                                </a>
-                            </h3>
-                            <p class="text-muted small">Découvrez mes projets open source</p>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <h3 class="text-primary">
-                                <a href="https://www.linkedin.com/in/enzo-fournier-2746ba2b3/" target="_blank" class="text-decoration-none">
-                                    <i class="fab fa-linkedin-in text-muted me-2"></i>
-                                    Linkedin
-                                </a>
-                            </h3>
-                            <p class="text-muted small">Mon profil professionnel</p>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <h3 class="text-primary">
-                                <a href="https://discord.gg/RT2XsGFFEr" target="_blank" class="text-decoration-none">
-                                    <i class="fab fa-discord text-muted me-2"></i>
-                                    Discord
-                                </a>
-                            </h3>
-                            <p class="text-muted small">Rejoignez ma communauté</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section qui mène à mon CV -->
-            <div class="card fade-in mt-5">
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <i class="fas fa-file-alt icon-highlight"></i>
-                        Mon CV
-                    </h2>
-                </div>
-                <div class="card-body">
-                    <p>Pour en savoir plus sur mon parcours, mes compétences et mes expériences, consultez mon CV.</p>
-                    <a href="../assets/docs/mon_cv.pdf" class="btn btn-primary" target="_blank" download="mon_cv.pdf">
-                        <i class="fas fa-file-download"></i> Télécharger mon CV
+                <div class="hero-cta">
+                    <a href="<?= url('projects') ?>" class="btn btn-hero btn-hero-primary">
+                        <i class="fas fa-folder-open"></i>
+                        Voir mes projets
+                    </a>
+                    <a href="<?= url('contact') ?>" class="btn btn-hero btn-hero-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Me contacter
                     </a>
                 </div>
-            </div>
 
-            <!-- Section qui mène aux projets -->
-            <div class="card fade-in mt-5">
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <i class="fas fa-project-diagram icon-highlight"></i>
-                        Mes projets
-                    </h2>
-                </div>
-                <div class="card-body">
-                    <p>Découvrez mes projets récents et mes contributions open source.</p>
-                    <a href="<?= url('projects') ?>" class="btn btn-primary">
-                        <i class="fas fa-folder-open"></i> Voir mes projets
+                <div class="social-links">
+                    <a href="https://github.com/Fydyr" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/enzo-fournier-2746ba2b3/" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://discord.gg/RT2XsGFFEr" target="_blank" class="social-link">
+                        <i class="fab fa-discord"></i>
                     </a>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-laptop-code me-2"></i>
+                    Compétences
+                </div>
+                <h2 class="section-title">Stack Technique</h2>
+                <p class="section-description">
+                    Technologies et outils que j'utilise pour créer des solutions innovantes
+                </p>
+            </div>
+
+            <div class="skills-container">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="skill-title">Langages</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Langages de programmation maîtrisés</p>
+                    <div class="skill-tags">
+                        <?php foreach ($languages as $lang): ?>
+                            <span class="skill-tag"><?= htmlspecialchars($lang) ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: var(--gradient-secondary);">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="skill-title">Frontend</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Frameworks et bibliothèques UI</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Vue.js</span>
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">Bootstrap</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: var(--gradient-success);">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="skill-title">Backend</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Technologies serveur</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Express</span>
+                        <span class="skill-tag">PHP</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: var(--gradient-warning);">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="skill-title">Bases de données</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Systèmes de gestion de données</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="skill-title">Outils</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">DevOps et environnements</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">Figma</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Passions Section -->
+    <section class="py-5" style="background: linear-gradient(180deg, transparent 0%, rgba(30, 41, 59, 0.3) 50%, transparent 100%);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #EF4444;">
+                    <i class="fas fa-heart me-2"></i>
+                    Passions
+                </div>
+                <h2 class="section-title">Au-delà du code</h2>
+                <p class="section-description">
+                    Ce qui me passionne et m'inspire au quotidien
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                <div class="passion-card">
+                    <div class="passion-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="passion-title">Gaming</h3>
+                    <p class="passion-description">Jeux de stratégie</p>
+                </div>
+
+                <div class="passion-card">
+                    <div class="passion-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="passion-title">Musique</h3>
+                    <p class="passion-description">Musique de jeu, d'animé et de pop rock</p>
+                </div>
+
+                <div class="passion-card">
+                    <div class="passion-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="passion-title">Sci-Fi</h3>
+                    <p class="passion-description">Science-fiction et univers futuristes (comme star wars)</p>
+                </div>
+
+                <div class="passion-card">
+                    <div class="passion-icon">
+                        <i class="fas fa-dice-d20"></i>
+                    </div>
+                    <h3 class="passion-title">Magic: The Gathering</h3>
+                    <p class="passion-description">Jeu de cartes stratégique</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Timeline -->
+    <section class="py-5">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-graduation-cap me-2"></i>
+                    Formation
+                </div>
+                <h2 class="section-title">Parcours Académique</h2>
+                <p class="section-description">
+                    Mon cheminement dans le monde de l'informatique
+                </p>
+            </div>
+
+            <div class="timeline-modern">
+                <div class="timeline-item-modern">
+                    <div class="timeline-content-modern">
+                        <span class="timeline-date">2023 - 2026</span>
+                        <h3 class="timeline-title">BUT Informatique</h3>
+                        <div class="timeline-subtitle">IUT de Calais • En cours</div>
+                        <p class="timeline-description">
+                            Formation universitaire technologique spécialisée en informatique avec focus sur le développement, les bases de données et la gestion de projets.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item-modern">
+                    <div class="timeline-content-modern">
+                        <span class="timeline-date">2020 - 2023</span>
+                        <h3 class="timeline-title">Baccalauréat Général</h3>
+                        <div class="timeline-subtitle">Lycée Mariette, Boulogne-Sur-Mer • Obtenu</div>
+                        <p class="timeline-description">
+                            Spécialités Mathématiques et NSI (Numérique et Sciences Informatiques) avec initiation à Python et à l'algorithmique.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item-modern">
+                    <div class="timeline-content-modern">
+                        <span class="timeline-date">2016 - 2020</span>
+                        <h3 class="timeline-title">Diplôme National du Brevet</h3>
+                        <div class="timeline-subtitle">Collège Pilâtre de Rozier, Wimille • Obtenu</div>
+                        <p class="timeline-description">
+                            Formation secondaire complète avec acquisition des fondamentaux et première découverte de la technologie.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="card" style="background: var(--gradient-primary); border: none; text-align: center;">
+                <div class="card-body" style="padding: 4rem 2rem;">
+                    <h2 style="color: white; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 1.5rem;">
+                        Intéressé par mon profil ?
+                    </h2>
+                    <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.125rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        N'hésitez pas à consulter mon CV ou à découvrir mes projets
+                    </p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="../assets/docs/mon_cv.pdf" class="btn btn-hero" style="background: white; color: var(--primary-color);" target="_blank" download="mon_cv.pdf">
+                            <i class="fas fa-file-download"></i>
+                            Télécharger mon CV
+                        </a>
+                        <a href="<?= url('projects') ?>" class="btn btn-hero" style="background: rgba(255, 255, 255, 0.2); color: white; border: 2px solid white;">
+                            <i class="fas fa-folder-open"></i>
+                            Voir mes projets
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Animation d'apparition progressive des cartes
+        // Smooth scroll animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -389,39 +334,11 @@ $age = $today->diff($birthDate)->y;
             });
         }, observerOptions);
 
-        // Observer toutes les cartes
-        document.querySelectorAll('.card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
-        });
-
-        // Effet de brillance sur les badges technologiques
-        document.querySelectorAll('.tech-badge, .language-item').forEach(badge => {
-            badge.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 0 20px rgba(0, 212, 255, 0.5)';
-            });
-
-            badge.addEventListener('mouseleave', function() {
-                this.style.boxShadow = '';
-            });
-        });
-
-        // Animation au scroll pour les éléments de timeline
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                }
-            });
-        }, {
-            threshold: 0.2
-        });
-
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.style.animationPlayState = 'paused';
-            timelineObserver.observe(item);
+        document.querySelectorAll('.skill-card, .stat-card, .timeline-item-modern').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
     </script>
 </body>

@@ -232,7 +232,7 @@
                     <div class="bg-glass p-3 rounded">
                         <p class="mb-0 text-info">
                             <i class="fas fa-calendar-alt me-2"></i>
-                            <strong>Dernière mise à jour :</strong> 30 Juillet 2025
+                            <strong>Dernière mise à jour :</strong> 27 Octobre 2025
                         </p>
                     </div>
 
