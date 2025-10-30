@@ -65,24 +65,27 @@
                     <!-- Les 3 images du projet -->
                     <div class="mb-3">
                         <label for="image1" class="form-label">Image 1</label>
-                        <input type="file" class="form-control" id="image1" name="image1">
-                        <?php if ($project['image1']): ?>
-                            <img src="/assets/images/projects/<?= htmlspecialchars($project['image1']) ?>" alt="Image 1" class="img-thumbnail mt-2" style="max-width: 200px;">
+                        <input type="file" class="form-control" id="image1" name="image1" accept="image/*">
+                        <?php if ($project['img1']): ?>
+                            <img src="/assets/img/projects/<?= htmlspecialchars($project['img1']) ?>" alt="Image 1" class="img-thumbnail mt-2" style="max-width: 200px;">
                         <?php endif; ?>
+                        <small class="form-text text-muted">Laissez vide pour conserver l'image actuelle.</small>
                     </div>
                     <div class="mb-3">
-                        <label for="image2" class="form-label">Image 2</label>
-                        <input type="file" class="form-control" id="image2" name="image2">
-                        <?php if ($project['image2']): ?>
-                            <img src="/assets/images/projects/<?= htmlspecialchars($project['image2']) ?>" alt="Image 2" class="img-thumbnail mt-2" style="max-width: 200px;">
+                        <label for="image2" class="form-label">Image 2 (optionnelle)</label>
+                        <input type="file" class="form-control" id="image2" name="image2" accept="image/*">
+                        <?php if ($project['img2']): ?>
+                            <img src="/assets/img/projects/<?= htmlspecialchars($project['img2']) ?>" alt="Image 2" class="img-thumbnail mt-2" style="max-width: 200px;">
                         <?php endif; ?>
+                        <small class="form-text text-muted">Laissez vide pour conserver l'image actuelle.</small>
                     </div>
                     <div class="mb-3">
-                        <label for="image3" class="form-label">Image 3</label>
-                        <input type="file" class="form-control" id="image3" name="image3">
-                        <?php if ($project['image3']): ?>
-                            <img src="/assets/images/projects/<?= htmlspecialchars($project['image3']) ?>" alt="Image 3" class="img-thumbnail mt-2" style="max-width: 200px;">
+                        <label for="image3" class="form-label">Image 3 (optionnelle)</label>
+                        <input type="file" class="form-control" id="image3" name="image3" accept="image/*">
+                        <?php if ($project['img3']): ?>
+                            <img src="/assets/img/projects/<?= htmlspecialchars($project['img3']) ?>" alt="Image 3" class="img-thumbnail mt-2" style="max-width: 200px;">
                         <?php endif; ?>
+                        <small class="form-text text-muted">Laissez vide pour conserver l'image actuelle.</small>
                     </div>
 
                     <div class="mb-3">
@@ -95,8 +98,27 @@
                         <input type="text" class="form-control" id="tools" name="tools" value="<?= htmlspecialchars($project['languages']) ?>" required>
                     </div>
 
-                    <!-- bouton de soumission -->
-                    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                    <div class="mb-3">
+                        <label for="projectStatus" class="form-label">Statut du projet</label>
+                        <select class="form-select" id="projectStatus" name="projectStatus">
+                            <option value="visible" <?= ($project['visibilite'] == 1) ? 'selected' : '' ?>>
+                                Visible
+                            </option>
+                            <option value="non_visible" <?= ($project['visibilite'] == 0) ? 'selected' : '' ?>>
+                                Non Visible
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Boutons de soumission -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="<?= url('admin/projects') ?>" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-arrow-left"></i> Retour
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Enregistrer les modifications
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

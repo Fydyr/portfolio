@@ -369,6 +369,12 @@ class AdminController extends BaseController
             exit;
         }
 
+        // Si c'est une requête POST, traiter le formulaire AVANT de charger la vue
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->processEditProject($projectId);
+            return; // Important : arrêter l'exécution après le traitement POST
+        }
+
         include_once 'includes/db.php';
         global $pdo;
 
@@ -383,12 +389,154 @@ class AdminController extends BaseController
             exit;
         }
 
-        // Si c'est une requête POST, traiter le formulaire
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // $this->processEditProject($projectId);
-        } else {
-            // Sinon, afficher le formulaire avec les données du projet
-            echo $this->view('edit_project', ['project' => $project]);
+        // Afficher le formulaire avec les données du projet
+        echo $this->view('edit_project', ['project' => $project]);
+    }
+
+    private function processEditProject($projectId)
+    {
+        try {
+            include_once 'includes/db.php';
+            global $pdo;
+
+            // Récupérer les informations actuelles du projet
+            $stmt = $pdo->prepare("SELECT * FROM projects WHERE id = :id");
+            $stmt->execute([':id' => $projectId]);
+            $currentProject = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$currentProject) {
+                throw new Exception('Le projet n\'existe pas.');
+            }
+
+            // Validation des données
+            $errors = $this->validateEditProjectData();
+
+            if (!empty($errors)) {
+                $_SESSION['errors'] = $errors;
+                header('Location: ' . url('admin/projects/edit-project/') . $projectId);
+                exit;
+            }
+
+            // Traitement des nouvelles images
+            $images = $this->processEditImages($currentProject);
+
+            // Préparation des données pour la base
+            $projectData = [
+                'title' => trim($_POST['title']),
+                'description' => trim($_POST['description']),
+                'link' => trim($_POST['link']) ?: null,
+                'img1' => $images['img1'],
+                'img2' => $images['img2'],
+                'img3' => $images['img3'],
+                'visibilite' => ($_POST['projectStatus'] === 'visible') ? 1 : 0,
+                'languages' => trim($_POST['tools']),
+                'id' => $projectId
+            ];
+
+            // Mise à jour en base de données
+            $this->updateProject($projectData);
+
+            // Message de succès
+            $_SESSION['success'] = 'Le projet a été modifié avec succès !';
+            header('Location: ' . url('admin/projects'));
+            exit;
+        } catch (Exception $e) {
+            $_SESSION['error'] = 'Erreur lors de la modification du projet : ' . $e->getMessage();
+            header('Location: ' . url('admin/projects/edit-project/') . $projectId);
+            exit;
         }
+    }
+
+    private function validateEditProjectData()
+    {
+        $errors = [];
+
+        // Validation du titre
+        if (empty($_POST['title']) || strlen(trim($_POST['title'])) < 2) {
+            $errors[] = 'Le titre du projet doit contenir au moins 2 caractères.';
+        }
+
+        // Validation de la description
+        if (empty($_POST['description']) || strlen(trim($_POST['description'])) < 10) {
+            $errors[] = 'La description doit contenir au moins 10 caractères.';
+        }
+
+        // Validation du lien
+        if (!empty($_POST['link']) && !filter_var($_POST['link'], FILTER_VALIDATE_URL)) {
+            $errors[] = 'Veuillez saisir un lien valide.';
+        }
+
+        // Validation des langages
+        if (empty($_POST['tools'])) {
+            $errors[] = 'Veuillez saisir les langages utilisés.';
+        }
+
+        return $errors;
+    }
+
+    private function processEditImages($currentProject)
+    {
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/projects/';
+        $images = [
+            'img1' => $currentProject['img1'],
+            'img2' => $currentProject['img2'],
+            'img3' => $currentProject['img3']
+        ];
+
+        // Traitement de chaque image
+        $imageFields = ['image1' => 'img1', 'image2' => 'img2', 'image3' => 'img3'];
+
+        foreach ($imageFields as $inputName => $dbField) {
+            if (isset($_FILES[$inputName]) && $_FILES[$inputName]['error'] === UPLOAD_ERR_OK) {
+                // Supprimer l'ancienne image si elle existe
+                if (!empty($currentProject[$dbField])) {
+                    $oldFilePath = $uploadDir . $currentProject[$dbField];
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath);
+                    }
+                }
+
+                // Uploader la nouvelle image
+                $newImage = $this->uploadImage($_FILES[$inputName], $uploadDir);
+                $images[$dbField] = $newImage;
+            }
+        }
+
+        return $images;
+    }
+
+    private function updateProject($data)
+    {
+        include_once 'includes/db.php';
+        global $pdo;
+
+        $stmt = $pdo->prepare("UPDATE projects
+            SET title = :title,
+                description = :description,
+                link = :link,
+                img1 = :img1,
+                img2 = :img2,
+                img3 = :img3,
+                visibilite = :visibilite,
+                languages = :languages
+            WHERE id = :id");
+
+        $result = $stmt->execute([
+            ':title' => $data['title'],
+            ':description' => $data['description'],
+            ':link' => $data['link'],
+            ':img1' => $data['img1'],
+            ':img2' => $data['img2'],
+            ':img3' => $data['img3'],
+            ':visibilite' => $data['visibilite'],
+            ':languages' => $data['languages'],
+            ':id' => $data['id']
+        ]);
+
+        if (!$result) {
+            throw new Exception('Erreur lors de la mise à jour en base de données.');
+        }
+
+        return true;
     }
 }

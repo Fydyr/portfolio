@@ -135,6 +135,12 @@ $router->get('/admin/projects/edit-project/(\d+)', function ($id) {
     $controller->editProject($id);
 });
 
+$router->post('/admin/projects/edit-project/(\d+)', function ($id) {
+    include_once 'controllers/AdminController.php';
+    $controller = new AdminController();
+    $controller->editProject($id);
+});
+
 // ==== Routes de test =====
 $router->get('/test', function () {
     echo "<h1>✅ Test route fonctionne !</h1>";
