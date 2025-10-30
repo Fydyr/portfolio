@@ -13,7 +13,6 @@ $languages = [
     'PHP',
     'Java',
     'C',
-    'C++',
     'SQL',
     'HTML/CSS',
     'Bash',
