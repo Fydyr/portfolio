@@ -45,15 +45,11 @@ $languageCount = count($languages);
     <section class="hero-section">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <i class="fas fa-code me-2"></i>
-                    Développeur Backend & Applications
-                </div>
                 <h1 class="hero-title">
                     Bonjour, je suis<br>Enzo Fournier
                 </h1>
                 <p class="hero-subtitle">
-                    Étudiant passionné en BUT Informatique, spécialisé dans le développement backend et la création d'applications.
+                    Étudiant en BUT Informatique, spécialisé dans le développement web backend & la création d'applications.
                 </p>
 
                 <div class="stats-grid">
@@ -65,14 +61,14 @@ $languageCount = count($languages);
                         <div class="stat-number">3e</div>
                         <div class="stat-label">Année BUT Info</div>
                     </div>
-                    <div class="stat-card">
+                    <a href="#langages" class="stat-card" style="text-decoration: none; color: inherit; transition: transform 0.3s ease;">
                         <div class="stat-number"><?= $languageCount ?></div>
                         <div class="stat-label">Langages</div>
-                    </div>
-                    <div class="stat-card">
+                    </a>
+                    <a href="<?= url('projects') ?>" class="stat-card" style="text-decoration: none; color: inherit; transition: transform 0.3s ease;">
                         <div class="stat-number"><?= $projectCount ?? 0 ?></div>
                         <div class="stat-label">Projets visible</div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="hero-cta">
@@ -102,7 +98,7 @@ $languageCount = count($languages);
     </section>
 
     <!-- Skills Section -->
-    <section class="py-5">
+    <section class="py-5" id="langages">
         <div class="container">
             <div class="section-header">
                 <div class="section-badge">
@@ -131,28 +127,17 @@ $languageCount = count($languages);
 
                 <div class="skill-card">
                     <div class="skill-icon" style="background: var(--gradient-secondary);">
-                        <i class="fas fa-palette"></i>
+                        <i class="fas fa-globe"></i>
                     </div>
-                    <h3 class="skill-title">Frontend</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Frameworks et bibliothèques UI</p>
+                    <h3 class="skill-title">Développement Web</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Frontend & Backend</p>
                     <div class="skill-tags">
                         <span class="skill-tag">Vue.js</span>
-                        <span class="skill-tag">Flutter</span>
                         <span class="skill-tag">Bootstrap</span>
-                        <span class="skill-tag">HTML/CSS</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon" style="background: var(--gradient-success);">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h3 class="skill-title">Backend</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Technologies serveur</p>
-                    <div class="skill-tags">
                         <span class="skill-tag">Node.js</span>
                         <span class="skill-tag">Express</span>
                         <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">Flutter</span>
                     </div>
                 </div>
 
@@ -201,7 +186,7 @@ $languageCount = count($languages);
                 </p>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto;">
                 <div class="passion-card">
                     <div class="passion-icon">
                         <i class="fas fa-gamepad"></i>
@@ -270,17 +255,6 @@ $languageCount = count($languages);
                         <div class="timeline-subtitle">Lycée Mariette, Boulogne-Sur-Mer • Obtenu</div>
                         <p class="timeline-description">
                             Spécialités Mathématiques et NSI (Numérique et Sciences Informatiques) avec initiation à Python et à l'algorithmique.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-item-modern">
-                    <div class="timeline-content-modern">
-                        <span class="timeline-date">2016 - 2020</span>
-                        <h3 class="timeline-title">Diplôme National du Brevet</h3>
-                        <div class="timeline-subtitle">Collège Pilâtre de Rozier, Wimille • Obtenu</div>
-                        <p class="timeline-description">
-                            Formation secondaire complète avec acquisition des fondamentaux et première découverte de la technologie.
                         </p>
                     </div>
                 </div>
