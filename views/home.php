@@ -186,7 +186,7 @@ $languageCount = count($languages);
                 </p>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto;">
+            <div class="passions-grid">
                 <div class="passion-card">
                     <div class="passion-icon">
                         <i class="fas fa-gamepad"></i>
