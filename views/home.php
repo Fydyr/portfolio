@@ -101,10 +101,10 @@ $languageCount = count($languages);
     <section class="py-5" id="langages">
         <div class="container">
             <div class="section-header">
-                <div class="section-badge">
+                <a href="#langages" class="section-badge" style="text-decoration: none; cursor: pointer; transition: all 0.3s ease;">
                     <i class="fas fa-laptop-code me-2"></i>
                     Compétences
-                </div>
+                </a>
                 <h2 class="section-title">Stack Technique</h2>
                 <p class="section-description">
                     Technologies et outils que j'utilise pour créer des solutions innovantes
@@ -173,13 +173,13 @@ $languageCount = count($languages);
     </section>
 
     <!-- Passions Section -->
-    <section class="py-5" style="background: linear-gradient(180deg, transparent 0%, rgba(30, 41, 59, 0.3) 50%, transparent 100%);">
+    <section class="py-5" id="passions" style="background: linear-gradient(180deg, transparent 0%, rgba(30, 41, 59, 0.3) 50%, transparent 100%);">
         <div class="container">
             <div class="section-header">
-                <div class="section-badge" style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #EF4444;">
+                <a href="#passions" class="section-badge" style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #EF4444; text-decoration: none; cursor: pointer; transition: all 0.3s ease;">
                     <i class="fas fa-heart me-2"></i>
                     Passions
-                </div>
+                </a>
                 <h2 class="section-title">Au-delà du code</h2>
                 <p class="section-description">
                     Ce qui me passionne et m'inspire au quotidien
@@ -223,13 +223,13 @@ $languageCount = count($languages);
     </section>
 
     <!-- Education Timeline -->
-    <section class="py-5">
+    <section class="py-5" id="formation">
         <div class="container">
             <div class="section-header">
-                <div class="section-badge">
+                <a href="#formation" class="section-badge" style="text-decoration: none; cursor: pointer; transition: all 0.3s ease;">
                     <i class="fas fa-graduation-cap me-2"></i>
                     Formation
-                </div>
+                </a>
                 <h2 class="section-title">Parcours Académique</h2>
                 <p class="section-description">
                     Mon cheminement dans le monde de l'informatique
