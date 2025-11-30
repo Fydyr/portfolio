@@ -137,6 +137,7 @@ if (isset($_SESSION['user_id'])) {
             top: 0;
             z-index: 1000;
             box-shadow: var(--shadow-card);
+            isolation: isolate;
         }
 
         .header-nav::before {

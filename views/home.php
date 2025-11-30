@@ -7,14 +7,14 @@ $age = $today->diff($birthDate)->y;
 
 // Liste des langages
 $languages = [
+    'Python',
+    'HTML/CSS',
+    'PHP',
     'JavaScript',
     'TypeScript',
-    'Python',
-    'PHP',
+    'SQL',
     'Java',
     'C',
-    'SQL',
-    'HTML/CSS',
     'Bash',
     'Dart',
 ];
@@ -120,7 +120,7 @@ $languageCount = count($languages);
                     <p style="color: var(--text-muted); font-size: 0.95rem;">Langages de programmation maîtrisés</p>
                     <div class="skill-tags">
                         <?php foreach ($languages as $lang): ?>
-                            <span class="skill-tag"><?= htmlspecialchars($lang) ?></span>
+                            <span class="skill-tag tech-badge" data-tech="<?= strtolower(str_replace(['/', ' '], ['-', '-'], htmlspecialchars($lang))) ?>"><?= htmlspecialchars($lang) ?></span>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -132,12 +132,12 @@ $languageCount = count($languages);
                     <h3 class="skill-title">Développement Web</h3>
                     <p style="color: var(--text-muted); font-size: 0.95rem;">Frontend & Backend</p>
                     <div class="skill-tags">
-                        <span class="skill-tag">Vue.js</span>
-                        <span class="skill-tag">Bootstrap</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Express</span>
-                        <span class="skill-tag">PHP</span>
-                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag tech-badge" data-tech="vuejs">Vue.js</span>
+                        <span class="skill-tag tech-badge" data-tech="bootstrap">Bootstrap</span>
+                        <span class="skill-tag tech-badge" data-tech="nodejs">Node.js</span>
+                        <span class="skill-tag tech-badge" data-tech="express">Express</span>
+                        <span class="skill-tag tech-badge" data-tech="php">PHP</span>
+                        <span class="skill-tag tech-badge" data-tech="flutter">Flutter</span>
                     </div>
                 </div>
 
@@ -148,9 +148,9 @@ $languageCount = count($languages);
                     <h3 class="skill-title">Bases de données</h3>
                     <p style="color: var(--text-muted); font-size: 0.95rem;">Systèmes de gestion de données</p>
                     <div class="skill-tags">
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag tech-badge" data-tech="mysql">MySQL</span>
+                        <span class="skill-tag tech-badge" data-tech="mongodb">MongoDB</span>
+                        <span class="skill-tag tech-badge" data-tech="postgresql">PostgreSQL</span>
                     </div>
                 </div>
 
@@ -161,11 +161,11 @@ $languageCount = count($languages);
                     <h3 class="skill-title">Outils</h3>
                     <p style="color: var(--text-muted); font-size: 0.95rem;">DevOps et environnements</p>
                     <div class="skill-tags">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">VS Code</span>
-                        <span class="skill-tag">Postman</span>
-                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag tech-badge" data-tech="git">Git</span>
+                        <span class="skill-tag tech-badge" data-tech="docker">Docker</span>
+                        <span class="skill-tag tech-badge" data-tech="vscode">VS Code</span>
+                        <span class="skill-tag tech-badge" data-tech="postman">Postman</span>
+                        <span class="skill-tag tech-badge" data-tech="figma">Figma</span>
                     </div>
                 </div>
             </div>
@@ -288,10 +288,348 @@ $languageCount = count($languages);
         </div>
     </section>
 
+    <!-- Modale pour les technologies -->
+    <div id="techModal" class="tech-modal" style="z-index: 999999 !important;">
+        <div class="tech-modal-overlay" style="z-index: 999999 !important;"></div>
+        <div class="tech-modal-content" style="z-index: 1000000 !important;">
+            <button class="tech-modal-close" aria-label="Fermer">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="tech-modal-header">
+                <div class="tech-modal-icon">
+                    <i class="tech-icon-display"></i>
+                </div>
+                <h2 class="tech-modal-title"></h2>
+            </div>
+            <div class="tech-modal-body">
+                <p class="tech-modal-description"></p>
+                <div class="tech-modal-info">
+                    <div class="tech-info-item">
+                        <i class="fas fa-layer-group"></i>
+                        <span class="tech-info-label">Type:</span>
+                        <span class="tech-info-value tech-type"></span>
+                    </div>
+                    <div class="tech-info-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="tech-info-label">Niveau:</span>
+                        <span class="tech-info-value tech-level"></span>
+                    </div>
+                </div>
+                <div class="tech-modal-features">
+                    <h4><i class="fas fa-lightbulb me-2"></i>Utilisation:</h4>
+                    <ul class="tech-features-list"></ul>
+                </div>
+                <div class="tech-modal-actions">
+                    <a href="#" class="btn-modal btn-modal-docs" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-book"></i>
+                        <span>Documentation</span>
+                    </a>
+                    <button class="btn-modal btn-modal-close">
+                        <i class="fas fa-times"></i>
+                        <span>Fermer</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // Données des technologies
+        const techData = {
+            'javascript': {
+                name: 'JavaScript',
+                description: 'Langage de programmation polyvalent pour le développement web moderne, tant côté client que serveur.',
+                type: 'Langage de programmation',
+                level: 'Intermédiaire',
+                features: ['Manipulation du DOM', 'Applications web interactives', 'Développement backend avec Node.js', 'Programmation asynchrone'],
+                icon: 'fab fa-js',
+                docUrl: 'https://developer.mozilla.org/fr/docs/Web/JavaScript'
+            },
+            'typescript': {
+                name: 'TypeScript',
+                description: 'Superset de JavaScript qui ajoute le typage statique, améliorant la maintenabilité du code.',
+                type: 'Langage de programmation',
+                level: 'Intermédiaire',
+                features: ['Typage statique fort', 'Meilleure autocomplétion', 'Détection d\'erreurs à la compilation', 'Intégration avec frameworks modernes'],
+                icon: 'fab fa-js',
+                docUrl: 'https://www.typescriptlang.org/docs/'
+            },
+            'python': {
+                name: 'Python',
+                description: 'Langage de programmation polyvalent, idéal pour le scripting, l\'analyse de données et l\'automatisation.',
+                type: 'Langage de programmation',
+                level: 'Avancé',
+                features: ['Scripts d\'automatisation', 'Analyse de données', 'Développement backend', 'APIs REST'],
+                icon: 'fab fa-python',
+                docUrl: 'https://docs.python.org/fr/3/'
+            },
+            'php': {
+                name: 'PHP',
+                description: 'Langage de script côté serveur, largement utilisé pour le développement web dynamique.',
+                type: 'Langage backend',
+                level: 'Intermédiaire',
+                features: ['Développement web backend', 'APIs REST', 'Gestion de bases de données', 'Applications MVC'],
+                icon: 'fab fa-php',
+                docUrl: 'https://www.php.net/manual/fr/'
+            },
+            'java': {
+                name: 'Java',
+                description: 'Langage orienté objet robuste, utilisé pour des applications d\'entreprise et Android.',
+                type: 'Langage de programmation',
+                level: 'Intermédiaire',
+                features: ['Programmation orientée objet', 'Applications d\'entreprise', 'Développement Android', 'Portabilité multiplateforme'],
+                icon: 'fab fa-java',
+                docUrl: 'https://docs.oracle.com/en/java/'
+            },
+            'c': {
+                name: 'C',
+                description: 'Langage de programmation de bas niveau, offrant un contrôle précis sur le matériel.',
+                type: 'Langage de programmation',
+                level: 'Intermédiaire',
+                features: ['Programmation système', 'Gestion de la mémoire', 'Performance optimale', 'Algorithmique'],
+                icon: 'fas fa-code',
+                docUrl: 'https://devdocs.io/c/'
+            },
+            'sql': {
+                name: 'SQL',
+                description: 'Langage de requête pour la gestion et manipulation de bases de données relationnelles.',
+                type: 'Langage de requête',
+                level: 'Avancé',
+                features: ['Requêtes complexes', 'Gestion de bases de données', 'Optimisation de performances', 'Modélisation de données'],
+                icon: 'fas fa-database',
+                docUrl: 'https://sql.sh/'
+            },
+            'html-css': {
+                name: 'HTML/CSS',
+                description: 'Technologies fondamentales pour la structure et le style des pages web.',
+                type: 'Langages web',
+                level: 'Avancé',
+                features: ['Structure sémantique', 'Design responsive', 'Animations CSS', 'Flexbox & Grid'],
+                icon: 'fab fa-html5',
+                docUrl: 'https://developer.mozilla.org/fr/docs/Web/HTML'
+            },
+            'bash': {
+                name: 'Bash',
+                description: 'Shell Unix pour l\'automatisation de tâches et la gestion de systèmes.',
+                type: 'Script shell',
+                level: 'Intermédiaire',
+                features: ['Automatisation de tâches', 'Scripts système', 'Gestion de fichiers', 'Déploiement'],
+                icon: 'fas fa-terminal',
+                docUrl: 'https://www.gnu.org/software/bash/manual/'
+            },
+            'dart': {
+                name: 'Dart',
+                description: 'Langage optimisé pour le développement d\'applications multiplateformes avec Flutter.',
+                type: 'Langage de programmation',
+                level: 'Débutant',
+                features: ['Applications mobiles', 'Flutter framework', 'Hot reload', 'Performance native'],
+                icon: 'fas fa-code',
+                docUrl: 'https://dart.dev/guides'
+            },
+            'vuejs': {
+                name: 'Vue.js',
+                description: 'Framework JavaScript progressif pour construire des interfaces utilisateur interactives.',
+                type: 'Framework frontend',
+                level: 'Intermédiaire',
+                features: ['Composants réactifs', 'Virtual DOM', 'Single Page Applications', 'Routing et state management'],
+                icon: 'fab fa-vuejs',
+                docUrl: 'https://vuejs.org/guide/introduction.html'
+            },
+            'bootstrap': {
+                name: 'Bootstrap',
+                description: 'Framework CSS pour créer rapidement des interfaces web responsives et modernes.',
+                type: 'Framework CSS',
+                level: 'Avancé',
+                features: ['Design responsive', 'Composants prêts à l\'emploi', 'Grille flexible', 'Customisation facile'],
+                icon: 'fab fa-bootstrap',
+                docUrl: 'https://getbootstrap.com/docs/'
+            },
+            'nodejs': {
+                name: 'Node.js',
+                description: 'Environnement d\'exécution JavaScript côté serveur, basé sur le moteur V8 de Chrome.',
+                type: 'Runtime JavaScript',
+                level: 'Avancé',
+                features: ['APIs REST', 'Applications temps réel', 'Microservices', 'Event-driven architecture'],
+                icon: 'fab fa-node-js',
+                docUrl: 'https://nodejs.org/docs/latest/api/'
+            },
+            'express': {
+                name: 'Express',
+                description: 'Framework web minimaliste et flexible pour Node.js, facilitant la création d\'APIs.',
+                type: 'Framework backend',
+                level: 'Intermédiaire',
+                features: ['APIs RESTful', 'Middleware', 'Routing avancé', 'Gestion des requêtes HTTP'],
+                icon: 'fas fa-server',
+                docUrl: 'https://expressjs.com/'
+            },
+            'flutter': {
+                name: 'Flutter',
+                description: 'Framework UI de Google pour créer des applications multiplateformes natives.',
+                type: 'Framework mobile',
+                level: 'Débutant',
+                features: ['Applications iOS/Android', 'Widgets personnalisables', 'Hot reload', 'Performance native'],
+                icon: 'fas fa-mobile-alt',
+                docUrl: 'https://docs.flutter.dev/'
+            },
+            'mysql': {
+                name: 'MySQL',
+                description: 'Système de gestion de base de données relationnelle open-source, très populaire.',
+                type: 'Base de données SQL',
+                level: 'Avancé',
+                features: ['Bases de données relationnelles', 'Transactions ACID', 'Réplication', 'Haute performance'],
+                icon: 'fas fa-database',
+                docUrl: 'https://dev.mysql.com/doc/'
+            },
+            'mongodb': {
+                name: 'MongoDB',
+                description: 'Base de données NoSQL orientée documents, flexible et scalable.',
+                type: 'Base de données NoSQL',
+                level: 'Intermédiaire',
+                features: ['Documents JSON', 'Scalabilité horizontale', 'Schéma flexible', 'Requêtes puissantes'],
+                icon: 'fas fa-leaf',
+                docUrl: 'https://www.mongodb.com/docs/'
+            },
+            'postgresql': {
+                name: 'PostgreSQL',
+                description: 'Système de gestion de base de données relationnelle avancé, open-source et robuste.',
+                type: 'Base de données SQL',
+                level: 'Intermédiaire',
+                features: ['Conformité SQL', 'Extensions avancées', 'JSON natif', 'Haute fiabilité'],
+                icon: 'fas fa-database',
+                docUrl: 'https://www.postgresql.org/docs/'
+            },
+            'git': {
+                name: 'Git',
+                description: 'Système de contrôle de version distribué pour suivre les modifications du code.',
+                type: 'Contrôle de version',
+                level: 'Avancé',
+                features: ['Gestion de versions', 'Branches et merge', 'Collaboration d\'équipe', 'Historique complet'],
+                icon: 'fab fa-git-alt',
+                docUrl: 'https://git-scm.com/doc'
+            },
+            'docker': {
+                name: 'Docker',
+                description: 'Plateforme de conteneurisation pour déployer des applications de manière isolée.',
+                type: 'Conteneurisation',
+                level: 'Intermédiaire',
+                features: ['Conteneurs légers', 'Isolation d\'applications', 'Déploiement simplifié', 'Orchestration'],
+                icon: 'fab fa-docker',
+                docUrl: 'https://docs.docker.com/'
+            },
+            'vscode': {
+                name: 'VS Code',
+                description: 'Éditeur de code source léger mais puissant, développé par Microsoft.',
+                type: 'IDE',
+                level: 'Avancé',
+                features: ['IntelliSense', 'Débogage intégré', 'Extensions riches', 'Git intégré'],
+                icon: 'fas fa-code',
+                docUrl: 'https://code.visualstudio.com/docs'
+            },
+            'postman': {
+                name: 'Postman',
+                description: 'Plateforme collaborative pour tester, développer et documenter des APIs.',
+                type: 'Outil API',
+                level: 'Intermédiaire',
+                features: ['Test d\'APIs', 'Automatisation de tests', 'Documentation', 'Collections de requêtes'],
+                icon: 'fas fa-paper-plane',
+                docUrl: 'https://learning.postman.com/docs/'
+            },
+            'figma': {
+                name: 'Figma',
+                description: 'Outil de design collaboratif pour créer des interfaces et prototypes.',
+                type: 'Design UI/UX',
+                level: 'Intermédiaire',
+                features: ['Design d\'interfaces', 'Prototypage', 'Collaboration temps réel', 'Composants réutilisables'],
+                icon: 'fab fa-figma',
+                docUrl: 'https://help.figma.com/'
+            }
+        };
+
+        // Gestion de la modale
+        const modal = document.getElementById('techModal');
+
+        // IMPORTANT: Déplacer la modale directement dans le body pour éviter les problèmes de z-index
+        if (modal && modal.parentElement !== document.body) {
+            document.body.appendChild(modal);
+        }
+
+        const closeBtn = document.querySelector('.tech-modal-close');
+        const closeBtnBottom = document.querySelector('.btn-modal-close');
+        const techBadges = document.querySelectorAll('.tech-badge');
+        const docBtn = document.querySelector('.btn-modal-docs');
+
+        function closeModal() {
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        techBadges.forEach(badge => {
+            badge.addEventListener('click', function() {
+                const techKey = this.getAttribute('data-tech');
+                const tech = techData[techKey];
+
+                if (tech) {
+                    // Titre et description
+                    document.querySelector('.tech-modal-title').textContent = tech.name;
+                    document.querySelector('.tech-modal-description').textContent = tech.description;
+                    document.querySelector('.tech-type').textContent = tech.type;
+                    document.querySelector('.tech-level').textContent = tech.level;
+
+                    // Icône
+                    const iconElement = document.querySelector('.tech-icon-display');
+                    iconElement.className = 'tech-icon-display ' + tech.icon;
+
+                    // Features
+                    const featuresList = document.querySelector('.tech-features-list');
+                    featuresList.innerHTML = '';
+                    tech.features.forEach(feature => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<i class="fas fa-check-circle"></i> ${feature}`;
+                        featuresList.appendChild(li);
+                    });
+
+                    // Lien documentation
+                    docBtn.href = tech.docUrl;
+
+                    // Affichage de la modale
+                    modal.style.display = 'flex';
+                    setTimeout(() => modal.classList.add('active'), 10);
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Fermeture via bouton X
+        closeBtn.addEventListener('click', function() {
+            closeModal();
+            document.body.style.overflow = 'auto';
+        });
+
+        // Fermeture via bouton Fermer
+        closeBtnBottom.addEventListener('click', function() {
+            closeModal();
+            document.body.style.overflow = 'auto';
+        });
+
+        // Fermeture en cliquant en dehors
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Fermeture avec la touche Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+                document.body.style.overflow = 'auto';
+            }
+        });
+
         // Smooth scroll animations
         const observerOptions = {
             threshold: 0.1,
