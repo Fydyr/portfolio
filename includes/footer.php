@@ -97,7 +97,7 @@ if (est_nouveau_visiteur()) {
                             </div>
                             <div class="contact-item">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>France</span>
+                                <span>Hauts-de-France, France</span>
                             </div>
                         </div>
 
