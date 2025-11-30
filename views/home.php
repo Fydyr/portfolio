@@ -589,10 +589,10 @@ $languageCount = count($languages);
             document.body.appendChild(modal);
         }
 
-        const closeBtn = document.querySelector('.tech-modal-close');
-        const closeBtnBottom = document.querySelector('.btn-modal-close');
+        const closeBtn = modal.querySelector('.tech-modal-close');
+        const closeBtnBottom = modal.querySelector('.btn-modal-close');
         const techBadges = document.querySelectorAll('.tech-badge');
-        const docBtn = document.querySelector('.btn-modal-docs');
+        const docBtn = modal.querySelector('.btn-modal-docs');
 
         function closeModal() {
             modal.classList.remove('active');
@@ -647,12 +647,11 @@ $languageCount = count($languages);
             document.body.style.overflow = 'auto';
         });
 
-        // Fermeture en cliquant en dehors
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                closeModal();
-                document.body.style.overflow = 'auto';
-            }
+        // Fermeture en cliquant sur l'overlay
+        const modalOverlay = modal.querySelector('.tech-modal-overlay');
+        modalOverlay.addEventListener('click', function(event) {
+            closeModal();
+            document.body.style.overflow = 'auto';
         });
 
         // Fermeture avec la touche Escape
@@ -721,13 +720,14 @@ $languageCount = count($languages);
         // Gestion de la modale des passions
         const passionModal = document.getElementById('passionModal');
         const passionCards = document.querySelectorAll('.passion-card');
-        const passionCloseBtn = document.querySelector('.passion-modal-close');
-        const passionCloseBtnBottom = document.querySelector('.passion-btn-close');
 
         // Déplacer la modale directement dans le body pour éviter les problèmes de z-index
         if (passionModal && passionModal.parentElement !== document.body) {
             document.body.appendChild(passionModal);
         }
+
+        const passionCloseBtn = passionModal.querySelector('.passion-modal-close');
+        const passionCloseBtnBottom = passionModal.querySelector('.passion-btn-close');
 
         function closePassionModal() {
             passionModal.classList.remove('active');
@@ -782,12 +782,11 @@ $languageCount = count($languages);
             document.body.style.overflow = 'auto';
         });
 
-        // Fermeture en cliquant en dehors
-        window.addEventListener('click', function(event) {
-            if (event.target === passionModal) {
-                closePassionModal();
-                document.body.style.overflow = 'auto';
-            }
+        // Fermeture en cliquant sur l'overlay
+        const passionModalOverlay = passionModal.querySelector('.tech-modal-overlay');
+        passionModalOverlay.addEventListener('click', function(event) {
+            closePassionModal();
+            document.body.style.overflow = 'auto';
         });
 
         // Fermeture avec la touche Escape (s'applique aussi aux passions)
