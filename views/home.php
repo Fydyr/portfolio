@@ -187,15 +187,15 @@ $languageCount = count($languages);
             </div>
 
             <div class="passions-grid">
-                <div class="passion-card">
+                <div class="passion-card" data-passion="gaming">
                     <div class="passion-icon">
                         <i class="fas fa-gamepad"></i>
                     </div>
                     <h3 class="passion-title">Gaming</h3>
-                    <p class="passion-description">Jeux de stratégie</p>
+                    <p class="passion-description">Jeux de stratégie, de réflexion</p>
                 </div>
 
-                <div class="passion-card">
+                <div class="passion-card" data-passion="music">
                     <div class="passion-icon">
                         <i class="fas fa-music"></i>
                     </div>
@@ -203,15 +203,15 @@ $languageCount = count($languages);
                     <p class="passion-description">Musique de jeu, d'animé et de pop rock</p>
                 </div>
 
-                <div class="passion-card">
+                <div class="passion-card" data-passion="scifi">
                     <div class="passion-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
                     <h3 class="passion-title">Sci-Fi</h3>
-                    <p class="passion-description">Science-fiction et univers futuristes (comme star wars)</p>
+                    <p class="passion-description">Univers futuristes et Science-fiction (comme star wars)</p>
                 </div>
 
-                <div class="passion-card">
+                <div class="passion-card" data-passion="magic">
                     <div class="passion-icon">
                         <i class="fas fa-dice-d20"></i>
                     </div>
@@ -325,6 +325,39 @@ $languageCount = count($languages);
                         <span>Documentation</span>
                     </a>
                     <button class="btn-modal btn-modal-close">
+                        <i class="fas fa-times"></i>
+                        <span>Fermer</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale pour les passions -->
+    <div id="passionModal" class="tech-modal" style="z-index: 999999 !important;">
+        <div class="tech-modal-overlay" style="z-index: 999999 !important;"></div>
+        <div class="tech-modal-content" style="z-index: 1000000 !important;">
+            <button class="passion-modal-close tech-modal-close" aria-label="Fermer">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="tech-modal-header">
+                <div class="tech-modal-icon passion-modal-icon">
+                    <i class="passion-icon-display"></i>
+                </div>
+                <h2 class="tech-modal-title passion-modal-title"></h2>
+            </div>
+            <div class="tech-modal-body">
+                <p class="tech-modal-description passion-modal-description"></p>
+                <div class="tech-modal-features">
+                    <h4><i class="fas fa-heart me-2"></i>Ce que j'aime:</h4>
+                    <ul class="tech-features-list passion-likes-list"></ul>
+                </div>
+                <div class="tech-modal-features" style="margin-top: 1.5rem;">
+                    <h4><i class="fas fa-star me-2"></i>Pourquoi c'est important:</h4>
+                    <p class="passion-modal-why" style="color: var(--text-secondary); line-height: 1.7;"></p>
+                </div>
+                <div class="tech-modal-actions">
+                    <button class="btn-modal btn-modal-close passion-btn-close">
                         <i class="fas fa-times"></i>
                         <span>Fermer</span>
                     </button>
@@ -626,6 +659,141 @@ $languageCount = count($languages);
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape' && modal.classList.contains('active')) {
                 closeModal();
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Données des passions
+        const passionData = {
+            'gaming': {
+                name: 'Gaming',
+                description: 'Les jeux vidéo sont pour moi bien plus qu\'un simple passe-temps. Ils représentent un univers de créativité, de stratégie et de défis qui me permettent de me détendre tout en stimulant ma réflexion.',
+                icon: 'fas fa-gamepad',
+                likes: [
+                    'Jeux de stratégie comme Magic The Gathering Arena',
+                    'Jeux de réflexion et puzzles complexes',
+                    'RPG avec des histoires riches et immersives',
+                    'Jeux de gestion et simulation comme Planet Crafter ou Cult of the Lamb',
+                    'Découvrir de nouveaux mécaniques de gameplay'
+                ],
+                why: 'Le gaming développe ma capacité à résoudre des problèmes complexes, à penser de manière stratégique et à m\'adapter rapidement. Les jeux m\'apprennent la persévérance et me permettent de décompresser après une longue journée de code.'
+            },
+            'music': {
+                name: 'Musique',
+                description: 'La musique est ma compagne de tous les instants. Elle m\'accompagne dans mes sessions de code, me motive et m\'inspire. J\'apprécie particulièrement les bandes originales de jeux vidéo et d\'animés pour leur richesse émotionnelle.',
+                icon: 'fas fa-music',
+                likes: [
+                    'Soundtracks de jeux vidéo (Undertale, Minecraft)',
+                    'Musiques d\'animés japonais (openings, endings)',
+                    'Pop Rock alternatif',
+                    'Musiques épiques et orchestrales',
+                    'Découvrir de nouveaux artistes sur YouTube Music'
+                ],
+                why: 'La musique booste ma productivité lors du développement et m\'aide à me concentrer. Chaque style musical correspond à une humeur ou une tâche : orchestral pour la conception, rock pour le debugging, et lo-fi pour la réflexion.'
+            },
+            'scifi': {
+                name: 'Science-Fiction',
+                description: 'L\'univers de la science-fiction me fascine par ses questionnements sur l\'avenir, la technologie et l\'humanité. Star Wars, en particulier, représente pour moi l\'équilibre parfait entre technologie avancée et récits épiques.',
+                icon: 'fas fa-rocket',
+                likes: [
+                    'Star Wars : l\'univers étendu et la mythologie',
+                    'Films et séries de SF',
+                    'Romans de science-fiction moderne',
+                    'Exploration des futurs possibles et technologies',
+                    'Réflexions philosophiques sur l\'IA et le transhumanisme'
+                ],
+                why: 'La science-fiction nourrit mon imagination et ma vision du futur de la technologie. Elle m\'inspire dans mon travail de développeur en me poussant à imaginer des solutions innovantes et à penser au-delà des limites actuelles.'
+            },
+            'magic': {
+                name: 'Magic: The Gathering',
+                description: 'Magic est bien plus qu\'un jeu de cartes : c\'est un exercice de stratégie, de gestion de ressources et de prise de décision. Chaque partie est unique et demande adaptation et réflexion tactique.',
+                icon: 'fas fa-dice-d20',
+                likes: [
+                    'Construire et optimiser des decks compétitifs',
+                    'Analyser les interactions entre cartes',
+                    'Suivre le métagame et les nouvelles extensions',
+                    'Collectionner des cartes avec des illustrations magnifiques'
+                ],
+                why: 'Magic développe mes compétences en analyse, planification et gestion de ressources - des compétences directement transférables en programmation. La construction de decks ressemble beaucoup à l\'architecture logicielle : il faut trouver le bon équilibre entre différents composants.'
+            }
+        };
+
+        // Gestion de la modale des passions
+        const passionModal = document.getElementById('passionModal');
+        const passionCards = document.querySelectorAll('.passion-card');
+        const passionCloseBtn = document.querySelector('.passion-modal-close');
+        const passionCloseBtnBottom = document.querySelector('.passion-btn-close');
+
+        // Déplacer la modale directement dans le body pour éviter les problèmes de z-index
+        if (passionModal && passionModal.parentElement !== document.body) {
+            document.body.appendChild(passionModal);
+        }
+
+        function closePassionModal() {
+            passionModal.classList.remove('active');
+            setTimeout(() => passionModal.style.display = 'none', 300);
+        }
+
+        passionCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const passionKey = this.getAttribute('data-passion');
+                const passion = passionData[passionKey];
+
+                if (passion) {
+                    // Titre et description
+                    document.querySelector('.passion-modal-title').textContent = passion.name;
+                    document.querySelector('.passion-modal-description').textContent = passion.description;
+                    document.querySelector('.passion-modal-why').textContent = passion.why;
+
+                    // Icône
+                    const iconElement = document.querySelector('.passion-icon-display');
+                    iconElement.className = 'passion-icon-display ' + passion.icon;
+
+                    // Icône de fond avec gradient rouge
+                    const modalIcon = document.querySelector('.passion-modal-icon');
+                    modalIcon.style.background = 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)';
+
+                    // Liste de ce que j'aime
+                    const likesList = document.querySelector('.passion-likes-list');
+                    likesList.innerHTML = '';
+                    passion.likes.forEach(like => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<i class="fas fa-check-circle"></i> ${like}`;
+                        likesList.appendChild(li);
+                    });
+
+                    // Affichage de la modale
+                    passionModal.style.display = 'flex';
+                    setTimeout(() => passionModal.classList.add('active'), 10);
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Fermeture via bouton X
+        passionCloseBtn.addEventListener('click', function() {
+            closePassionModal();
+            document.body.style.overflow = 'auto';
+        });
+
+        // Fermeture via bouton Fermer
+        passionCloseBtnBottom.addEventListener('click', function() {
+            closePassionModal();
+            document.body.style.overflow = 'auto';
+        });
+
+        // Fermeture en cliquant en dehors
+        window.addEventListener('click', function(event) {
+            if (event.target === passionModal) {
+                closePassionModal();
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Fermeture avec la touche Escape (s'applique aussi aux passions)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && passionModal.classList.contains('active')) {
+                closePassionModal();
                 document.body.style.overflow = 'auto';
             }
         });
