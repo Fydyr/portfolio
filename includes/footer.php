@@ -129,7 +129,7 @@ if (est_nouveau_visiteur()) {
                         <p>
                             &copy; <?= date('Y'); ?>
                             <strong><?= $site_title; ?></strong>.
-                            Tous droits réservés.
+                            Tous droits réservés. Hébergé par <a href="https://jrcan.dev" target="_blank">JrCanDev</a>.
                         </p>
                     </div>
                 </div>
