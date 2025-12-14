@@ -2,3 +2,4 @@ includes/db.php
 vendor
 assets/projects/*.*
 assets/docs/compteur.txt
+/.tmp.driveupload
