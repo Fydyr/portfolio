@@ -29,6 +29,28 @@ class ProjectsController extends BaseController
             return;
         }
 
-        echo $this->view('projectDetail', ['project' => $project]);
+        // Créer des meta tags personnalisés pour ce projet
+        include_once __DIR__ . '/../includes/meta-config.php';
+
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $projectImage = !empty($project['img1']) ? $project['img1'] : '/assets/img/img_logo.png';
+
+        // S'assurer que l'image est une URL absolue
+        if (strpos($projectImage, 'http') !== 0) {
+            $projectImage = $protocol . '://' . $host . $projectImage;
+        }
+
+        $custom_meta = [
+            'title' => $project['title'] . ' - Portfolio Enzo Fournier',
+            'description' => substr(strip_tags($project['description']), 0, 160) . '...',
+            'image' => $projectImage,
+            'type' => 'article'
+        ];
+
+        echo $this->view('projectDetail', [
+            'project' => $project,
+            'page_meta' => getPageMeta('project-detail', $custom_meta)
+        ]);
     }
 }

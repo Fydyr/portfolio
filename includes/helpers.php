@@ -2,6 +2,12 @@
 
 function view($template, $data = [])
 {
+    // Gérer les meta tags si fournis
+    if (isset($data['page_meta'])) {
+        global $page_meta;
+        $page_meta = $data['page_meta'];
+    }
+
     extract($data);
     ob_start();
     include "views/$template.php";

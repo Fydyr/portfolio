@@ -1,6 +1,7 @@
 <?php
 //import bdd
 include_once __DIR__ . '/db.php';
+include_once __DIR__ . '/meta-config.php';
 global $pdo;
 
 // Démarrer la session
@@ -14,6 +15,12 @@ $project_count = $stmt->fetchColumn();
 // Configuration du site
 $site_title = "Enzo Fournier";
 $current_page = basename($_SERVER['PHP_SELF'], '.php');
+
+// Récupérer les meta tags pour la page
+if (!isset($page_meta)) {
+    $page_meta = getPageMeta($current_page);
+}
+$page_title = isset($page_meta['title']) ? $page_meta['title'] : $site_title;
 
 // Navigation items
 $nav_items = [
@@ -40,6 +47,12 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Titre de la page -->
+    <title><?php echo htmlspecialchars($page_title); ?></title>
+
+    <!-- Meta tags SEO et réseaux sociaux (Discord, Twitter, Facebook, etc.) -->
+    <?php renderMetaTags($page_meta); ?>
+
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -55,21 +68,6 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Logo du site -->
     <link rel="icon" type="image/x-icon" href="/assets//img/logo_site.ico">
-
-    <!-- Embed pour discord -->
-    <meta property="og:title" content="Portfolio de Enzo" />
-    <meta property="og:description" content="Ceci est le portfolio de Enzo Fournier. Vous pourrez trouver les différents projets réalisé par celui ci." />
-    <meta property="og:image" content="/assets/img/img_logo.png" />
-    <meta property="og:url" content="https://enzo-f.jrcan.dev/" />
-    <meta property="og:type" content="website" />
-
-    <!-- Embed pour twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Portfolio de Enzo" />
-    <meta name="twitter:description" content="Ceci est le portfolio de Enzo Fournier. Vous pourrez trouver les différents projets réalisé par celui ci." />
-    <meta name="twitter:image" content="/assets/img/img_logo.png" />
-    <meta name="twitter:site" content="@fydyr9">
-    <meta name="twitter:creator" content="@fydyr9">
 
 
     <style>
