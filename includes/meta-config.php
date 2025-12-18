@@ -112,6 +112,28 @@ function getPageMeta($page_name = 'index', $custom_meta = []) {
 }
 
 /**
+ * Fonction helper pour créer rapidement des meta tags personnalisés
+ * @param string $title Titre de la page
+ * @param string $description Description de la page
+ * @param string $image Chemin ou URL de l'image
+ * @param string $type Type de contenu (website, article, profile)
+ * @return array Meta tags formatés
+ */
+function createCustomMeta($title, $description, $image = null, $type = 'website') {
+    $meta = [
+        'title' => $title,
+        'description' => $description,
+        'type' => $type
+    ];
+
+    if ($image !== null) {
+        $meta['image'] = $image;
+    }
+
+    return $meta;
+}
+
+/**
  * Affiche les balises meta SEO
  * @param array $meta Meta tags à afficher
  */
@@ -123,15 +145,25 @@ function renderMetaTags($meta) {
     echo '<meta property="og:title" content="' . htmlspecialchars($meta['title']) . '" />' . "\n    ";
     echo '<meta property="og:description" content="' . htmlspecialchars($meta['description']) . '" />' . "\n    ";
     echo '<meta property="og:image" content="' . htmlspecialchars($meta['image']) . '" />' . "\n    ";
+
+    // Ajouter les dimensions de l'image si disponibles
+    if (isset($meta['image_width']) && isset($meta['image_height'])) {
+        echo '<meta property="og:image:width" content="' . htmlspecialchars($meta['image_width']) . '" />' . "\n    ";
+        echo '<meta property="og:image:height" content="' . htmlspecialchars($meta['image_height']) . '" />' . "\n    ";
+    }
+
+    echo '<meta property="og:image:alt" content="' . htmlspecialchars($meta['title']) . '" />' . "\n    ";
     echo '<meta property="og:url" content="' . htmlspecialchars($meta['url']) . '" />' . "\n    ";
     echo '<meta property="og:type" content="' . htmlspecialchars($meta['type']) . '" />' . "\n    ";
-    echo '<meta property="og:locale" content="fr_FR" />' . "\n\n    ";
+    echo '<meta property="og:locale" content="fr_FR" />' . "\n    ";
+    echo '<meta property="og:site_name" content="Portfolio Enzo Fournier" />' . "\n\n    ";
 
     // Twitter Card
     echo '<meta name="twitter:card" content="' . htmlspecialchars($meta['twitter_card']) . '" />' . "\n    ";
     echo '<meta name="twitter:title" content="' . htmlspecialchars($meta['title']) . '" />' . "\n    ";
     echo '<meta name="twitter:description" content="' . htmlspecialchars($meta['description']) . '" />' . "\n    ";
     echo '<meta name="twitter:image" content="' . htmlspecialchars($meta['image']) . '" />' . "\n    ";
+    echo '<meta name="twitter:image:alt" content="' . htmlspecialchars($meta['title']) . '" />' . "\n    ";
     echo '<meta name="twitter:site" content="@fydyr9" />' . "\n    ";
     echo '<meta name="twitter:creator" content="@fydyr9" />' . "\n";
 }

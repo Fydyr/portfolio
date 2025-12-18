@@ -34,18 +34,40 @@ class ProjectsController extends BaseController
 
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'];
-        $projectImage = !empty($project['img1']) ? $project['img1'] : '/assets/img/img_logo.png';
+
+        // Déterminer la meilleure image à utiliser (essayer img1, img2, img3, puis fallback)
+        $projectImage = '/assets/img/img_logo.png';
+        if (!empty($project['img1'])) {
+            $projectImage = $project['img1'];
+        } elseif (!empty($project['img2'])) {
+            $projectImage = $project['img2'];
+        } elseif (!empty($project['img3'])) {
+            $projectImage = $project['img3'];
+        }
 
         // S'assurer que l'image est une URL absolue
         if (strpos($projectImage, 'http') !== 0) {
             $projectImage = $protocol . '://' . $host . $projectImage;
         }
 
+        // Nettoyer et optimiser la description
+        $cleanDescription = strip_tags($project['description']);
+        $cleanDescription = preg_replace('/\s+/', ' ', $cleanDescription); // Supprimer les espaces multiples
+        $cleanDescription = trim($cleanDescription);
+
+        // Limiter à 160 caractères pour le SEO (recommandation Google)
+        if (strlen($cleanDescription) > 157) {
+            $cleanDescription = substr($cleanDescription, 0, 157) . '...';
+        }
+
+        // Créer les meta tags personnalisés
         $custom_meta = [
             'title' => $project['title'] . ' - Portfolio Enzo Fournier',
-            'description' => substr(strip_tags($project['description']), 0, 160) . '...',
+            'description' => $cleanDescription,
             'image' => $projectImage,
-            'type' => 'article'
+            'type' => 'article',
+            'image_width' => '1200',  // Dimensions recommandées pour Open Graph
+            'image_height' => '630'
         ];
 
         echo $this->view('projectDetail', [
