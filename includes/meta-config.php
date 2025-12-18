@@ -80,10 +80,73 @@ $pages_meta = [
  * @return array Meta tags finaux
  */
 function getPageMeta($page_name = 'index', $custom_meta = []) {
-    global $pages_meta, $default_meta;
+    // Définir les meta tags par défaut localement pour éviter les problèmes de scope
+    $default_meta = [
+        'title' => 'Portfolio de Enzo Fournier',
+        'description' => 'Portfolio de Enzo Fournier - Développeur web passionné. Découvrez mes projets, compétences et réalisations.',
+        'image' => '/assets/img/img_logo.png',
+        'type' => 'website',
+        'twitter_card' => 'summary_large_image'
+    ];
+
+    $pages_meta = [
+        'index' => [
+            'title' => 'Portfolio de Enzo Fournier - Développeur Web',
+            'description' => 'Bienvenue sur le portfolio de Enzo Fournier. Développeur web créatif et passionné, découvrez mon univers, mes compétences et mes réalisations.',
+            'image' => '/assets/img/img_logo.png',
+            'type' => 'website'
+        ],
+        'projects' => [
+            'title' => 'Mes Projets - Portfolio Enzo Fournier',
+            'description' => 'Découvrez l\'ensemble de mes projets de développement web. Applications, sites web et créations réalisées avec passion et expertise.',
+            'image' => '/assets/img/img_logo.png',
+            'type' => 'website'
+        ],
+        'contact' => [
+            'title' => 'Me Contacter - Enzo Fournier',
+            'description' => 'Vous avez un projet ou une question ? Contactez-moi pour discuter de vos besoins en développement web. Je suis disponible pour collaborer.',
+            'image' => '/assets/img/img_logo.png',
+            'type' => 'website'
+        ],
+        'legal-mention' => [
+            'title' => 'Mentions Légales - Portfolio Enzo Fournier',
+            'description' => 'Informations légales concernant le site portfolio de Enzo Fournier. Mentions légales, politique de confidentialité et CGU.',
+            'image' => '/assets/img/img_logo.png',
+            'type' => 'website'
+        ],
+        'networks' => [
+            'title' => 'Mes Réseaux Sociaux - Enzo Fournier',
+            'description' => 'Retrouvez-moi sur les réseaux sociaux ! Suivez mes actualités, projets et découvrez mon parcours sur différentes plateformes.',
+            'image' => '/assets/img/img_logo.png',
+            'type' => 'profile'
+        ],
+        'price' => [
+            'title' => 'Tarifs & Prestations - Enzo Fournier',
+            'description' => 'Découvrez mes tarifs et prestations de développement web. Services sur mesure adaptés à vos besoins et votre budget.',
+            'image' => '/assets/img/img_logo.png',
+            'type' => 'website'
+        ],
+        'admin' => [
+            'title' => 'Administration - Portfolio Enzo',
+            'description' => 'Panneau d\'administration du portfolio. Gestion des projets et du contenu.',
+            'image' => '/assets/img/img_logo.png',
+            'type' => 'website'
+        ],
+        'login' => [
+            'title' => 'Connexion - Portfolio Enzo',
+            'description' => 'Connexion à l\'espace d\'administration du portfolio.',
+            'image' => '/assets/img/img_logo.png',
+            'type' => 'website'
+        ]
+    ];
 
     // Récupérer les meta tags de la page ou utiliser les valeurs par défaut
     $page_meta = isset($pages_meta[$page_name]) ? $pages_meta[$page_name] : $default_meta;
+
+    // S'assurer que $page_meta est un tableau
+    if (!is_array($page_meta)) {
+        $page_meta = $default_meta;
+    }
 
     // Fusionner avec les meta tags personnalisés
     $final_meta = array_merge($page_meta, $custom_meta);
