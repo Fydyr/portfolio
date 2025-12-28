@@ -46,10 +46,6 @@
                                 <p><strong class="text-primary">Nom/Dénomination sociale :</strong><br>
                                     <span class="text-secondary">Enzo Fournier</span>
                                 </p>
-
-                                <p><strong class="text-primary">Statut :</strong><br>
-                                    <span class="text-secondary">Étudiant</span>
-                                </p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong class="text-primary">Email :</strong><br>
@@ -120,7 +116,19 @@
                         </h2>
                     </div>
                     <div class="card-body">
-                        <p>Ce site portfolio collecte uniquement les données que vous fournissez volontairement via le formulaire de contact (nom, email, message).</p>
+                        <p>Ce site portfolio respecte votre vie privée et limite la collecte de données au strict minimum.</p>
+
+                        <div class="bg-glass p-3 rounded mb-4" style="border: 1px solid rgba(59, 130, 246, 0.3);">
+                            <h5 style="color: var(--info-color);">
+                                <i class="fas fa-database me-2"></i>
+                                Données collectées
+                            </h5>
+                            <p class="mb-2" style="color: var(--text-secondary);">Ce site collecte <strong style="color: var(--text-primary);">uniquement</strong> :</p>
+                            <ul class="mb-0" style="color: var(--text-secondary);">
+                                <li><strong style="color: var(--text-primary);">Le nombre total de visiteurs</strong> : Un compteur anonyme et global du nombre de visites sur le site, sans aucune information personnelle identifiable</li>
+                                <li><strong style="color: var(--text-primary);">Les données du formulaire de contact</strong> (nom, email, message) : Uniquement si vous choisissez de nous contacter volontairement</li>
+                            </ul>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -129,7 +137,8 @@
                                         <i class="fas fa-bullseye me-2"></i>
                                         Finalité
                                     </h5>
-                                    <p class="mb-0">Ces données sont utilisées exclusivement pour répondre à votre demande de contact.</p>
+                                    <p class="mb-0"><strong>Compteur de visiteurs :</strong> Statistique globale et anonyme d'audience<br>
+                                    <strong>Formulaire de contact :</strong> Répondre à vos demandes de contact</p>
                                 </div>
 
                                 <div class="bg-glass p-3 rounded mb-3">
@@ -137,7 +146,8 @@
                                         <i class="fas fa-clock me-2"></i>
                                         Conservation
                                     </h5>
-                                    <p class="mb-0">Vos données sont conservées le temps nécessaire pour traiter votre demande, puis supprimées.</p>
+                                    <p class="mb-0"><strong>Compteur :</strong> Conservé indéfiniment (nombre total anonyme)<br>
+                                    <strong>Données de contact :</strong> Conservées le temps nécessaire pour traiter votre demande, puis supprimées</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -146,7 +156,7 @@
                                         <i class="fas fa-user-shield me-2"></i>
                                         Vos droits
                                     </h5>
-                                    <p class="mb-0">Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données.</p>
+                                    <p class="mb-0">Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles (formulaire de contact).</p>
                                 </div>
 
                                 <div class="bg-glass p-3 rounded">
@@ -159,25 +169,45 @@
                             </div>
                         </div>
 
-                        <div class="bg-glass p-3 rounded border-glow mt-3">
-                            <i class="fas fa-envelope me-2 text-success"></i>
-                            <strong class="text-success">Contact pour vos droits :</strong> <span class="text-secondary">Pour exercer vos droits, contactez-moi à l'adresse : <strong class="text-primary">enzofournier.contact@gmail.com</strong></span>
+                        <div class="bg-glass p-3 rounded mt-3" style="border: 1px solid rgba(59, 130, 246, 0.3);">
+                            <i class="fas fa-info-circle me-2" style="color: var(--info-color);"></i>
+                            <strong style="color: var(--info-color);">Information importante :</strong> <span style="color: var(--text-secondary);">Aucune adresse IP, aucun identifiant unique, aucune donnée de navigation n'est collectée ou conservée. Le compteur de visiteurs est purement statistique et totalement anonyme.</span>
+                        </div>
+
+                        <div class="bg-glass p-3 rounded mt-3" style="border: 1px solid rgba(16, 185, 129, 0.3);">
+                            <i class="fas fa-envelope me-2" style="color: var(--success-color);"></i>
+                            <strong style="color: var(--success-color);">Contact pour vos droits :</strong> <span style="color: var(--text-secondary);">Pour exercer vos droits, contactez-moi à l'adresse : <strong style="color: var(--primary-color);">enzofournier.contact@gmail.com</strong></span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Cookies -->
+                <!-- Cookies et technologies de suivi -->
                 <div class="card fade-in mb-4">
                     <div class="card-header">
                         <h2 class="mb-0">
                             <i class="fas fa-cookie-bite me-2"></i>
-                            Cookies
+                            Cookies et technologies de suivi
                         </h2>
                     </div>
                     <div class="card-body">
-                        <div class="bg-glass p-3 rounded border-glow">
-                            <i class="fas fa-check-circle me-2 text-success"></i>
-                            <strong class="text-success">Aucun cookie utilisé !</strong> <span class="text-secondary">Ce site n'utilise aucun cookie. Aucun système de tracking, d'analyse d'audience ou de publicité n'est mis en place sur ce site portfolio.</span>
+                        <div class="bg-glass p-3 rounded mb-3" style="border: 1px solid rgba(16, 185, 129, 0.3);">
+                            <i class="fas fa-check-circle me-2" style="color: var(--success-color);"></i>
+                            <strong style="color: var(--success-color);">Aucun cookie utilisé !</strong> <span style="color: var(--text-secondary);">Ce site n'utilise aucun cookie. Aucun système de tracking, d'analyse d'audience avancée ou de publicité n'est mis en place.</span>
+                        </div>
+
+                        <div class="bg-glass p-3 rounded" style="border: 1px solid rgba(59, 130, 246, 0.3);">
+                            <h5 class="mb-3" style="color: var(--primary-color);">
+                                <i class="fas fa-chart-line me-2"></i>
+                                Technologies utilisées
+                            </h5>
+                            <p class="mb-2" style="color: var(--text-secondary);"><strong style="color: var(--text-primary);">Compteur de visiteurs :</strong></p>
+                            <ul class="mb-0" style="color: var(--text-secondary);">
+                                <li>Simple compteur stocké côté serveur</li>
+                                <li>Aucun cookie déposé sur votre appareil</li>
+                                <li>Aucune donnée personnelle collectée</li>
+                                <li>Aucun suivi de navigation</li>
+                                <li>Données 100% anonymes et agrégées</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -232,7 +262,7 @@
                     <div class="bg-glass p-3 rounded">
                         <p class="mb-0 text-info">
                             <i class="fas fa-calendar-alt me-2"></i>
-                            <strong>Dernière mise à jour :</strong> 27 Octobre 2025
+                            <strong>Dernière mise à jour :</strong> 28 Décembre 2025
                         </p>
                     </div>
 
