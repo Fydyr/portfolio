@@ -208,7 +208,7 @@ $languageCount = count($languages);
                         <i class="fas fa-rocket"></i>
                     </div>
                     <h3 class="passion-title">Sci-Fi</h3>
-                    <p class="passion-description">Univers futuristes et Science-fiction (comme star wars)</p>
+                    <p class="passion-description">Univers futuristes et Science-fiction</p>
                 </div>
 
                 <div class="passion-card" data-passion="magic">
