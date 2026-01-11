@@ -354,7 +354,7 @@ $languageCount = count($languages);
                 </div>
                 <div class="tech-modal-features" style="margin-top: 1.5rem;">
                     <h4><i class="fas fa-star me-2"></i>Pourquoi c'est important:</h4>
-                    <p class="passion-modal-why" style="color: var(--text-secondary); line-height: 1.7;"></p>
+                    <p class="passion-modal-why"></p>
                 </div>
                 <div class="tech-modal-actions">
                     <button class="btn-modal btn-modal-close passion-btn-close">
@@ -675,7 +675,7 @@ $languageCount = count($languages);
                     'Jeux de gestion et simulation comme Planet Crafter ou Cult of the Lamb',
                     'Découvrir de nouveaux mécaniques de gameplay'
                 ],
-                why: 'Le gaming développe ma capacité à résoudre des problèmes complexes, à penser de manière stratégique et à m\'adapter rapidement. Les jeux m\'apprennent la persévérance et me permettent de décompresser après une longue journée de code.'
+                why: 'Le gaming est un laboratoire de résolution de problèmes. Chaque puzzle complexe ressemble à un bug difficile : il faut analyser, tester différentes approches, et persévérer jusqu\'à la solution. Les jeux de stratégie m\'entraînent à anticiper plusieurs scénarios (comme prévoir les edge cases en code) et à optimiser mes ressources. C\'est aussi mon meilleur outil de débogage mental après une journée intensive de développement.'
             },
             'music': {
                 name: 'Musique',
@@ -688,7 +688,7 @@ $languageCount = count($languages);
                     'Musiques épiques et orchestrales',
                     'Découvrir de nouveaux artistes sur YouTube Music'
                 ],
-                why: 'La musique booste ma productivité lors du développement et m\'aide à me concentrer. Chaque style musical correspond à une humeur ou une tâche : orchestral pour la conception, rock pour le debugging, et lo-fi pour la réflexion.'
+                why: 'La musique est mon environnement de développement sonore. Comme un bon IDE qui s\'adapte à la tâche, chaque style musical optimise mon flow de travail : orchestral épique pour concevoir l\'architecture (penser grand), rock énergique pour debugger (rester concentré sous pression), lo-fi ambient pour la réflexion algorithmique. Les soundtracks de jeux sont particulièrement efficaces car conçus pour maintenir la concentration sans distraire - exactement ce dont j\'ai besoin lors de sessions de code prolongées.'
             },
             'scifi': {
                 name: 'Science-Fiction',
@@ -701,19 +701,20 @@ $languageCount = count($languages);
                     'Exploration des futurs possibles et technologies',
                     'Réflexions philosophiques sur l\'IA et le transhumanisme'
                 ],
-                why: 'La science-fiction nourrit mon imagination et ma vision du futur de la technologie. Elle m\'inspire dans mon travail de développeur en me poussant à imaginer des solutions innovantes et à penser au-delà des limites actuelles.'
+                why: 'La science-fiction est mon inspiration pour l\'innovation technologique. Star Wars et autres univers SF m\'apprennent à imaginer des systèmes complexes avant qu\'ils n\'existent - comme concevoir une API avant d\'écrire une ligne de code. Ces récits explorent les conséquences des choix technologiques (IA, automatisation, éthique du code), me rappelant que chaque fonction que j\'écris a un impact réel. C\'est ma source d\'inspiration pour penser "user experience" et anticiper les besoins futurs plutôt que juste résoudre les problèmes d\'aujourd\'hui.'
             },
             'magic': {
                 name: 'Magic: The Gathering',
                 description: 'Magic est bien plus qu\'un jeu de cartes : c\'est un exercice de stratégie, de gestion de ressources et de prise de décision. Chaque partie est unique et demande adaptation et réflexion tactique.',
                 icon: 'fas fa-dice-d20',
                 likes: [
-                    'Construire et optimiser des decks compétitifs',
                     'Analyser les interactions entre cartes',
                     'Suivre le métagame et les nouvelles extensions',
-                    'Collectionner des cartes avec des illustrations magnifiques'
+                    'Collectionner des cartes avec des illustrations magnifiques',
+                    'Jouer avec d\'autres joueurs',
+                    'Construire des decks optimisés et créatifs'
                 ],
-                why: 'Magic développe mes compétences en analyse, planification et gestion de ressources - des compétences directement transférables en programmation. La construction de decks ressemble beaucoup à l\'architecture logicielle : il faut trouver le bon équilibre entre différents composants.'
+                why: 'Magic est un terrain d\'entraînement pour mes compétences en développement. Construire un deck, c\'est comme concevoir une architecture logicielle : choisir les bonnes "dépendances" (cartes), gérer les ressources (mana/mémoire), optimiser les interactions (synergies/modules), et debugger en temps réel pendant la partie.\nChaque décision stratégique ressemble à un choix d\'architecture : privilégier la performance, la flexibilité ou la fiabilité.'
             }
         };
 

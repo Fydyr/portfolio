@@ -1608,7 +1608,13 @@ a:hover {
     color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 2rem;
-    text-align: center;
+    text-align: justify;
+}
+
+.passion-modal-why {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    text-align: justify;
 }
 
 .tech-modal-info {
