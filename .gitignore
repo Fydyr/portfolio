@@ -3,3 +3,4 @@ vendor
 assets/projects/*.*
 assets/docs/compteur.txt
 /.tmp.driveupload
+/docs/compteur.txt
