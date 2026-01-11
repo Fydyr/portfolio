@@ -69,15 +69,15 @@ if (est_nouveau_visiteur()) {
                         <!-- Stats -->
                         <div class="footer-stats">
                             <div class="stat-item">
-                                <span class="stat-number counter" data-target="<?= $project_count ?>">0</span>
+                                <span class="stat-number counter" data-target="<?= $project_count ?>"><?= $project_count ?></span>
                                 <span class="stat-label">Projets réalisé</span>
                             </div>
                             <div class="stat-item">
-                                <span class="stat-number counter" data-target="3">0</span>
+                                <span class="stat-number counter" data-target="3">3</span>
                                 <span class="stat-label">Année de BUT<br />(actuellement)</span>
                             </div>
                             <div class="stat-item">
-                                <span class="stat-number counter" data-target="<?php echo $compteur_actuel; ?>">0</span>
+                                <span class="stat-number counter" data-target="<?php echo $compteur_actuel; ?>"><?php echo $compteur_actuel; ?></span>
                                 <span class="stat-label">Visiteurs total sur le site</span>
                             </div>
                         </div>
