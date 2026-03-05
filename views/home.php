@@ -237,10 +237,10 @@ $languageCount = count($languages);
             </div>
 
             <div class="timeline-modern">
-                <div class="timeline-item-modern">
+                <div class="timeline-item-modern" id="but-info-card" style="cursor: pointer;" title="Cliquer pour voir les compétences">
                     <div class="timeline-content-modern">
                         <span class="timeline-date">2023 - 2026</span>
-                        <h3 class="timeline-title">BUT Informatique</h3>
+                        <h3 class="timeline-title">BUT Informatique <i class="fas fa-info-circle" style="font-size: 0.85em; opacity: 0.7; margin-left: 0.3rem;"></i></h3>
                         <div class="timeline-subtitle">IUT de Calais • En cours</div>
                         <p class="timeline-description">
                             Formation universitaire technologique spécialisée en informatique avec focus sur le développement, les bases de données et la gestion de projets.
@@ -358,6 +358,61 @@ $languageCount = count($languages);
                 </div>
                 <div class="tech-modal-actions">
                     <button class="btn-modal btn-modal-close passion-btn-close">
+                        <i class="fas fa-times"></i>
+                        <span>Fermer</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modale pour le BUT Informatique -->
+    <div id="butModal" class="tech-modal" style="z-index: 999999 !important;">
+        <div class="tech-modal-overlay" style="z-index: 999999 !important;"></div>
+        <div class="tech-modal-content" style="z-index: 1000000 !important;">
+            <button class="but-modal-close tech-modal-close" aria-label="Fermer">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="tech-modal-header">
+                <div class="tech-modal-icon" style="background: var(--gradient-primary);">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2 class="tech-modal-title">BUT Informatique &mdash; Parcours A</h2>
+            </div>
+            <div class="tech-modal-body">
+                <p class="tech-modal-description">
+                    Le BUT Informatique est une formation en 3 ans d&eacute;clin&eacute;e en diff&eacute;rents parcours. Je suis le <strong>Parcours A &mdash; R&eacute;alisation de logiciels</strong>, centr&eacute; sur le d&eacute;veloppement d&rsquo;applications et la ma&icirc;trise du cycle de vie logiciel.
+                </p>
+                <div class="tech-modal-features">
+                    <h4><i class="fas fa-check-circle me-2" style="color: var(--primary-color);"></i>C1 &mdash; R&eacute;aliser un d&eacute;veloppement d&rsquo;application</h4>
+                    <ul class="tech-features-list">
+                        <li><i class="fas fa-check-circle"></i> Concevoir et d&eacute;velopper des applications informatiques</li>
+                        <li><i class="fas fa-check-circle"></i> Appliquer des principes d&rsquo;architecture logicielle (MVC, API REST, etc.)</li>
+                        <li><i class="fas fa-check-circle"></i> Utiliser des outils et m&eacute;thodologies de d&eacute;veloppement modernes</li>
+                        <li><i class="fas fa-check-circle"></i> Garantir la qualit&eacute; du code (tests, revue, documentation)</li>
+                    </ul>
+                </div>
+                <div class="tech-modal-features" style="margin-top: 1.5rem;">
+                    <h4><i class="fas fa-check-circle me-2" style="color: var(--primary-color);"></i>C2 &mdash; Optimiser des applications informatiques</h4>
+                    <ul class="tech-features-list">
+                        <li><i class="fas fa-check-circle"></i> Analyser et am&eacute;liorer les performances d&rsquo;une application</li>
+                        <li><i class="fas fa-check-circle"></i> Choisir les algorithmes et structures de donn&eacute;es adapt&eacute;s</li>
+                        <li><i class="fas fa-check-circle"></i> Optimiser les requ&ecirc;tes et les acc&egrave;s aux bases de donn&eacute;es</li>
+                        <li><i class="fas fa-check-circle"></i> R&eacute;duire la consommation de ressources (m&eacute;moire, CPU, r&eacute;seau)</li>
+                    </ul>
+                </div>
+                <div class="tech-modal-features" style="margin-top: 1.5rem;">
+                    <h4><i class="fas fa-check-circle me-2" style="color: var(--primary-color);"></i>C6 &mdash; Collaborer au sein d&rsquo;une &eacute;quipe informatique</h4>
+                    <ul class="tech-features-list">
+                        <li><i class="fas fa-check-circle"></i> Travailler en &eacute;quipe avec des m&eacute;thodologies agiles (Scrum, Kanban)</li>
+                        <li><i class="fas fa-check-circle"></i> Utiliser des outils de versioning et de gestion de projets (Git, GitHub)</li>
+                        <li><i class="fas fa-check-circle"></i> Communiquer efficacement sur les avanc&eacute;es et les probl&egrave;mes techniques</li>
+                        <li><i class="fas fa-check-circle"></i> Int&eacute;grer et respecter les conventions et bonnes pratiques d&rsquo;&eacute;quipe</li>
+                    </ul>
+                </div>
+                <div class="tech-modal-actions">
+                    <button class="btn-modal btn-modal-close but-btn-close">
                         <i class="fas fa-times"></i>
                         <span>Fermer</span>
                     </button>
@@ -794,6 +849,53 @@ $languageCount = count($languages);
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape' && passionModal.classList.contains('active')) {
                 closePassionModal();
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+
+        // Gestion de la modale BUT Informatique
+        const butModal = document.getElementById('butModal');
+        if (butModal && butModal.parentElement !== document.body) {
+            document.body.appendChild(butModal);
+        }
+
+        const butCardEl = document.getElementById('but-info-card');
+        const butCloseBtn = butModal.querySelector('.but-modal-close');
+        const butCloseBtnBottom = butModal.querySelector('.but-btn-close');
+
+        function closeButModal() {
+            butModal.classList.remove('active');
+            setTimeout(() => butModal.style.display = 'none', 300);
+        }
+
+        if (butCardEl) {
+            butCardEl.addEventListener('click', function() {
+                butModal.style.display = 'flex';
+                setTimeout(() => butModal.classList.add('active'), 10);
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        butCloseBtn.addEventListener('click', function() {
+            closeButModal();
+            document.body.style.overflow = 'auto';
+        });
+
+        butCloseBtnBottom.addEventListener('click', function() {
+            closeButModal();
+            document.body.style.overflow = 'auto';
+        });
+
+        const butModalOverlay = butModal.querySelector('.tech-modal-overlay');
+        butModalOverlay.addEventListener('click', function() {
+            closeButModal();
+            document.body.style.overflow = 'auto';
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && butModal.classList.contains('active')) {
+                closeButModal();
                 document.body.style.overflow = 'auto';
             }
         });
