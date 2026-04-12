@@ -125,15 +125,6 @@
                             </h3>
                             <p class="text-muted small">Mon profil professionnel</p>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <h3 class="text-primary">
-                                <a href="https://discord.gg/RT2XsGFFEr" target="_blank" class="text-decoration-none">
-                                    <i class="fab fa-discord text-muted me-2"></i>
-                                    Discord
-                                </a>
-                            </h3>
-                            <p class="text-muted small">Rejoignez ma communauté</p>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -44,13 +44,6 @@ $pages_meta = [
         'type' => 'website'
     ],
 
-    'networks' => [
-        'title' => 'Mes Réseaux Sociaux - Enzo Fournier',
-        'description' => 'Retrouvez-moi sur les réseaux sociaux ! Suivez mes actualités, projets et découvrez mon parcours sur différentes plateformes.',
-        'image' => '/assets/img/img_logo.png',
-        'type' => 'profile'
-    ],
-
     'price' => [
         'title' => 'Tarifs & Prestations - Enzo Fournier',
         'description' => 'Découvrez mes tarifs et prestations de développement web. Services sur mesure adaptés à vos besoins et votre budget.',
@@ -113,12 +106,6 @@ function getPageMeta($page_name = 'index', $custom_meta = []) {
             'description' => 'Informations légales concernant le site portfolio de Enzo Fournier. Mentions légales, politique de confidentialité et CGU.',
             'image' => '/assets/img/img_logo.png',
             'type' => 'website'
-        ],
-        'networks' => [
-            'title' => 'Mes Réseaux Sociaux - Enzo Fournier',
-            'description' => 'Retrouvez-moi sur les réseaux sociaux ! Suivez mes actualités, projets et découvrez mon parcours sur différentes plateformes.',
-            'image' => '/assets/img/img_logo.png',
-            'type' => 'profile'
         ],
         'price' => [
             'title' => 'Tarifs & Prestations - Enzo Fournier',

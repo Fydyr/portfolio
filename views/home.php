@@ -89,9 +89,6 @@ $languageCount = count($languages);
                     <a href="https://www.linkedin.com/in/enzo-fournier-2746ba2b3/" target="_blank" class="social-link">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="https://discord.gg/RT2XsGFFEr" target="_blank" class="social-link">
-                        <i class="fab fa-discord"></i>
-                    </a>
                 </div>
             </div>
         </div>
