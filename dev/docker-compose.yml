@@ -1,0 +1,42 @@
+# Overlay de dev local — N'EST PAS auto-chargé.
+# Usage :
+#   docker compose -f docker-compose.yml -f dev/docker-compose.yml up -d --build
+#
+# - Build avec dev/Dockerfile.dev (display_errors, composer avec deps dev)
+# - Bind-mount du code source pour edition à chaud
+# - Volume nommé pour vendor (évite d'utiliser celui de l'hôte)
+# - Expose les ports (8080 / 8081 / 3306) pour accès direct sans Traefik
+# - Désactive les labels Traefik et le réseau "web" (prod uniquement)
+
+services:
+
+  database:
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    ports:
+      - "8081:80"
+    labels: []
+    networks:
+      - lan
+
+  app:
+    build:
+      context: ..
+      dockerfile: dev/Dockerfile.dev
+    ports:
+      - "8080:80"
+    labels: []
+    networks:
+      - lan
+    volumes:
+      - ..:/var/www/html
+      - dev-vendor:/var/www/html/vendor
+
+networks:
+  web:
+    external: false
+
+volumes:
+  dev-vendor:
