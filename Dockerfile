@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Conf PHP prod (display_errors off, log_errors on, etc.)
+COPY docker/php.prod.ini /usr/local/etc/php/conf.d/zz-prod.ini
+
 WORKDIR /var/www/html
 
 COPY composer.json composer.lock ./
