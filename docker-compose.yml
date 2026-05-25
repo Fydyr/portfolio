@@ -20,13 +20,13 @@ services:
     restart: unless-stopped
     environment:
       PMA_HOST: database
-      PMA_ABSOLUTE_URI: https://${NAME}.aeroliths.fr/adminer/
+      PMA_ABSOLUTE_URI: https://${NAME}.aeroliths.fr/phpmyadmin/
       UPLOAD_LIMIT: 128M
     labels:
       - traefik.enable=true
       - traefik.http.routers.pma_${NAME}.entrypoints=websecure
-      - traefik.http.routers.pma_${NAME}.rule=Host(`${NAME}.aeroliths.fr`) && PathPrefix(`/adminer/`)
-      - traefik.http.middlewares.pmapathstrip_${NAME}.stripprefix.prefixes=/adminer
+      - traefik.http.routers.pma_${NAME}.rule=Host(`${NAME}.aeroliths.fr`) && PathPrefix(`/phpmyadmin/`)
+      - traefik.http.middlewares.pmapathstrip_${NAME}.stripprefix.prefixes=/phpmyadmin
       - traefik.http.routers.pma_${NAME}.middlewares=pmapathstrip_${NAME}@docker
       - traefik.http.routers.pma_${NAME}.tls=true
       - traefik.http.routers.pma_${NAME}.tls.certresolver=myresolver
