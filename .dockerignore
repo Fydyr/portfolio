@@ -1,0 +1,25 @@
+.git
+.gitignore
+.gitattributes
+.env
+.env.local
+.idea
+.vscode
+.tmp.driveupload
+
+# Le fichier de config DB local ne doit pas être copié dans l'image :
+# il sera regénéré par l'entrypoint depuis les variables d'environnement.
+includes/db.php
+
+# Vendor est réinstallé via composer install dans le Dockerfile
+vendor
+
+# Volumes / artefacts locaux
+postgres-data
+node_modules
+*.log
+
+# Fichiers de compose : pas utiles dans l'image
+docker-compose.yml
+docker-compose.*.yml
+dev/docker-compose.yml
