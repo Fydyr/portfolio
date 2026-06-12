@@ -128,7 +128,7 @@ if (est_nouveau_visiteur()) {
                         <p>
                             &copy; <?= date('Y'); ?>
                             <strong><?= $site_title; ?></strong>.
-                            Tous droits réservés. Hébergé par <a href="https://jrcan.dev" target="_blank">JrCanDev</a>.
+                            Tous droits réservés. Hébergé par <a href="https://www.ionos.fr" target="_blank">IONOS</a>.
                         </p>
                     </div>
                 </div>

@@ -72,17 +72,17 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <p><strong class="text-primary">Nom de l'hébergeur :</strong><br>
-                                    <span class="text-secondary"><a href="https://jrcan.dev" target="_blank" class="text-decoration-none text-reset">JrCanDev</a></span>
+                                    <span class="text-secondary"><a href="https://www.ionos.fr" target="_blank" class="text-decoration-none text-reset">IONOS SARL</a></span>
                                 </p>
                             </div>
                             <div class="col-md-4">
                                 <p><strong class="text-primary">Adresse :</strong><br>
-                                    <span class="text-secondary">19 Rue Louis David, 62100 Calais</span>
+                                    <span class="text-secondary">7 place de la Gare, 57200 Sarreguemines, France</span>
                                 </p>
                             </div>
                             <div class="col-md-4">
                                 <p><strong class="text-primary">Lien de l'hébergeur :</strong><br>
-                                    <span class="text-secondary"><a href="https://jrcan.dev" target="_blank" class="text-decoration-none text-reset">https://jrcan.dev</a></span>
+                                    <span class="text-secondary"><a href="https://www.ionos.fr" target="_blank" class="text-decoration-none text-reset">https://www.ionos.fr</a></span>
                                 </p>
                             </div>
                         </div>
@@ -262,7 +262,7 @@
                     <div class="bg-glass p-3 rounded">
                         <p class="mb-0 text-info">
                             <i class="fas fa-calendar-alt me-2"></i>
-                            <strong>Dernière mise à jour :</strong> 28 Décembre 2025
+                            <strong>Dernière mise à jour :</strong> 12 juin 2026
                         </p>
                     </div>
 
