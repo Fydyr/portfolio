@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirection 301 des anciennes URLs /index.php/xxx -> /xxx
+    RewriteCond %{THE_REQUEST} \s/+index\.php/([^\s?]*) [NC]
+    RewriteRule ^ /%1 [R=301,L]
+
+    # Si la requête correspond à un fichier ou dossier existant (assets, etc.) -> sert directement
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Sinon -> tout vers index.php (en gardant le query string)
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Empêche d'accéder directement aux fichiers sensibles
+<FilesMatch "^(composer\.(json|lock)|\.env.*|.*\.sql|.*\.md)$">
+    Require all denied
+</FilesMatch>
