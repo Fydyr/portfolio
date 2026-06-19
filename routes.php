@@ -13,6 +13,16 @@ $router->before('GET|POST', '/admin/.*', function () {
     }
 });
 
+// ===== SEO (sitemap + robots) =====
+$router->get('/sitemap.xml', function () {
+    include_once 'controllers/SeoController.php';
+    (new SeoController())->sitemap();
+});
+$router->get('/robots.txt', function () {
+    include_once 'controllers/SeoController.php';
+    (new SeoController())->robots();
+});
+
 // ===== Routes principales =====
 
 // Page d'accueil (correspond à /index.php)

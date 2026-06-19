@@ -16,7 +16,19 @@ $project_count = $stmt->fetchColumn();
 
 // Configuration du site
 $site_title = "Enzo Fournier";
-$current_page = basename($_SERVER['PHP_SELF'], '.php');
+
+// Détecte la page courante depuis le path de l'URL (les routes sont en /xxx, plus de /index.php/)
+$requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+$requestPath = rtrim($requestPath, '/');
+if ($requestPath === '' || $requestPath === '/index.php') {
+    $current_page = 'index';
+} elseif (preg_match('#^/project-detail/\d+#', $requestPath)) {
+    $current_page = 'project-detail';
+} else {
+    // /projects -> "projects", /admin/skills -> "admin"
+    $segments = explode('/', ltrim($requestPath, '/'));
+    $current_page = $segments[0] ?: 'index';
+}
 
 // Récupérer les meta tags pour la page
 if (!isset($page_meta)) {
@@ -54,6 +66,14 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Meta tags SEO et réseaux sociaux (Discord, Twitter, Facebook, etc.) -->
     <?php renderMetaTags($page_meta); ?>
+
+    <!-- Schema.org JSON-LD -->
+    <?php
+        if (function_exists('renderJsonLd')) {
+            $jsonLdContext = $jsonLdContext ?? [];
+            renderJsonLd($current_page, $jsonLdContext);
+        }
+    ?>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
