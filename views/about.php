@@ -175,22 +175,20 @@
         </div>
     <?php endif; ?>
 
-    <!-- ===== Derniers repos GitHub ===== -->
-    <h2 class="section-title-about">
-        <i class="bi bi-github"></i> Activité GitHub récente
-        <a href="https://github.com/<?= htmlspecialchars($githubUser) ?>" target="_blank" rel="noopener"
-           style="font-size: 0.85rem; margin-left: auto; color: var(--text-secondary, #a0a0a0);">
-            Voir le profil <i class="bi bi-arrow-up-right"></i>
-        </a>
-    </h2>
-
-    <?php if (empty($repos)): ?>
-        <div class="empty-repos">
-            <i class="bi bi-cloud-slash" style="font-size: 2rem;"></i>
-            <p class="mt-2 mb-0">Impossible de récupérer les repos GitHub pour le moment.<br>
-            <a href="https://github.com/<?= htmlspecialchars($githubUser) ?>" target="_blank">Voir directement sur GitHub.</a></p>
-        </div>
-    <?php else: ?>
+    <?php
+    /**
+     * Fonction de rendu d'une grille de repos GitHub (évite la duplication
+     * entre le bloc "projet principal" et "activité GitHub").
+     */
+    $renderReposGrid = function(array $repos, string $fallbackLogin) {
+        if (empty($repos)) { ?>
+            <div class="empty-repos">
+                <i class="bi bi-cloud-slash" style="font-size: 2rem;"></i>
+                <p class="mt-2 mb-0">Impossible de récupérer les repos GitHub pour le moment.<br>
+                <a href="https://github.com/<?= htmlspecialchars($fallbackLogin) ?>" target="_blank" rel="noopener">Voir directement sur GitHub.</a></p>
+            </div>
+        <?php return; }
+        ?>
         <div class="repo-grid">
             <?php foreach ($repos as $r): ?>
                 <a href="<?= htmlspecialchars($r['html_url']) ?>" target="_blank" rel="noopener" class="repo-card">
@@ -217,7 +215,31 @@
                 </a>
             <?php endforeach; ?>
         </div>
+    <?php };
+    ?>
+
+    <!-- ===== Bloc GitHub org / projet principal (Aeroliths) ===== -->
+    <?php if (!empty($githubOrg)): ?>
+        <h2 class="section-title-about">
+            <i class="bi bi-stars"></i>
+            <?= !empty($githubOrgLabel) ? htmlspecialchars($githubOrgLabel) : 'Projet principal' ?>
+            <a href="https://github.com/<?= rawurlencode($githubOrg) ?>" target="_blank" rel="noopener"
+               style="font-size: 0.85rem; margin-left: auto; color: var(--text-secondary, #a0a0a0);">
+                Voir <code><?= htmlspecialchars($githubOrg) ?></code> <i class="bi bi-arrow-up-right"></i>
+            </a>
+        </h2>
+        <?php $renderReposGrid($orgRepos, $githubOrg); ?>
     <?php endif; ?>
+
+    <!-- ===== Derniers repos GitHub personnel ===== -->
+    <h2 class="section-title-about">
+        <i class="bi bi-github"></i> Activité GitHub récente
+        <a href="https://github.com/<?= rawurlencode($githubUser) ?>" target="_blank" rel="noopener"
+           style="font-size: 0.85rem; margin-left: auto; color: var(--text-secondary, #a0a0a0);">
+            Voir le profil <i class="bi bi-arrow-up-right"></i>
+        </a>
+    </h2>
+    <?php $renderReposGrid($repos, $githubUser); ?>
 
 </div>
 </body>

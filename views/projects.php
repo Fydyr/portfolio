@@ -255,7 +255,7 @@
                                 <div class="project-body">
                                     <h3 class="project-title"><?= htmlspecialchars($project['title']) ?></h3>
                                     <p class="project-description">
-                                        <?= htmlspecialchars(mb_strimwidth($project['description'], 0, 120, '...')) ?>
+                                        <?= htmlspecialchars($project['excerpt'] ?? '') ?>
                                     </p>
                                 </div>
                             </a>
