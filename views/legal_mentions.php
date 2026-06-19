@@ -127,6 +127,7 @@
                             <ul class="mb-0" style="color: var(--text-secondary);">
                                 <li><strong style="color: var(--text-primary);">Le nombre total de visiteurs</strong> : Un compteur anonyme et global du nombre de visites sur le site, sans aucune information personnelle identifiable</li>
                                 <li><strong style="color: var(--text-primary);">Les données du formulaire de contact</strong> (nom, email, message) : Uniquement si vous choisissez de nous contacter volontairement</li>
+                                <li><strong style="color: var(--text-primary);">L'adresse IP et l'identifiant utilisé lors des tentatives de connexion à l'espace d'administration</strong> : Uniquement à des fins de sécurité (limitation des attaques par force brute). Aucune IP n'est collectée lors de la navigation classique sur le site.</li>
                             </ul>
                         </div>
 
@@ -137,8 +138,11 @@
                                         <i class="fas fa-bullseye me-2"></i>
                                         Finalité
                                     </h5>
-                                    <p class="mb-0"><strong>Compteur de visiteurs :</strong> Statistique globale et anonyme d'audience<br>
-                                    <strong>Formulaire de contact :</strong> Répondre à vos demandes de contact</p>
+                                    <p class="mb-0">
+                                        <strong>Compteur de visiteurs :</strong> Statistique globale et anonyme d'audience<br>
+                                        <strong>Formulaire de contact :</strong> Répondre à vos demandes de contact<br>
+                                        <strong>Logs d'authentification :</strong> Détecter et bloquer les tentatives répétées de connexion non autorisées
+                                    </p>
                                 </div>
 
                                 <div class="bg-glass p-3 rounded mb-3">
@@ -146,8 +150,11 @@
                                         <i class="fas fa-clock me-2"></i>
                                         Conservation
                                     </h5>
-                                    <p class="mb-0"><strong>Compteur :</strong> Conservé indéfiniment (nombre total anonyme)<br>
-                                    <strong>Données de contact :</strong> Conservées le temps nécessaire pour traiter votre demande, puis supprimées</p>
+                                    <p class="mb-0">
+                                        <strong>Compteur :</strong> Conservé indéfiniment (nombre total anonyme)<br>
+                                        <strong>Données de contact :</strong> Conservées le temps nécessaire pour traiter votre demande, puis supprimées<br>
+                                        <strong>Logs d'authentification :</strong> Supprimés automatiquement au bout de 24 heures
+                                    </p>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -171,7 +178,7 @@
 
                         <div class="bg-glass p-3 rounded mt-3" style="border: 1px solid rgba(59, 130, 246, 0.3);">
                             <i class="fas fa-info-circle me-2" style="color: var(--info-color);"></i>
-                            <strong style="color: var(--info-color);">Information importante :</strong> <span style="color: var(--text-secondary);">Aucune adresse IP, aucun identifiant unique, aucune donnée de navigation n'est collectée ou conservée. Le compteur de visiteurs est purement statistique et totalement anonyme.</span>
+                            <strong style="color: var(--info-color);">Information importante :</strong> <span style="color: var(--text-secondary);">Lors de la navigation classique sur le site, aucune adresse IP, aucun identifiant unique et aucune donnée de navigation ne sont collectés. Le compteur de visiteurs est purement statistique et totalement anonyme. L'adresse IP n'est enregistrée que de manière temporaire (24 h) lors d'une tentative de connexion à l'espace d'administration, à des fins exclusives de sécurité.</span>
                         </div>
 
                         <div class="bg-glass p-3 rounded mt-3" style="border: 1px solid rgba(16, 185, 129, 0.3);">
@@ -192,7 +199,7 @@
                     <div class="card-body">
                         <div class="bg-glass p-3 rounded mb-3" style="border: 1px solid rgba(16, 185, 129, 0.3);">
                             <i class="fas fa-check-circle me-2" style="color: var(--success-color);"></i>
-                            <strong style="color: var(--success-color);">Aucun cookie utilisé !</strong> <span style="color: var(--text-secondary);">Ce site n'utilise aucun cookie. Aucun système de tracking, d'analyse d'audience avancée ou de publicité n'est mis en place.</span>
+                            <strong style="color: var(--success-color);">Aucun cookie de tracking !</strong> <span style="color: var(--text-secondary);">Ce site n'utilise aucun cookie publicitaire ni de mesure d'audience. Aucun service tiers de tracking n'est intégré. Un unique cookie technique de session (<code>PHPSESSID</code>) est utilisé, strictement nécessaire au bon fonctionnement du site (notamment pour distinguer les visiteurs uniques du compteur et maintenir une session d'administration). Ce cookie expire à la fermeture du navigateur et ne contient aucune donnée personnelle.</span>
                         </div>
 
                         <div class="bg-glass p-3 rounded" style="border: 1px solid rgba(59, 130, 246, 0.3);">
@@ -262,7 +269,7 @@
                     <div class="bg-glass p-3 rounded">
                         <p class="mb-0 text-info">
                             <i class="fas fa-calendar-alt me-2"></i>
-                            <strong>Dernière mise à jour :</strong> 12 juin 2026
+                            <strong>Dernière mise à jour :</strong> 19 juin 2026
                         </p>
                     </div>
 
