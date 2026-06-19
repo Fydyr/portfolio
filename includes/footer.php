@@ -40,6 +40,18 @@ $compteur_actuel = lire_compteur($fichier_compteur);
 if (est_nouveau_visiteur()) {
     $compteur_actuel++;
     ecrire_compteur($fichier_compteur, $compteur_actuel);
+
+    // Log également dans daily_visits pour le graphique du dashboard
+    if (isset($pdo) && $pdo instanceof PDO) {
+        try {
+            $pdo->prepare(
+                "INSERT INTO daily_visits (day, count) VALUES (CURDATE(), 1)
+                 ON DUPLICATE KEY UPDATE count = count + 1"
+            )->execute();
+        } catch (PDOException $e) {
+            // table absente -> on ignore silencieusement (le compteur fichier marche encore)
+        }
+    }
 }
 ?>
 

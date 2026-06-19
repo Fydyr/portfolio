@@ -153,6 +153,41 @@ function fmtBytes($n) {
         </div>
     </div>
 
+    <!-- === Graphique des visites === -->
+    <h2 class="mt-5 mb-3"><i class="bi bi-graph-up"></i> Visites (30 derniers jours)</h2>
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex flex-wrap gap-3 mb-3 align-items-center">
+                <div>
+                    <div class="text-muted small text-uppercase">7 derniers jours</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">
+                        <?= number_format((int)($visits7d ?? 0), 0, ',', ' ') ?>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-muted small text-uppercase">30 derniers jours</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-color);">
+                        <?= number_format((int)($visits30d ?? 0), 0, ',', ' ') ?>
+                    </div>
+                </div>
+                <div class="ms-auto text-muted small">
+                    Compteur global :
+                    <strong style="color: var(--text-primary);">
+                        <?= number_format((int)$stats['visitors'], 0, ',', ' ') ?>
+                    </strong>
+                </div>
+            </div>
+            <div style="position: relative; height: 280px;">
+                <canvas id="visitsChart"></canvas>
+            </div>
+            <?php if (empty($visitsByDay) || array_sum($visitsByDay) === 0): ?>
+                <p class="text-muted text-center mt-3 mb-0">
+                    Aucune visite enregistrée pour le moment. Les visites se cumuleront ici à mesure que des visiteurs arriveront sur le site.
+                </p>
+            <?php endif; ?>
+        </div>
+    </div>
+
     <div class="row g-3">
         <!-- === Derniers projets === -->
         <div class="col-lg-6">
@@ -302,6 +337,88 @@ function fmtBytes($n) {
 
     </div>
 </div>
+
+<!-- Chart.js (pour le graphique des visites) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    (function() {
+        const canvas = document.getElementById('visitsChart');
+        if (!canvas || typeof Chart === 'undefined') return;
+
+        const raw = <?= json_encode($visitsByDay ?? [], JSON_UNESCAPED_UNICODE) ?>;
+        const labels = Object.keys(raw).map(d => {
+            const [, m, day] = d.split('-');
+            return `${day}/${m}`;
+        });
+        const values = Object.values(raw);
+
+        const cs = getComputedStyle(document.documentElement);
+        const accent      = cs.getPropertyValue('--primary-color').trim() || '#00d4ff';
+        const textMuted   = cs.getPropertyValue('--text-secondary').trim() || '#a0a0a0';
+        const gridColor   = 'rgba(255, 255, 255, 0.08)';
+
+        // Gradient de remplissage
+        const ctx = canvas.getContext('2d');
+        const grad = ctx.createLinearGradient(0, 0, 0, 280);
+        grad.addColorStop(0, accent + '66');  // ~40% opacité
+        grad.addColorStop(1, accent + '00');  // transparent
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Visites',
+                    data: values,
+                    borderColor: accent,
+                    backgroundColor: grad,
+                    borderWidth: 2.5,
+                    tension: 0.35,
+                    fill: true,
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: accent,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 1.5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 15, 31, 0.95)',
+                        titleColor: '#fff',
+                        bodyColor: textMuted,
+                        borderColor: accent,
+                        borderWidth: 1,
+                        padding: 12,
+                        callbacks: {
+                            label: function(ctx) {
+                                const v = ctx.parsed.y;
+                                return ' ' + v + ' visite' + (v > 1 ? 's' : '');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: gridColor, drawBorder: false },
+                        ticks: { color: textMuted, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: gridColor, drawBorder: false },
+                        ticks: { color: textMuted, precision: 0 }
+                    }
+                }
+            }
+        });
+    })();
+</script>
+
 </body>
 </html>
 
