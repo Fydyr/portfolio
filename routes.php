@@ -22,6 +22,12 @@ $router->get('/', function () {
     $controller->index();
 });
 
+$router->get('/home', function () {
+    include_once 'controllers/HomeController.php';
+    $controller = new HomeController();
+    $controller->index();
+});
+
 // Page des projets (correspond à /index.php/projects)
 $router->get('/projects', function () {
     include_once './controllers/ProjectsController.php';
@@ -133,6 +139,104 @@ $router->post('/admin/projects/edit-project/(\d+)', function ($id) {
     include_once 'controllers/AdminController.php';
     $controller = new AdminController();
     $controller->editProject($id);
+});
+
+// ===== Admin Skills =====
+$router->get('/admin/skills', function () {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->index();
+});
+$router->get('/admin/skills/add', function () {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->editSkill(null);
+});
+$router->post('/admin/skills/add', function () {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->editSkill(null);
+});
+$router->get('/admin/skills/edit/(\d+)', function ($id) {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->editSkill($id);
+});
+$router->post('/admin/skills/edit/(\d+)', function ($id) {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->editSkill($id);
+});
+$router->post('/admin/skills/delete', function () {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->deleteSkill();
+});
+$router->get('/admin/skills/category/add', function () {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->editCategory(null);
+});
+$router->post('/admin/skills/category/add', function () {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->editCategory(null);
+});
+$router->get('/admin/skills/category/edit/(\d+)', function ($id) {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->editCategory($id);
+});
+$router->post('/admin/skills/category/edit/(\d+)', function ($id) {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->editCategory($id);
+});
+$router->post('/admin/skills/category/delete', function () {
+    include_once 'controllers/SkillsAdminController.php';
+    (new SkillsAdminController())->deleteCategory();
+});
+
+// ===== Admin Passions =====
+$router->get('/admin/passions', function () {
+    include_once 'controllers/PassionsAdminController.php';
+    (new PassionsAdminController())->index();
+});
+$router->get('/admin/passions/add', function () {
+    include_once 'controllers/PassionsAdminController.php';
+    (new PassionsAdminController())->edit(null);
+});
+$router->post('/admin/passions/add', function () {
+    include_once 'controllers/PassionsAdminController.php';
+    (new PassionsAdminController())->edit(null);
+});
+$router->get('/admin/passions/edit/(\d+)', function ($id) {
+    include_once 'controllers/PassionsAdminController.php';
+    (new PassionsAdminController())->edit($id);
+});
+$router->post('/admin/passions/edit/(\d+)', function ($id) {
+    include_once 'controllers/PassionsAdminController.php';
+    (new PassionsAdminController())->edit($id);
+});
+$router->post('/admin/passions/delete', function () {
+    include_once 'controllers/PassionsAdminController.php';
+    (new PassionsAdminController())->delete();
+});
+
+// ===== Admin Prices =====
+$router->get('/admin/prices', function () {
+    include_once 'controllers/PricesAdminController.php';
+    (new PricesAdminController())->index();
+});
+$router->get('/admin/prices/add', function () {
+    include_once 'controllers/PricesAdminController.php';
+    (new PricesAdminController())->edit(null);
+});
+$router->post('/admin/prices/add', function () {
+    include_once 'controllers/PricesAdminController.php';
+    (new PricesAdminController())->edit(null);
+});
+$router->get('/admin/prices/edit/(\d+)', function ($id) {
+    include_once 'controllers/PricesAdminController.php';
+    (new PricesAdminController())->edit($id);
+});
+$router->post('/admin/prices/edit/(\d+)', function ($id) {
+    include_once 'controllers/PricesAdminController.php';
+    (new PricesAdminController())->edit($id);
+});
+$router->post('/admin/prices/delete', function () {
+    include_once 'controllers/PricesAdminController.php';
+    (new PricesAdminController())->delete();
 });
 
 // ==== Routes de test =====

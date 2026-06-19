@@ -35,7 +35,9 @@ class AccountController extends BaseController
                 $user = $stmt->fetch();
 
                 if ($user && password_verify($mdp, $user['password'])) {
-                    session_start();
+                    if (session_status() === PHP_SESSION_NONE) {
+                        session_start();
+                    }
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_mail'] = $user['mail'];
                     $_SESSION['admin'] = $user['admin'];
@@ -56,7 +58,9 @@ class AccountController extends BaseController
 
     public function logout()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         session_unset();
         session_destroy();
         header('Location: /');

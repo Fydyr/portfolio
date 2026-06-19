@@ -18,3 +18,7 @@
 <FilesMatch "^(composer\.(json|lock)|\.env.*|.*\.sql|.*\.md)$">
     Require all denied
 </FilesMatch>
+
+# Bloque l'accès au dossier sql/migrations (les .sql sont déjà bloqués par FilesMatch,
+# mais on bloque aussi pour les listing de dossier au cas où).
+RedirectMatch 403 ^/sql/migrations/.*$

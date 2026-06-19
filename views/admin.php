@@ -55,16 +55,39 @@
                 </div>
             </div>
 
-            <!-- Carte au cas où -->
+            <!-- Carte gestion des compétences -->
             <div class="col-md-4 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h5 class="card-title">Autres options</h5>
-                        <p class="card-text">D'autres options seront disponibles ici.</p>
-                        <a href="#" class="btn btn-secondary disabled"><i class="bi bi-gear-fill"></i> À venir</a>
+                        <h5 class="card-title">Compétences</h5>
+                        <p class="card-text">Gérer les catégories et les compétences (skills) affichées sur la page d'accueil.</p>
+                        <a href="<?= url('admin/skills') ?>" class="btn btn-info"><i class="bi bi-stars"></i> Gérer</a>
                     </div>
                 </div>
             </div>
+
+            <!-- Carte gestion des passions -->
+            <div class="col-md-4 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Passions</h5>
+                        <p class="card-text">Gérer la liste des passions affichées sur la page d'accueil.</p>
+                        <a href="<?= url('admin/passions') ?>" class="btn btn-info"><i class="bi bi-heart-fill"></i> Gérer</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte gestion des tarifs -->
+            <div class="col-md-4 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Tarifs</h5>
+                        <p class="card-text">Gérer les prestations et tarifs affichés sur la page des tarifs.</p>
+                        <a href="<?= url('admin/prices') ?>" class="btn btn-info"><i class="bi bi-tags-fill"></i> Gérer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 
 </html>

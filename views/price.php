@@ -35,83 +35,30 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
 
-                <div class="card fade-in mb-4">
-                    <div class="card-header">
-                        <h2 class="mb-0">
-                            <i class="bi bi-info-circle-fill"></i>
-                            Site vitrine statique
-                        </h2>
-                    </div>
-                    <div class="card-body">
-                        <p>Un site vitrine statique présente votre entreprise et vos services sur quelques pages, sans contenu dynamique. Idéal pour une première présence en ligne.</p>
-                        <p class="card-text text-danger">Prix : 180 €</p>
-                    </div>
-                </div>
-
-                <div class="card fade-in mb-4">
-                    <div class="card-header">
-                        <h2 class="mb-0">
-                            <i class="bi bi-journal-text"></i>
-                            Blog ou Portfolio
-                        </h2>
-                    </div>
-                    <div class="card-body">
-                        <p>Une plateforme de publication d'articles ou un site pour présenter vos créations. Cela inclut un design personnalisé et un système de gestion de contenu simple.</p>
-                        <p class="card-text text-danger">Prix : 300 €</p>
-                    </div>
-                </div>
-
-                <div class="card fade-in mb-4">
-                    <div class="card-header">
-                        <h2 class="mb-0">
-                            <i class="bi bi-palette-fill"></i>
-                            Refonte de site web
-                        </h2>
-                    </div>
-                    <div class="card-body">
-                        <p>Vous avez déjà un site web, mais il est obsolète ou a besoin d'un nouveau look ? Je peux moderniser son design et améliorer son ergonomie.</p>
-                        <p class="card-text text-danger">Prix : à partir de 150 €</p>
-                    </div>
-                </div>
-
-                <div class="card fade-in mb-4">
-                    <div class="card-header">
-                        <h2 class="mb-0">
-                            <i class="bi bi-gear-fill"></i>
-                            Maintenance et support
-                        </h2>
-                    </div>
-                    <div class="card-body">
-                        <p>Je propose également des services de maintenance pour assurer la sécurité, les mises à jour et le bon fonctionnement de votre site web, ainsi qu'un support technique en cas de besoin.</p>
-                        <p class="card-text text-danger">Prix : sur devis (forfait mensuel ou à l'heure)</p>
-                    </div>
-                </div>
-
-                <div class="card fade-in mb-4">
-                    <div class="card-header">
-                        <h2 class="mb-0">
-                            <i class="bi bi-phone"></i>
-                            Application Mobile (Hybride)
-                        </h2>
-                    </div>
-                    <div class="card-body">
-                        <p>Une application mobile avec des fonctionnalités de base, développée pour fonctionner à la fois sur iOS et Android (technologie hybride).</p>
-                        <p class="card-text text-danger">Prix : 700 €</p>
-                    </div>
-                </div>
-
-                <div class="card fade-in mb-4">
-                    <div class="card-header">
-                        <h2 class="mb-0">
-                            <i class="bi bi-pencil-square"></i>
-                            Projet sur mesure
-                        </h2>
-                    </div>
-                    <div class="card-body">
-                        <p>Pour un site ou une application avec des fonctionnalités avancées et des besoins spécifiques, nous discuterons ensemble d'un devis adapté à votre projet.</p>
-                        <p class="card-text text-danger">Prix : sur devis</p>
-                    </div>
-                </div>
+                <?php if (empty($prices ?? [])): ?>
+                    <div class="alert alert-info">Aucun tarif configuré pour le moment.</div>
+                <?php else: ?>
+                    <?php foreach ($prices as $item): ?>
+                        <div class="card fade-in mb-4">
+                            <div class="card-header">
+                                <h2 class="mb-0">
+                                    <?php if (!empty($item['icon'])): ?>
+                                        <i class="<?= htmlspecialchars($item['icon']) ?>"></i>
+                                    <?php endif; ?>
+                                    <?= htmlspecialchars($item['title']) ?>
+                                </h2>
+                            </div>
+                            <div class="card-body">
+                                <?php if (!empty($item['description'])): ?>
+                                    <p><?= nl2br(htmlspecialchars($item['description'])) ?></p>
+                                <?php endif; ?>
+                                <?php if (!empty($item['price'])): ?>
+                                    <p class="card-text text-danger">Prix : <?= htmlspecialchars($item['price']) ?></p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
                 <div class="card fade-in mb-4">
                     <div class="card-header">

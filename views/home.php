@@ -5,21 +5,17 @@ $birthDate = new DateTime('2005-03-15');
 $today = new DateTime();
 $age = $today->diff($birthDate)->y;
 
-// Liste des langages
-$languages = [
-    'Python',
-    'HTML/CSS',
-    'PHP',
-    'JavaScript',
-    'TypeScript',
-    'SQL',
-    'Java',
-    'C',
-    'Bash',
-    'Dart',
-];
+// Variables passées par HomeController : $categories, $skillsByCategory, $passions, $languageCount, $projectCount
+$categories       = $categories       ?? [];
+$skillsByCategory = $skillsByCategory ?? [];
+$passions         = $passions         ?? [];
+$languageCount    = $languageCount    ?? 0;
 
-$languageCount = count($languages);
+// Aplatit toutes les skills (utile pour le bloc JS techData)
+$allSkills = [];
+foreach ($skillsByCategory as $list) {
+    foreach ($list as $s) $allSkills[] = $s;
+}
 ?>
 
 <!DOCTYPE html>
@@ -109,63 +105,24 @@ $languageCount = count($languages);
             </div>
 
             <div class="skills-container">
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-code"></i>
+                <?php foreach ($categories as $cat): ?>
+                    <div class="skill-card">
+                        <div class="skill-icon"<?= !empty($cat['icon_bg']) ? ' style="background: ' . htmlspecialchars($cat['icon_bg']) . ';"' : '' ?>>
+                            <i class="<?= htmlspecialchars($cat['icon'] ?: 'fas fa-code') ?>"></i>
+                        </div>
+                        <h3 class="skill-title"><?= htmlspecialchars($cat['name']) ?></h3>
+                        <?php if (!empty($cat['description'])): ?>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;"><?= htmlspecialchars($cat['description']) ?></p>
+                        <?php endif; ?>
+                        <div class="skill-tags">
+                            <?php foreach (($skillsByCategory[(int)$cat['id']] ?? []) as $skill): ?>
+                                <span class="skill-tag tech-badge" data-tech="<?= htmlspecialchars($skill['slug']) ?>">
+                                    <?= htmlspecialchars($skill['name']) ?>
+                                </span>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
-                    <h3 class="skill-title">Langages</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Langages de programmation maîtrisés</p>
-                    <div class="skill-tags">
-                        <?php foreach ($languages as $lang): ?>
-                            <span class="skill-tag tech-badge" data-tech="<?= strtolower(str_replace(['/', ' '], ['-', '-'], htmlspecialchars($lang))) ?>"><?= htmlspecialchars($lang) ?></span>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon" style="background: var(--gradient-secondary);">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3 class="skill-title">Développement Web</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Frontend & Backend</p>
-                    <div class="skill-tags">
-                        <span class="skill-tag tech-badge" data-tech="nuxt">Nuxt</span>
-                        <span class="skill-tag tech-badge" data-tech="vuejs">Vue.js</span>
-                        <span class="skill-tag tech-badge" data-tech="bootstrap">Bootstrap</span>
-                        <span class="skill-tag tech-badge" data-tech="nodejs">Node.js</span>
-                        <span class="skill-tag tech-badge" data-tech="express">Express</span>
-                        <span class="skill-tag tech-badge" data-tech="php">PHP</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon" style="background: var(--gradient-warning);">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3 class="skill-title">Bases de données</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Systèmes de gestion de données</p>
-                    <div class="skill-tags">
-                        <span class="skill-tag tech-badge" data-tech="mysql">MySQL</span>
-                        <span class="skill-tag tech-badge" data-tech="mongodb">MongoDB</span>
-                        <span class="skill-tag tech-badge" data-tech="postgresql">PostgreSQL</span>
-                        <span class="skill-tag tech-badge" data-tech="arangodb">ArangoDB</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3 class="skill-title">Outils</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">DevOps et environnements</p>
-                    <div class="skill-tags">
-                        <span class="skill-tag tech-badge" data-tech="git">Git</span>
-                        <span class="skill-tag tech-badge" data-tech="docker">Docker</span>
-                        <span class="skill-tag tech-badge" data-tech="vscode">VS Code</span>
-                        <span class="skill-tag tech-badge" data-tech="postman">Postman</span>
-                        <span class="skill-tag tech-badge" data-tech="figma">Figma</span>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
@@ -185,37 +142,15 @@ $languageCount = count($languages);
             </div>
 
             <div class="passions-grid">
-                <div class="passion-card" data-passion="gaming">
-                    <div class="passion-icon">
-                        <i class="fas fa-gamepad"></i>
+                <?php foreach ($passions as $p): ?>
+                    <div class="passion-card" data-passion="<?= htmlspecialchars($p['slug']) ?>">
+                        <div class="passion-icon">
+                            <i class="<?= htmlspecialchars($p['icon'] ?: 'fas fa-heart') ?>"></i>
+                        </div>
+                        <h3 class="passion-title"><?= htmlspecialchars($p['name']) ?></h3>
+                        <p class="passion-description"><?= htmlspecialchars($p['short_description'] ?? '') ?></p>
                     </div>
-                    <h3 class="passion-title">Gaming</h3>
-                    <p class="passion-description">Jeux de stratégie, de réflexion</p>
-                </div>
-
-                <div class="passion-card" data-passion="music">
-                    <div class="passion-icon">
-                        <i class="fas fa-music"></i>
-                    </div>
-                    <h3 class="passion-title">Musique</h3>
-                    <p class="passion-description">Musique de jeu, d'animé et de pop rock</p>
-                </div>
-
-                <div class="passion-card" data-passion="scifi">
-                    <div class="passion-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3 class="passion-title">Sci-Fi</h3>
-                    <p class="passion-description">Univers futuristes et Science-fiction</p>
-                </div>
-
-                <div class="passion-card" data-passion="magic">
-                    <div class="passion-icon">
-                        <i class="fas fa-dice-d20"></i>
-                    </div>
-                    <h3 class="passion-title">Magic: The Gathering</h3>
-                    <p class="passion-description">Jeu de cartes stratégique</p>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </section>
@@ -423,8 +358,25 @@ $languageCount = count($languages);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Données des technologies
-        const techData = {
+        // Données des technologies (générées depuis la DB)
+        <?php
+            $techJs = [];
+            foreach ($allSkills as $s) {
+                $techJs[$s['slug']] = [
+                    'name'        => $s['name'],
+                    'description' => $s['description'] ?? '',
+                    'type'        => $s['type'] ?? '',
+                    'level'       => $s['level'] ?? '',
+                    'features'    => $s['features_decoded'] ?? [],
+                    'icon'        => $s['icon'] ?: 'fas fa-code',
+                    'docUrl'      => $s['doc_url'] ?? '#',
+                ];
+            }
+            echo 'const techData = ' . json_encode($techJs, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) . ';';
+        ?>
+
+        /* === Ancien dictionnaire (référence, non utilisé) ===
+        const techDataLegacy = {
             'javascript': {
                 name: 'JavaScript',
                 description: 'Langage de programmation polyvalent pour le développement web moderne, tant côté client que serveur.',
@@ -633,6 +585,7 @@ $languageCount = count($languages);
                 docUrl: 'https://help.figma.com/'
             }
         };
+        === fin ancien dictionnaire === */
 
         // Gestion de la modale
         const modal = document.getElementById('techModal');
@@ -715,8 +668,23 @@ $languageCount = count($languages);
             }
         });
 
-        // Données des passions
-        const passionData = {
+        // Données des passions (générées depuis la DB)
+        <?php
+            $passionJs = [];
+            foreach ($passions as $p) {
+                $passionJs[$p['slug']] = [
+                    'name'        => $p['name'],
+                    'description' => $p['long_description'] ?? '',
+                    'icon'        => $p['icon'] ?: 'fas fa-heart',
+                    'likes'       => $p['likes_decoded'] ?? [],
+                    'why'         => $p['why'] ?? '',
+                ];
+            }
+            echo 'const passionData = ' . json_encode($passionJs, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) . ';';
+        ?>
+
+        /* === Ancien dictionnaire passions (référence, non utilisé) ===
+        const passionDataLegacy = {
             'gaming': {
                 name: 'Gaming',
                 description: 'Les jeux vidéo sont pour moi bien plus qu\'un simple passe-temps. Ils représentent un univers de créativité, de stratégie et de défis qui me permettent de me détendre tout en stimulant ma réflexion.',
@@ -770,6 +738,7 @@ $languageCount = count($languages);
                 why: 'Magic est un terrain d\'entraînement pour mes compétences en développement. Construire un deck, c\'est comme concevoir une architecture logicielle : choisir les bonnes "dépendances" (cartes), gérer les ressources (mana/mémoire), optimiser les interactions (synergies/modules), et debugger en temps réel pendant la partie.\nChaque décision stratégique ressemble à un choix d\'architecture : privilégier la performance, la flexibilité ou la fiabilité.'
             }
         };
+        === fin ancien dictionnaire === */
 
         // Gestion de la modale des passions
         const passionModal = document.getElementById('passionModal');
