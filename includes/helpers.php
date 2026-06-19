@@ -31,20 +31,19 @@ function redirect($url)
 
 function url($path = '')
 {
-    $scriptName = $_SERVER['SCRIPT_NAME']; // /dossier/index.php
-    $basePath = dirname($scriptName);       // /dossier
+    $scriptName = $_SERVER['SCRIPT_NAME']; // ex: /index.php  ou  /sousdossier/index.php
+    $basePath = dirname($scriptName);
 
     if ($basePath === '/' || $basePath === '\\') {
         $basePath = '';
     }
 
-    $url = $basePath . '/index.php';
-
-    if (!empty($path)) {
-        $url .= '/' . ltrim($path, '/');
+    $path = ltrim($path, '/');
+    if ($path === '') {
+        return $basePath === '' ? '/' : $basePath . '/';
     }
 
-    return $url;
+    return $basePath . '/' . $path;
 }
 
 function homeUrl()
