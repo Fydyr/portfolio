@@ -71,9 +71,16 @@
             </span>
             <h2 class="section-title">À propos du projet</h2>
             <div class="gradient-divider"></div>
-            <p class="section-text">
-                <?= nl2br(htmlspecialchars($project['description'])) ?>
-            </p>
+            <div class="section-text">
+                <?php
+                if (!empty($project['is_markdown'])) {
+                    require_once __DIR__ . '/../includes/settings.php';
+                    echo renderMarkdown($project['description'] ?? '');
+                } else {
+                    echo nl2br(htmlspecialchars($project['description'] ?? ''));
+                }
+                ?>
+            </div>
         </div>
 
         <!-- Technologies Section -->

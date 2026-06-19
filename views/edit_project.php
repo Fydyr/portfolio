@@ -1,135 +1,122 @@
 <?php ob_start(); ?>
-
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration - Enzo Fournier</title>
-    <!-- Bootstrap CSS -->
+    <title>Admin - Modifier un projet</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Style CSS personnalisé -->
     <link href="/assets/css/style.css" rel="stylesheet">
 </head>
-
 <body>
-    <div class="container-fluid">
-        <!-- Header Section -->
-        <div class="profile-header fade-in">
-            <div class="profile-avatar">
-                <i class="bi bi-arrow-up-circle-fill"></i>
-            </div>
-            <h1>Modifier un projet</h1>
-        </div>
-
-        <!-- Messages d'erreur ou de succès -->
-        <?php if (isset($_SESSION['errors'])): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <ul class="mb-0">
-                    <?php foreach ($_SESSION['errors'] as $error): ?>
-                        <li><?= htmlspecialchars($error) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-            <?php unset($_SESSION['errors']); ?>
-        <?php endif; ?>
-
-        <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?= htmlspecialchars($_SESSION['error']) ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-            <?php unset($_SESSION['error']); ?>
-        <?php endif; ?>
-
-        <div class="card">
-            <div class="card-body">
-                <form method="POST" action="<?=url('/admin/projects/edit-project/') . htmlspecialchars($project['id']) ?>" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Titre du projet</label>
-                        <input type="text" class="form-control" id="title" name="title" value="<?= htmlspecialchars($project['title']) ?>" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Description du projet</label>
-                        <textarea class="form-control" id="description" name="description" rows="5" required><?= htmlspecialchars($project['description']) ?></textarea>
-                    </div>
-
-                    <!-- Les 3 images du projet -->
-                    <div class="mb-3">
-                        <label for="image1" class="form-label">Image 1</label>
-                        <input type="file" class="form-control" id="image1" name="image1" accept="image/*">
-                        <?php if ($project['img1']): ?>
-                            <img src="/assets/img/projects/<?= htmlspecialchars($project['img1']) ?>" alt="Image 1" class="img-thumbnail mt-2" style="max-width: 200px;">
-                        <?php endif; ?>
-                        <small class="form-text text-muted">Laissez vide pour conserver l'image actuelle.</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="image2" class="form-label">Image 2 (optionnelle)</label>
-                        <input type="file" class="form-control" id="image2" name="image2" accept="image/*">
-                        <?php if ($project['img2']): ?>
-                            <img src="/assets/img/projects/<?= htmlspecialchars($project['img2']) ?>" alt="Image 2" class="img-thumbnail mt-2" style="max-width: 200px;">
-                        <?php endif; ?>
-                        <small class="form-text text-muted">Laissez vide pour conserver l'image actuelle.</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="image3" class="form-label">Image 3 (optionnelle)</label>
-                        <input type="file" class="form-control" id="image3" name="image3" accept="image/*">
-                        <?php if ($project['img3']): ?>
-                            <img src="/assets/img/projects/<?= htmlspecialchars($project['img3']) ?>" alt="Image 3" class="img-thumbnail mt-2" style="max-width: 200px;">
-                        <?php endif; ?>
-                        <small class="form-text text-muted">Laissez vide pour conserver l'image actuelle.</small>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="link" class="form-label">Lien du projet</label>
-                        <input type="url" class="form-control" id="link" name="link" value="<?= htmlspecialchars($project['link']) ?>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="tools" class="form-label">Outils/langages du projet</label>
-                        <input type="text" class="form-control" id="tools" name="tools" value="<?= htmlspecialchars($project['languages']) ?>" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="projectStatus" class="form-label">Statut du projet</label>
-                        <select class="form-select" id="projectStatus" name="projectStatus">
-                            <option value="visible" <?= ($project['visibilite'] == 1) ? 'selected' : '' ?>>
-                                Visible
-                            </option>
-                            <option value="non_visible" <?= ($project['visibilite'] == 0) ? 'selected' : '' ?>>
-                                Non Visible
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Boutons de soumission -->
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="<?= url('admin/projects') ?>" class="btn btn-secondary me-md-2">
-                            <i class="bi bi-arrow-left"></i> Retour
-                        </a>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-save"></i> Enregistrer les modifications
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Modifier un projet</h1>
+        <a href="<?= url('admin/projects') ?>" class="btn btn-outline-light">
+            <i class="bi bi-arrow-left"></i> Retour
+        </a>
     </div>
 
+    <?php if (isset($_SESSION['errors'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <ul class="mb-0">
+                <?php foreach ($_SESSION['errors'] as $error): ?>
+                    <li><?= htmlspecialchars($error) ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <?php unset($_SESSION['errors']); ?>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($_SESSION['error']) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
+    <form method="POST"
+          action="<?= url('admin/projects/edit-project/' . htmlspecialchars($project['id'])) ?>"
+          enctype="multipart/form-data" class="card">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label class="form-label">Titre *</label>
+                    <input type="text" name="title" class="form-control" required
+                           value="<?= htmlspecialchars($project['title']) ?>">
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="projectStatus" value="visible"
+                               id="projectStatus" <?= ((int)$project['visibilite'] === 1) ? 'checked' : '' ?>>
+                        <label class="form-check-label" for="projectStatus">Visible sur le site</label>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label d-flex align-items-center gap-2">
+                        <span>Description *</span>
+                        <span class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox" name="is_markdown" value="1" id="is_markdown"
+                                   <?= !empty($project['is_markdown']) ? 'checked' : '' ?>>
+                            <label class="form-check-label small" for="is_markdown">Markdown</label>
+                        </span>
+                    </label>
+                    <textarea name="description" class="form-control" rows="8"
+                              style="font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;" required><?= htmlspecialchars($project['description']) ?></textarea>
+                    <div class="form-text">Si "Markdown" est coché : **gras**, *italique*, [lien](url), listes, titres `#`, code, paragraphes (ligne vide).</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Lien du projet</label>
+                    <input type="url" name="link" class="form-control"
+                           value="<?= htmlspecialchars($project['link'] ?? '') ?>">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Langages / outils *</label>
+                    <input type="text" name="tools" class="form-control" required
+                           value="<?= htmlspecialchars($project['languages'] ?? '') ?>"
+                           placeholder="PHP, MySQL, Docker">
+                    <div class="form-text">Séparés par des virgules (sert au filtre sur /projects).</div>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Images du projet</label>
+                    <div class="row g-3">
+                        <?php foreach (['image1' => 'img1', 'image2' => 'img2', 'image3' => 'img3'] as $inputName => $field):
+                            $idx = (int)substr($inputName, -1);
+                            $optional = $idx > 1 ? '(optionnelle)' : '';
+                        ?>
+                            <div class="col-md-4">
+                                <small class="text-secondary d-block mb-1">Image <?= $idx ?> <?= $optional ?></small>
+                                <input type="file" class="form-control mb-2" name="<?= $inputName ?>" accept="image/*">
+                                <?php if (!empty($project[$field])): ?>
+                                    <img src="/assets/img/projects/<?= htmlspecialchars($project[$field]) ?>"
+                                         alt="Image <?= $idx ?>" class="img-thumbnail"
+                                         style="max-width: 100%; max-height: 140px; object-fit: cover;">
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="form-text">Laisser vide pour conserver l'image actuelle.</div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i> Enregistrer les modifications
+                </button>
+                <a href="<?= url('admin/projects') ?>" class="btn btn-secondary">Annuler</a>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
-
 </html>
-
 <?php
-// Nettoyer les données de formulaire après affichage
 unset($_SESSION['form_data']);
 $content = ob_get_clean();
 include 'layout.php';

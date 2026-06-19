@@ -18,9 +18,19 @@ class AboutAdminController extends BaseController
             'hint'    => "Markdown supporté : **gras**, *italique*, [lien](url), listes, paragraphes (ligne vide).",
         ],
         'github_user'         => [
-            'label'   => "Compte GitHub à afficher",
+            'label'   => "Compte GitHub personnel",
             'markdown'=> false,
-            'hint'    => "Login GitHub uniquement (ex: Fydyr). Sert à fetcher les derniers repos.",
+            'hint'    => "Login GitHub uniquement (ex: Fydyr). Sert à fetcher les derniers repos personnels.",
+        ],
+        'github_org'          => [
+            'label'   => "Compte / Organisation GitHub additionnelle",
+            'markdown'=> false,
+            'hint'    => "Login GitHub d'une org (ex: aeroliths) ou d'un compte secondaire à afficher en plus. Laisser vide pour ne pas afficher.",
+        ],
+        'github_org_label'    => [
+            'label'   => "Titre du bloc GitHub additionnel",
+            'markdown'=> false,
+            'hint'    => "Texte affiché au-dessus des repos de l'org. Ex: 'Aeroliths - mon projet principal'.",
         ],
     ];
 

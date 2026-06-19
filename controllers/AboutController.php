@@ -6,9 +6,9 @@ require_once __DIR__ . '/../includes/settings.php';
 
 class AboutController extends BaseController
 {
-    private const GITHUB_CACHE    = __DIR__ . '/../assets/docs/.github-repos-cache.json';
-    private const GITHUB_TTL_SEC  = 3600; // 1h
-    private const GITHUB_MAX      = 6;
+    private const GITHUB_CACHE_DIR = __DIR__ . '/../assets/docs';
+    private const GITHUB_TTL_SEC   = 3600; // 1h
+    private const GITHUB_MAX       = 6;
 
     public function index(): void
     {
@@ -30,39 +30,67 @@ class AboutController extends BaseController
         $heroSubtitle    = nl2br(htmlspecialchars(str_replace('%age%', (string)$age, $heroSubtitleRaw), ENT_QUOTES, 'UTF-8'));
         $bioHtml         = settingHtml('about_bio', '');
         $githubUser      = setting('github_user', 'Fydyr');
+        $githubOrg       = setting('github_org', '');
+        $githubOrgLabel  = setting('github_org_label', '');
         $sections        = loadAboutSections();
 
-        $repos = $this->fetchGithubRepos($githubUser);
-        $hasCv = is_file(__DIR__ . '/../assets/docs/mon_cv.pdf');
+        $repos    = $this->fetchGithubRepos($githubUser);
+        $orgRepos = $githubOrg !== '' ? $this->fetchGithubRepos($githubOrg) : [];
+        $hasCv    = is_file(__DIR__ . '/../assets/docs/mon_cv.pdf');
 
         echo $this->view('about', compact(
             'age', 'skillsCount', 'passionsCount', 'projectsCount',
-            'repos', 'hasCv', 'githubUser',
+            'repos', 'orgRepos', 'hasCv', 'githubUser', 'githubOrg', 'githubOrgLabel',
             'heroSubtitle', 'bioHtml', 'sections'
         ));
     }
 
     /**
-     * Récupère les derniers repos publics depuis l'API GitHub, avec cache fichier.
-     * Si l'API échoue (offline, rate limit), on retourne le cache même expiré.
+     * Récupère les derniers repos publics d'un user OU d'une org, avec cache fichier
+     * spécifique au login. Si l'API échoue (offline, rate limit), retourne le cache
+     * même expiré pour ne jamais casser la page.
      */
-    private function fetchGithubRepos(string $githubUser): array
+    private function fetchGithubRepos(string $githubLogin): array
     {
-        $cache = self::GITHUB_CACHE;
+        if ($githubLogin === '') return [];
+
+        $safeLogin = preg_replace('/[^a-zA-Z0-9\-_]/', '', $githubLogin);
+        $cache     = self::GITHUB_CACHE_DIR . '/.github-' . $safeLogin . '-cache.json';
 
         if (is_file($cache) && (time() - filemtime($cache) < self::GITHUB_TTL_SEC)) {
             $data = json_decode((string)file_get_contents($cache), true);
             if (is_array($data)) return $data;
         }
 
-        $url = 'https://api.github.com/users/' . urlencode($githubUser)
+        $repos = $this->callGithub('users', $githubLogin);
+        // Si l'endpoint user ne donne rien (404 sur une org), retomber sur /orgs
+        if ($repos === null) {
+            $repos = $this->callGithub('orgs', $githubLogin);
+        }
+
+        if ($repos === null) {
+            return $this->staleCacheOr($cache);
+        }
+
+        if (!empty($repos)) {
+            @file_put_contents($cache, json_encode($repos, JSON_UNESCAPED_UNICODE));
+        }
+        return $repos;
+    }
+
+    /**
+     * Retourne null si erreur (4xx, parse fail), tableau sinon (peut être vide).
+     */
+    private function callGithub(string $kind, string $login): ?array
+    {
+        $url = 'https://api.github.com/' . $kind . '/' . rawurlencode($login)
              . '/repos?sort=pushed&direction=desc&per_page=' . self::GITHUB_MAX;
 
         $ctx = stream_context_create([
             'http' => [
                 'method'        => 'GET',
                 'header'        => [
-                    'User-Agent: portfolio-' . $githubUser,
+                    'User-Agent: portfolio-' . $login,
                     'Accept: application/vnd.github+json',
                 ],
                 'timeout'       => 5,
@@ -71,14 +99,10 @@ class AboutController extends BaseController
         ]);
 
         $raw = @file_get_contents($url, false, $ctx);
-        if ($raw === false) {
-            return $this->staleCacheOrEmpty();
-        }
+        if ($raw === false) return null;
 
         $data = json_decode($raw, true);
-        if (!is_array($data) || isset($data['message'])) {
-            return $this->staleCacheOrEmpty();
-        }
+        if (!is_array($data) || isset($data['message'])) return null;
 
         $repos = [];
         foreach ($data as $r) {
@@ -95,17 +119,13 @@ class AboutController extends BaseController
             ];
             if (count($repos) >= self::GITHUB_MAX) break;
         }
-
-        if (!empty($repos)) {
-            @file_put_contents($cache, json_encode($repos, JSON_UNESCAPED_UNICODE));
-        }
         return $repos;
     }
 
-    private function staleCacheOrEmpty(): array
+    private function staleCacheOr(string $cache): array
     {
-        if (is_file(self::GITHUB_CACHE)) {
-            $data = json_decode((string)file_get_contents(self::GITHUB_CACHE), true);
+        if (is_file($cache)) {
+            $data = json_decode((string)file_get_contents($cache), true);
             if (is_array($data)) return $data;
         }
         return [];

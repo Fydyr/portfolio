@@ -167,10 +167,10 @@ function fmtBytes($n) {
                         <ul class="list-unstyled mb-0">
                             <?php foreach ($latestProjects as $p): ?>
                                 <li class="d-flex justify-content-between align-items-center py-2"
-                                    style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                                    <span>
-                                        <strong>#<?= (int)$p['id'] ?></strong>
-                                        - <?= htmlspecialchars($p['title']) ?>
+                                    style="border-bottom: 1px solid rgba(255,255,255,0.08); color: var(--text-primary);">
+                                    <span style="color: var(--text-primary);">
+                                        <strong style="color: var(--primary-color);">#<?= (int)$p['id'] ?></strong>
+                                        <span style="color: var(--text-primary);"> - <?= htmlspecialchars($p['title']) ?></span>
                                         <?php if ((int)$p['visibilite'] === 1): ?>
                                             <span class="badge bg-success ms-2">visible</span>
                                         <?php else: ?>

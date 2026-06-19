@@ -108,11 +108,12 @@ class AdminController extends BaseController
             $projectData = [
                 'title' => trim($_POST['projectName']),
                 'description' => trim($_POST['projectDescription']),
+                'is_markdown' => isset($_POST['is_markdown']) ? 1 : 0,
                 'link' => trim($_POST['projectLink']) ?: null,
                 'img1' => $imageFiles[0] ?? null,
                 'img2' => $imageFiles[1] ?? null,
                 'img3' => $imageFiles[2] ?? null,
-                'visibilite' => ($_POST['projectStatus'] === 'visible') ? 1 : 0,
+                'visibilite' => (($_POST['projectStatus'] ?? '') === 'visible') ? 1 : 0,
                 'languages' => trim($_POST['projectLanguage']),
             ];
 
@@ -251,12 +252,13 @@ class AdminController extends BaseController
     {
         include_once 'includes/db.php';
         global $pdo;
-        $stmt = $pdo->prepare("INSERT INTO projects (title, description, link, img1, img2, img3, visibilite, languages) 
-                VALUES (:title, :description, :link, :img1, :img2, :img3, :visibilite, :languages)");
+        $stmt = $pdo->prepare("INSERT INTO projects (title, description, is_markdown, link, img1, img2, img3, visibilite, languages)
+                VALUES (:title, :description, :is_markdown, :link, :img1, :img2, :img3, :visibilite, :languages)");
 
         $result = $stmt->execute([
             ':title' => $data['title'],
             ':description' => $data['description'],
+            ':is_markdown' => $data['is_markdown'],
             ':link' => $data['link'],
             ':img1' => $data['img1'],
             ':img2' => $data['img2'],
@@ -478,11 +480,12 @@ class AdminController extends BaseController
             $projectData = [
                 'title' => trim($_POST['title']),
                 'description' => trim($_POST['description']),
+                'is_markdown' => isset($_POST['is_markdown']) ? 1 : 0,
                 'link' => trim($_POST['link']) ?: null,
                 'img1' => $images['img1'],
                 'img2' => $images['img2'],
                 'img3' => $images['img3'],
-                'visibilite' => ($_POST['projectStatus'] === 'visible') ? 1 : 0,
+                'visibilite' => (($_POST['projectStatus'] ?? '') === 'visible') ? 1 : 0,
                 'languages' => trim($_POST['tools']),
                 'id' => $projectId
             ];
@@ -567,6 +570,7 @@ class AdminController extends BaseController
         $stmt = $pdo->prepare("UPDATE projects
             SET title = :title,
                 description = :description,
+                is_markdown = :is_markdown,
                 link = :link,
                 img1 = :img1,
                 img2 = :img2,
@@ -578,6 +582,7 @@ class AdminController extends BaseController
         $result = $stmt->execute([
             ':title' => $data['title'],
             ':description' => $data['description'],
+            ':is_markdown' => $data['is_markdown'],
             ':link' => $data['link'],
             ':img1' => $data['img1'],
             ':img2' => $data['img2'],
