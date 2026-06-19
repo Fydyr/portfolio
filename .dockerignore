@@ -7,9 +7,8 @@
 .vscode
 .tmp.driveupload
 
-# Le fichier de config DB local ne doit pas être copié dans l'image :
-# il sera regénéré par l'entrypoint depuis les variables d'environnement.
-includes/db.php
+# Note: includes/db.php est maintenant env-aware et peut être copié dans l'image sans risque
+# (pas de secrets en dur dedans).
 
 # Vendor est réinstallé via composer install dans le Dockerfile
 vendor

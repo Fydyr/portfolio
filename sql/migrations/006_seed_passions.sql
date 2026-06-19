@@ -1,0 +1,32 @@
+INSERT IGNORE INTO passions (slug, name, short_description, long_description, why, icon, likes, sort_order) VALUES
+('gaming', 'Gaming',
+ 'Jeux de stratégie, de réflexion',
+ 'Les jeux vidéo sont pour moi bien plus qu''un simple passe-temps. Ils représentent un univers de créativité, de stratégie et de défis qui me permettent de me détendre tout en stimulant ma réflexion.',
+ 'Le gaming est un laboratoire de résolution de problèmes. Chaque puzzle complexe ressemble à un bug difficile : il faut analyser, tester différentes approches, et persévérer jusqu''à la solution. Les jeux de stratégie m''entraînent à anticiper plusieurs scénarios (comme prévoir les edge cases en code) et à optimiser mes ressources. C''est aussi mon meilleur outil de débogage mental après une journée intensive de développement.',
+ 'fas fa-gamepad',
+ '["Jeux de stratégie comme Magic The Gathering Arena","Jeux de réflexion et puzzles complexes","RPG avec des histoires riches et immersives","Jeux de gestion et simulation comme Planet Crafter ou Cult of the Lamb","Découvrir de nouveaux mécaniques de gameplay"]',
+ 1),
+
+('music', 'Musique',
+ 'Musique de jeu, d''animé et de pop rock',
+ 'La musique est ma compagne de tous les instants. Elle m''accompagne dans mes sessions de code, me motive et m''inspire. J''apprécie particulièrement les bandes originales de jeux vidéo et d''animés pour leur richesse émotionnelle.',
+ 'La musique est mon environnement de développement sonore. Comme un bon IDE qui s''adapte à la tâche, chaque style musical optimise mon flow de travail : orchestral épique pour concevoir l''architecture (penser grand), rock énergique pour debugger (rester concentré sous pression), lo-fi ambient pour la réflexion algorithmique. Les soundtracks de jeux sont particulièrement efficaces car conçus pour maintenir la concentration sans distraire - exactement ce dont j''ai besoin lors de sessions de code prolongées.',
+ 'fas fa-music',
+ '["Soundtracks de jeux vidéo (Undertale, Minecraft)","Musiques d''animés japonais (openings, endings)","Pop Rock alternatif","Musiques épiques et orchestrales","Découvrir de nouveaux artistes sur YouTube Music"]',
+ 2),
+
+('scifi', 'Sci-Fi',
+ 'Univers futuristes et Science-fiction',
+ 'L''univers de la science-fiction me fascine par ses questionnements sur l''avenir, la technologie et l''humanité. Star Wars, en particulier, représente pour moi l''équilibre parfait entre technologie avancée et récits épiques.',
+ 'La science-fiction est mon inspiration pour l''innovation technologique. Star Wars et autres univers SF m''apprennent à imaginer des systèmes complexes avant qu''ils n''existent - comme concevoir une API avant d''écrire une ligne de code. Ces récits explorent les conséquences des choix technologiques (IA, automatisation, éthique du code), me rappelant que chaque fonction que j''écris a un impact réel. C''est ma source d''inspiration pour penser "user experience" et anticiper les besoins futurs plutôt que juste résoudre les problèmes d''aujourd''hui.',
+ 'fas fa-rocket',
+ '["Star Wars : l''univers étendu et la mythologie","Films et séries de SF","Romans de science-fiction moderne","Exploration des futurs possibles et technologies","Réflexions philosophiques sur l''IA et le transhumanisme"]',
+ 3),
+
+('magic', 'Magic: The Gathering',
+ 'Jeu de cartes stratégique',
+ 'Magic est bien plus qu''un jeu de cartes : c''est un exercice de stratégie, de gestion de ressources et de prise de décision. Chaque partie est unique et demande adaptation et réflexion tactique.',
+ 'Magic est un terrain d''entraînement pour mes compétences en développement. Construire un deck, c''est comme concevoir une architecture logicielle : choisir les bonnes "dépendances" (cartes), gérer les ressources (mana/mémoire), optimiser les interactions (synergies/modules), et debugger en temps réel pendant la partie.\nChaque décision stratégique ressemble à un choix d''architecture : privilégier la performance, la flexibilité ou la fiabilité.',
+ 'fas fa-dice-d20',
+ '["Analyser les interactions entre cartes","Suivre le métagame et les nouvelles extensions","Collectionner des cartes avec des illustrations magnifiques","Jouer avec d''autres joueurs","Construire des decks optimisés et créatifs"]',
+ 4);

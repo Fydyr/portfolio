@@ -23,15 +23,15 @@ services:
 
   app:
     build:
-      context: ..
+      context: .
       dockerfile: dev/Dockerfile.dev
     ports:
-      - "8080:80"
+      - "8082:80"
     labels: []
     networks:
       - lan
     volumes:
-      - ..:/var/www/html
+      - .:/var/www/html
       - dev-vendor:/var/www/html/vendor
 
 networks:

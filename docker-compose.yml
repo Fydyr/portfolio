@@ -48,6 +48,8 @@ services:
       MYSQL_USERNAME: "${MYSQL_USERNAME}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       DB_REGENERATE: "${DB_REGENERATE:-false}"
+      ADMIN_EMAIL: "${ADMIN_EMAIL:-}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD:-}"
     volumes:
       - ./assets/img/projects:/var/www/html/assets/img/projects
       - ./assets/docs:/var/www/html/assets/docs
