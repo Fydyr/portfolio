@@ -1,6 +1,8 @@
 vendor
 assets/projects/*.*
 assets/docs/compteur.txt
+assets/docs/.github-*-cache.json
+assets/docs/.github-repos-cache.json
 /.tmp.driveupload
 /docs/compteur.txt
 .env
