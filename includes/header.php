@@ -38,9 +38,10 @@ $page_title = isset($page_meta['title']) ? $page_meta['title'] : $site_title;
 
 // Navigation items
 $nav_items = [
-    'index' => ['title' => 'Accueil', 'icon' => '🏠', 'url' => homeUrl()],
-    'projects' => ['title' => 'Projets', 'icon' => '📂', 'url' => url('projects')],
-    'contact' => ['title' => 'Contact', 'icon' => '📌', 'url' => url('contact')],
+    'index'    => ['title' => 'Accueil',  'icon' => '🏠', 'url' => homeUrl()],
+    'about'    => ['title' => 'À propos', 'icon' => '👤', 'url' => url('about')],
+    'projects' => ['title' => 'Projets',  'icon' => '📂', 'url' => url('projects')],
+    'contact'  => ['title' => 'Contact',  'icon' => '📌', 'url' => url('contact')],
 ];
 
 // Gestion de l'authentification

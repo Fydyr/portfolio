@@ -38,6 +38,12 @@ $router->get('/home', function () {
     $controller->index();
 });
 
+// Page À propos
+$router->get('/about', function () {
+    include_once './controllers/AboutController.php';
+    (new AboutController())->index();
+});
+
 // Page des projets (correspond à /index.php/projects)
 $router->get('/projects', function () {
     include_once './controllers/ProjectsController.php';
@@ -221,6 +227,36 @@ $router->post('/admin/passions/edit/(\d+)', function ($id) {
 $router->post('/admin/passions/delete', function () {
     include_once 'controllers/PassionsAdminController.php';
     (new PassionsAdminController())->delete();
+});
+
+// ===== Admin About =====
+$router->get('/admin/about', function () {
+    include_once 'controllers/AboutAdminController.php';
+    (new AboutAdminController())->index();
+});
+$router->post('/admin/about/save', function () {
+    include_once 'controllers/AboutAdminController.php';
+    (new AboutAdminController())->saveSettings();
+});
+$router->get('/admin/about/section/add', function () {
+    include_once 'controllers/AboutAdminController.php';
+    (new AboutAdminController())->editSection(null);
+});
+$router->post('/admin/about/section/add', function () {
+    include_once 'controllers/AboutAdminController.php';
+    (new AboutAdminController())->editSection(null);
+});
+$router->get('/admin/about/section/edit/(\d+)', function ($id) {
+    include_once 'controllers/AboutAdminController.php';
+    (new AboutAdminController())->editSection($id);
+});
+$router->post('/admin/about/section/edit/(\d+)', function ($id) {
+    include_once 'controllers/AboutAdminController.php';
+    (new AboutAdminController())->editSection($id);
+});
+$router->post('/admin/about/section/delete', function () {
+    include_once 'controllers/AboutAdminController.php';
+    (new AboutAdminController())->deleteSection();
 });
 
 // ===== Admin CV =====

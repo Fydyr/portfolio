@@ -288,6 +288,18 @@ function fmtBytes($n) {
             </a>
         </div>
 
+        <div class="col-md-4">
+            <a href="<?= url('admin/about') ?>" class="admin-card-link">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-person-vcard" style="font-size:2rem;color:#7209b7;"></i>
+                        <h5 class="card-title mt-2">Page À propos</h5>
+                        <p class="card-text text-muted">Bio, sections, compte GitHub</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
     </div>
 </div>
 </body>

@@ -56,6 +56,11 @@ function pagesMetaCatalog(): array
             'description' => "Tous les projets web, applications et créations que j'ai réalisés en personnel ou pendant mon BUT Informatique. Technologies, captures et code source.",
             'type'        => 'website',
         ],
+        'about' => [
+            'title'       => 'À propos - Enzo Fournier',
+            'description' => "Étudiant en BUT Informatique, développeur web backend. Mon parcours, mes compétences, mes derniers projets GitHub et ce qui me motive.",
+            'type'        => 'profile',
+        ],
         'contact' => [
             'title'       => 'Me contacter - Enzo Fournier',
             'description' => "Une question, un projet, une opportunité de stage ou d'alternance ? Contactez-moi directement via le formulaire ou sur mes réseaux.",
