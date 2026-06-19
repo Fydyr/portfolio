@@ -42,43 +42,43 @@ function pagesMetaCatalog(): array
 {
     return [
         'index' => [
-            'title'       => 'Enzo Fournier — Développeur Web & Étudiant BUT Informatique',
+            'title'       => 'Enzo Fournier - Développeur Web & Étudiant BUT Informatique',
             'description' => "Portfolio d'Enzo Fournier, étudiant en 3e année de BUT Informatique passionné par le développement web backend et la création d'applications. Découvrez mon parcours, mes compétences et mes projets.",
             'type'        => 'profile',
         ],
         'home' => [
-            'title'       => 'Enzo Fournier — Développeur Web & Étudiant BUT Informatique',
+            'title'       => 'Enzo Fournier - Développeur Web & Étudiant BUT Informatique',
             'description' => "Portfolio d'Enzo Fournier, étudiant en 3e année de BUT Informatique passionné par le développement web backend et la création d'applications.",
             'type'        => 'profile',
         ],
         'projects' => [
-            'title'       => 'Mes projets — Portfolio Enzo Fournier',
+            'title'       => 'Mes projets - Portfolio Enzo Fournier',
             'description' => "Tous les projets web, applications et créations que j'ai réalisés en personnel ou pendant mon BUT Informatique. Technologies, captures et code source.",
             'type'        => 'website',
         ],
         'contact' => [
-            'title'       => 'Me contacter — Enzo Fournier',
+            'title'       => 'Me contacter - Enzo Fournier',
             'description' => "Une question, un projet, une opportunité de stage ou d'alternance ? Contactez-moi directement via le formulaire ou sur mes réseaux.",
             'type'        => 'website',
         ],
         'legal-mention' => [
-            'title'       => 'Mentions légales — Portfolio Enzo Fournier',
+            'title'       => 'Mentions légales - Portfolio Enzo Fournier',
             'description' => "Mentions légales du portfolio d'Enzo Fournier : éditeur, hébergement, propriété intellectuelle et protection des données.",
             'type'        => 'website',
         ],
         'price' => [
-            'title'       => 'Tarifs & prestations — Enzo Fournier',
+            'title'       => 'Tarifs & prestations - Enzo Fournier',
             'description' => "Tarifs de mes prestations de développement web : sites vitrine, portfolios, applications mobiles, refonte et maintenance. Devis personnalisés sur demande.",
             'type'        => 'website',
         ],
         'login' => [
-            'title'       => 'Connexion — ' . SITE_NAME,
+            'title'       => 'Connexion - ' . SITE_NAME,
             'description' => "Espace d'administration du portfolio.",
             'type'        => 'website',
             'noindex'     => true,
         ],
         'admin' => [
-            'title'       => 'Administration — ' . SITE_NAME,
+            'title'       => 'Administration - ' . SITE_NAME,
             'description' => "Panneau d'administration.",
             'type'        => 'website',
             'noindex'     => true,
@@ -93,7 +93,7 @@ function getPageMeta(string $page = 'index', array $custom = []): array
 {
     $defaults = [
         'title'        => SITE_NAME,
-        'description'  => SITE_NAME . " — développeur web passionné.",
+        'description'  => SITE_NAME . " - développeur web passionné.",
         'image'        => SITE_DEFAULT_OG,
         'type'         => 'website',
         'twitter_card' => 'summary_large_image',
@@ -202,7 +202,7 @@ function renderJsonLd(string $page, array $context = []): void
             'knowsAbout' => $context['skills_names'] ?? [],
             'alumniOf'   => [
                 '@type' => 'CollegeOrUniversity',
-                'name'  => 'IUT de Calais — BUT Informatique',
+                'name'  => 'IUT de Calais - BUT Informatique',
             ],
         ];
         $blocks[] = [

@@ -11,9 +11,63 @@ class AdminController extends BaseController
             header('HTTP/1.1 403 Forbidden');
             echo view('403', ['title' => '403 - Accès interdit']);
             exit;
-        } else {
-            echo $this->view('admin');
         }
+
+        include_once 'includes/db.php';
+        global $pdo;
+
+        // === Stats du dashboard ===
+        $stats = [
+            'projects_total'   => 0,
+            'projects_visible' => 0,
+            'projects_hidden'  => 0,
+            'skills_total'     => 0,
+            'skill_cats_total' => 0,
+            'passions_total'   => 0,
+            'prices_total'     => 0,
+            'users_total'      => 0,
+            'visitors'         => 0,
+            'last_migration'   => null,
+            'cv_size'          => null,
+            'cv_modified'      => null,
+        ];
+
+        try { $stats['projects_total']   = (int)$pdo->query("SELECT COUNT(*) FROM projects")->fetchColumn(); } catch (Exception $e) {}
+        try { $stats['projects_visible'] = (int)$pdo->query("SELECT COUNT(*) FROM projects WHERE visibilite = 1")->fetchColumn(); } catch (Exception $e) {}
+        $stats['projects_hidden'] = $stats['projects_total'] - $stats['projects_visible'];
+
+        try { $stats['skills_total']     = (int)$pdo->query("SELECT COUNT(*) FROM skills")->fetchColumn(); } catch (Exception $e) {}
+        try { $stats['skill_cats_total'] = (int)$pdo->query("SELECT COUNT(*) FROM skill_categories")->fetchColumn(); } catch (Exception $e) {}
+        try { $stats['passions_total']   = (int)$pdo->query("SELECT COUNT(*) FROM passions")->fetchColumn(); } catch (Exception $e) {}
+        try { $stats['prices_total']     = (int)$pdo->query("SELECT COUNT(*) FROM price_items")->fetchColumn(); } catch (Exception $e) {}
+        try { $stats['users_total']      = (int)$pdo->query("SELECT COUNT(*) FROM user")->fetchColumn(); } catch (Exception $e) {}
+
+        try {
+            $row = $pdo->query("SELECT filename, applied_at FROM schema_migrations ORDER BY applied_at DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+            if ($row) $stats['last_migration'] = $row;
+        } catch (Exception $e) {}
+
+        // Compteur de visites (fichier texte existant)
+        $counter = __DIR__ . '/../assets/docs/compteur.txt';
+        if (is_file($counter)) {
+            $stats['visitors'] = (int)file_get_contents($counter);
+        }
+
+        // CV
+        $cvPath = __DIR__ . '/../assets/docs/mon_cv.pdf';
+        if (is_file($cvPath)) {
+            $stats['cv_size']     = filesize($cvPath);
+            $stats['cv_modified'] = filemtime($cvPath);
+        }
+
+        // Derniers projets ajoutés
+        $latestProjects = [];
+        try {
+            $stmt = $pdo->query("SELECT id, title, visibilite FROM projects ORDER BY id DESC LIMIT 5");
+            $latestProjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {}
+
+        echo $this->view('admin', compact('stats', 'latestProjects'));
     }
 
     // ===== Page d'ajout de projet =====

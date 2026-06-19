@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/meta-config.php';
 class SeoController extends BaseController
 {
     /**
-     * /sitemap.xml — sitemap dynamique listant les pages publiques + tous les projets visibles.
+     * /sitemap.xml - sitemap dynamique listant les pages publiques + tous les projets visibles.
      */
     public function sitemap(): void
     {
@@ -53,7 +53,7 @@ class SeoController extends BaseController
     }
 
     /**
-     * /robots.txt — autorise tout sauf /admin* et /login, pointe vers le sitemap.
+     * /robots.txt - autorise tout sauf /admin* et /login, pointe vers le sitemap.
      */
     public function robots(): void
     {

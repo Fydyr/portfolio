@@ -223,6 +223,20 @@ $router->post('/admin/passions/delete', function () {
     (new PassionsAdminController())->delete();
 });
 
+// ===== Admin CV =====
+$router->get('/admin/cv', function () {
+    include_once 'controllers/CvAdminController.php';
+    (new CvAdminController())->index();
+});
+$router->post('/admin/cv/upload', function () {
+    include_once 'controllers/CvAdminController.php';
+    (new CvAdminController())->upload();
+});
+$router->post('/admin/cv/delete', function () {
+    include_once 'controllers/CvAdminController.php';
+    (new CvAdminController())->delete();
+});
+
 // ===== Admin Prices =====
 $router->get('/admin/prices', function () {
     include_once 'controllers/PricesAdminController.php';
