@@ -67,7 +67,31 @@ class AdminController extends BaseController
             $latestProjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {}
 
-        echo $this->view('admin', compact('stats', 'latestProjects'));
+        // Historique des visites sur 30 jours (jours sans visite = 0)
+        $visitsByDay = [];
+        $visits7d    = 0;
+        $visits30d   = 0;
+        try {
+            $rows = $pdo->query(
+                "SELECT day, count FROM daily_visits
+                 WHERE day >= (CURDATE() - INTERVAL 29 DAY)
+                 ORDER BY day ASC"
+            )->fetchAll(PDO::FETCH_ASSOC);
+            $byDay = [];
+            foreach ($rows as $r) {
+                $byDay[$r['day']] = (int)$r['count'];
+            }
+            // Complète les jours manquants avec 0
+            for ($i = 29; $i >= 0; $i--) {
+                $day = date('Y-m-d', strtotime("-$i days"));
+                $c   = $byDay[$day] ?? 0;
+                $visitsByDay[$day] = $c;
+                $visits30d += $c;
+                if ($i < 7) $visits7d += $c;
+            }
+        } catch (Exception $e) {}
+
+        echo $this->view('admin', compact('stats', 'latestProjects', 'visitsByDay', 'visits7d', 'visits30d'));
     }
 
     // ===== Page d'ajout de projet =====
