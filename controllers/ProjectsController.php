@@ -71,8 +71,9 @@ class ProjectsController extends BaseController
         ];
 
         echo $this->view('projectDetail', [
-            'project' => $project,
-            'page_meta' => getPageMeta('project-detail', $custom_meta)
+            'project'       => $project,
+            'page_meta'     => getPageMeta('project-detail', $custom_meta),
+            'jsonLdContext' => ['project' => $project],
         ]);
     }
 }

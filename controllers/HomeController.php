@@ -44,6 +44,13 @@ class HomeController extends BaseController
             }
         }
 
-        echo $this->view('home', compact('projectCount', 'categories', 'skillsByCategory', 'passions', 'languageCount'));
+        // Liste plate des noms de skills (pour JSON-LD Person.knowsAbout)
+        $skillNames = [];
+        foreach ($skillsByCategory as $list) {
+            foreach ($list as $s) $skillNames[] = $s['name'];
+        }
+        $jsonLdContext = ['skills_names' => $skillNames];
+
+        echo $this->view('home', compact('projectCount', 'categories', 'skillsByCategory', 'passions', 'languageCount', 'jsonLdContext'));
     }
 }
