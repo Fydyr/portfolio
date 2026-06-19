@@ -129,12 +129,12 @@ $languageCount = count($languages);
                     <h3 class="skill-title">Développement Web</h3>
                     <p style="color: var(--text-muted); font-size: 0.95rem;">Frontend & Backend</p>
                     <div class="skill-tags">
+                        <span class="skill-tag tech-badge" data-tech="nuxt">Nuxt</span>
                         <span class="skill-tag tech-badge" data-tech="vuejs">Vue.js</span>
                         <span class="skill-tag tech-badge" data-tech="bootstrap">Bootstrap</span>
                         <span class="skill-tag tech-badge" data-tech="nodejs">Node.js</span>
                         <span class="skill-tag tech-badge" data-tech="express">Express</span>
                         <span class="skill-tag tech-badge" data-tech="php">PHP</span>
-                        <span class="skill-tag tech-badge" data-tech="flutter">Flutter</span>
                     </div>
                 </div>
 
@@ -148,6 +148,7 @@ $languageCount = count($languages);
                         <span class="skill-tag tech-badge" data-tech="mysql">MySQL</span>
                         <span class="skill-tag tech-badge" data-tech="mongodb">MongoDB</span>
                         <span class="skill-tag tech-badge" data-tech="postgresql">PostgreSQL</span>
+                        <span class="skill-tag tech-badge" data-tech="arangodb">ArangoDB</span>
                     </div>
                 </div>
 
