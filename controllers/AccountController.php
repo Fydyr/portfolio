@@ -30,7 +30,7 @@ class AccountController extends BaseController
 
             if (empty($errors)) {
                 global $pdo;
-                $stmt = $pdo->prepare('SELECT id, mail, password FROM user WHERE mail = ?');
+                $stmt = $pdo->prepare('SELECT id, mail, password, admin FROM user WHERE mail = ?');
                 $stmt->execute([$email]);
                 $user = $stmt->fetch();
 
@@ -38,10 +38,10 @@ class AccountController extends BaseController
                     if (session_status() === PHP_SESSION_NONE) {
                         session_start();
                     }
-                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['user_id']   = $user['id'];
                     $_SESSION['user_mail'] = $user['mail'];
-                    $_SESSION['admin'] = $user['admin'];
-                    header('Location:' . url('admin'));
+                    $_SESSION['admin']     = (int)($user['admin'] ?? 0);
+                    header('Location: ' . url('admin'));
                     exit;
                 } else {
                     $errors[] = 'Email ou mot de passe incorrect.';
