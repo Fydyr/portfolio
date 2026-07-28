@@ -1,10 +1,10 @@
 -- Settings (champs simples, pas de markdown sauf about_bio)
 INSERT IGNORE INTO site_settings (`key`, `value`, `is_markdown`) VALUES
 ('about_hero_subtitle',
- "%age% ans, étudiant en 3e année de BUT Informatique à l'IUT de Calais.\nPassionné par le développement web backend, la création d'applications\net tout ce qui se passe derrière l'écran.",
+ "%age% ans, diplômé du BUT Informatique à l'IUT de Calais.\nPassionné par le développement web backend, la création d'applications\net tout ce qui se passe derrière l'écran.",
  0),
 ('about_bio',
- "J'ai découvert la programmation au lycée avec la spécialité **NSI** (Mariette, Boulogne-sur-Mer) et je suis aujourd'hui en dernière année de **BUT Informatique**, parcours *Réalisation d'applications*. Mon terrain de jeu favori : le **back**, les **APIs**, l'**architecture** et le **DevOps** (j'ai d'ailleurs dockerisé et déployé moi-même ce site, derrière Traefik).\n\nÀ côté du code, je suis aussi attiré par tout ce qui demande de la stratégie ou de la créativité : *Magic: The Gathering*, les jeux de réflexion, les soundtracks d'animés ou de jeux vidéo, et la science-fiction. Pour moi, ces hobbies nourrissent ma façon de coder : penser plusieurs coups à l'avance, optimiser, debugger calmement.",
+ "J'ai découvert la programmation au lycée avec la spécialité **NSI** (Mariette, Boulogne-sur-Mer) et je suis aujourd'hui diplômé du **BUT Informatique**, parcours *Réalisation d'applications*. Mon terrain de jeu favori : le **back**, les **APIs**, l'**architecture** et le **DevOps** (j'ai d'ailleurs dockerisé et déployé moi-même ce site, derrière Traefik).\n\nÀ côté du code, je suis aussi attiré par tout ce qui demande de la stratégie ou de la créativité : *Magic: The Gathering*, les jeux de réflexion, les soundtracks d'animés ou de jeux vidéo, et la science-fiction. Pour moi, ces hobbies nourrissent ma façon de coder : penser plusieurs coups à l'avance, optimiser, debugger calmement.",
  1),
 ('github_user', 'Fydyr', 0);
 

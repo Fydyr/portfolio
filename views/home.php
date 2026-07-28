@@ -45,7 +45,7 @@ foreach ($skillsByCategory as $list) {
                     Bonjour, je suis<br>Enzo Fournier
                 </h1>
                 <p class="hero-subtitle">
-                    Étudiant en BUT Informatique, spécialisé dans le développement web backend & la création d'applications.
+                    Diplômé du BUT Informatique, spécialisé dans le développement web backend & la création d'applications.
                 </p>
 
                 <div class="stats-grid">
@@ -54,8 +54,8 @@ foreach ($skillsByCategory as $list) {
                         <div class="stat-label">Ans</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">3e</div>
-                        <div class="stat-label">Année BUT Info</div>
+                        <div class="stat-number">2026</div>
+                        <div class="stat-label">Diplômé BUT Info</div>
                     </div>
                     <a href="#langages" class="stat-card" style="text-decoration: none; color: inherit; transition: transform 0.3s ease;">
                         <div class="stat-number"><?= $languageCount ?></div>
@@ -174,7 +174,7 @@ foreach ($skillsByCategory as $list) {
                     <div class="timeline-content-modern">
                         <span class="timeline-date">2023 - 2026</span>
                         <h3 class="timeline-title">BUT Informatique <i class="fas fa-info-circle" style="font-size: 0.85em; opacity: 0.7; margin-left: 0.3rem;"></i></h3>
-                        <div class="timeline-subtitle">IUT de Calais • En cours</div>
+                        <div class="timeline-subtitle">IUT de Calais • Obtenu</div>
                         <p class="timeline-description">
                             Formation universitaire technologique spécialisée en informatique avec focus sur le développement, les bases de données et la gestion de projets.
                         </p>
@@ -315,7 +315,7 @@ foreach ($skillsByCategory as $list) {
             </div>
             <div class="tech-modal-body">
                 <p class="tech-modal-description">
-                    Le BUT Informatique est une formation en 3 ans d&eacute;clin&eacute;e en diff&eacute;rents parcours. Je suis le <strong>Parcours A &mdash; R&eacute;alisation de logiciels</strong>, centr&eacute; sur le d&eacute;veloppement d&rsquo;applications et la ma&icirc;trise du cycle de vie logiciel.
+                    Le BUT Informatique est une formation en 3 ans d&eacute;clin&eacute;e en diff&eacute;rents parcours. J&rsquo;ai suivi le <strong>Parcours A &mdash; R&eacute;alisation de logiciels</strong>, centr&eacute; sur le d&eacute;veloppement d&rsquo;applications et la ma&icirc;trise du cycle de vie logiciel.
                 </p>
                 <div class="tech-modal-features">
                     <h4><i class="fas fa-check-circle me-2" style="color: var(--primary-color);"></i>C1 &mdash; R&eacute;aliser un d&eacute;veloppement d&rsquo;application</h4>

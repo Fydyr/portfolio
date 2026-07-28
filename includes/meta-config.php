@@ -42,13 +42,13 @@ function pagesMetaCatalog(): array
 {
     return [
         'index' => [
-            'title'       => 'Enzo Fournier - Développeur Web & Étudiant BUT Informatique',
-            'description' => "Portfolio d'Enzo Fournier, étudiant en 3e année de BUT Informatique passionné par le développement web backend et la création d'applications. Découvrez mon parcours, mes compétences et mes projets.",
+            'title'       => 'Enzo Fournier - Développeur Web & Diplômé BUT Informatique',
+            'description' => "Portfolio d'Enzo Fournier, diplômé du BUT Informatique passionné par le développement web backend et la création d'applications. Découvrez mon parcours, mes compétences et mes projets.",
             'type'        => 'profile',
         ],
         'home' => [
-            'title'       => 'Enzo Fournier - Développeur Web & Étudiant BUT Informatique',
-            'description' => "Portfolio d'Enzo Fournier, étudiant en 3e année de BUT Informatique passionné par le développement web backend et la création d'applications.",
+            'title'       => 'Enzo Fournier - Développeur Web & Diplômé BUT Informatique',
+            'description' => "Portfolio d'Enzo Fournier, diplômé du BUT Informatique passionné par le développement web backend et la création d'applications.",
             'type'        => 'profile',
         ],
         'projects' => [
@@ -58,7 +58,7 @@ function pagesMetaCatalog(): array
         ],
         'about' => [
             'title'       => 'À propos - Enzo Fournier',
-            'description' => "Étudiant en BUT Informatique, développeur web backend. Mon parcours, mes compétences, mes derniers projets GitHub et ce qui me motive.",
+            'description' => "Diplômé du BUT Informatique, développeur web backend. Mon parcours, mes compétences, mes derniers projets GitHub et ce qui me motive.",
             'type'        => 'profile',
         ],
         'contact' => [
@@ -198,8 +198,8 @@ function renderJsonLd(string $page, array $context = []): void
             'name'        => SITE_AUTHOR,
             'url'         => $base . '/',
             'image'       => absoluteUrl(SITE_DEFAULT_OG),
-            'jobTitle'    => 'Étudiant en BUT Informatique',
-            'description' => "Étudiant en 3e année de BUT Informatique, développeur web backend et créateur d'applications.",
+            'jobTitle'    => 'Développeur web',
+            'description' => "Diplômé du BUT Informatique, développeur web backend et créateur d'applications.",
             'sameAs'      => [
                 'https://github.com/Fydyr',
                 'https://www.linkedin.com/in/enzo-fournier-2746ba2b3/',

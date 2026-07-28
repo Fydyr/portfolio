@@ -3,7 +3,7 @@
 
 <?
 
-// Compteur de visites
+// Compteur de visites (non affiché : sert uniquement aux stats du panel admin)
 // Nom du fichier pour stocker le compteur
 $fichier_compteur = __DIR__ . '/../assets/docs/compteur.txt';
 
@@ -86,11 +86,7 @@ if (est_nouveau_visiteur()) {
                             </div>
                             <div class="stat-item">
                                 <span class="stat-number counter" data-target="3">3</span>
-                                <span class="stat-label">Année de BUT<br />(actuellement)</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-number counter" data-target="<?php echo $compteur_actuel; ?>"><?php echo $compteur_actuel; ?></span>
-                                <span class="stat-label">Visiteurs total sur le site</span>
+                                <span class="stat-label">Années de BUT<br />(diplômé)</span>
                             </div>
                         </div>
                     </div>

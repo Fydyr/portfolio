@@ -26,7 +26,7 @@ class AboutController extends BaseController
         try { $projectsCount = (int)$pdo->query("SELECT COUNT(*) FROM projects WHERE visibilite = 1")->fetchColumn(); } catch (Exception $e) {}
 
         // Settings éditables
-        $heroSubtitleRaw = setting('about_hero_subtitle', "{$age} ans, étudiant en BUT Informatique.");
+        $heroSubtitleRaw = setting('about_hero_subtitle', "{$age} ans, diplômé du BUT Informatique.");
         $heroSubtitle    = nl2br(htmlspecialchars(str_replace('%age%', (string)$age, $heroSubtitleRaw), ENT_QUOTES, 'UTF-8'));
         $bioHtml         = settingHtml('about_bio', '');
         $githubUser      = setting('github_user', 'Fydyr');
