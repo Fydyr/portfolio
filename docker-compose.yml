@@ -29,8 +29,11 @@ services:
   #     utilisateur:$2y$05$<hash bcrypt>
   # Voir .env.example pour la commande de génération.
   #
-  # Accès de secours si le mot de passe basicAuth est perdu (loopback seule) :
-  #     ssh -L 8080:127.0.0.1:8080 <user>@<serveur>  puis  http://localhost:8080
+  # Aucun port publié sur l'hôte : l'accès passe uniquement par Traefik. Un
+  # mapping loopback entrait en conflit avec un autre service déjà sur 8080.
+  # Si le mot de passe basicAuth est perdu, régénérer PMA_BASIC_AUTH dans .env
+  # et redéployer ; pour un accès SQL direct en urgence :
+  #     docker compose exec database mysql -u root -p
   phpmyadmin:
     image: phpmyadmin:5
     container_name: ${NAME}_pma
@@ -39,8 +42,6 @@ services:
       PMA_HOST: database
       PMA_ABSOLUTE_URI: https://${NAME}.aeroliths.fr/phpmyadmin/
       UPLOAD_LIMIT: 128M
-    ports:
-      - "127.0.0.1:8080:80"
     labels:
       - traefik.enable=true
       - traefik.http.routers.pma_${NAME}.entrypoints=websecure
