@@ -13,6 +13,7 @@
 <div class="container py-4">
     <h1><?= $category ? 'Modifier' : 'Ajouter' ?> une catégorie</h1>
     <form method="post" class="card">
+        <?= csrfField() ?>
         <div class="card-body">
             <div class="row g-3">
                 <div class="col-md-6">

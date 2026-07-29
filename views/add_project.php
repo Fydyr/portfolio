@@ -39,6 +39,7 @@
     <?php endif; ?>
 
     <form method="POST" action="<?= url('admin/add-project') ?>" enctype="multipart/form-data" class="card">
+        <?= csrfField() ?>
         <div class="card-body">
             <div class="row g-3">
                 <div class="col-md-8">

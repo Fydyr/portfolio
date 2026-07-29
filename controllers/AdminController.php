@@ -7,11 +7,7 @@ class AdminController extends BaseController
     // ===== Page administration =====
     public function admin()
     {
-        if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin']) == 1) {
-            header('HTTP/1.1 403 Forbidden');
-            echo view('403', ['title' => '403 - Accès interdit']);
-            exit;
-        }
+        $this->checkAuth();
 
         include_once 'includes/db.php';
         global $pdo;
@@ -97,11 +93,7 @@ class AdminController extends BaseController
     // ===== Page d'ajout de projet =====
     public function addProject()
     {
-        if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin']) == 1) {
-            header('HTTP/1.1 403 Forbidden');
-            echo view('403', ['title' => '403 - Accès interdit']);
-            exit;
-        }
+        $this->checkAuth();
 
         // Si c'est une requête POST, traiter le formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -301,11 +293,7 @@ class AdminController extends BaseController
     // ===== Page de liste des projets =====
     public function listProjects()
     {
-        if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin']) == 1) {
-            header('HTTP/1.1 403 Forbidden');
-            echo view('403', ['title' => '403 - Accès interdit']);
-            exit;
-        }
+        $this->checkAuth();
 
         // Si c'est une requête POST, traiter les actions
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -443,11 +431,7 @@ class AdminController extends BaseController
 
     // ===== Page modification de projet =====
     public function editProject($projectId){
-        if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin']) == 1) {
-            header('HTTP/1.1 403 Forbidden');
-            echo view('403', ['title' => '403 - Accès interdit']);
-            exit;
-        }
+        $this->checkAuth();
 
         // Si c'est une requête POST, traiter le formulaire AVANT de charger la vue
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

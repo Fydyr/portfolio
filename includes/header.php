@@ -5,9 +5,8 @@ include_once __DIR__ . '/meta-config.php';
 global $pdo;
 
 // Démarrer la session (no-op si déjà démarrée par index.php)
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+include_once __DIR__ . '/session.php';
+startSecureSession();
 
 // récupérer le nombre de projets sur la bdd
 $stmt = $pdo->prepare("SELECT COUNT(*) FROM projects");

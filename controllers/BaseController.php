@@ -3,6 +3,19 @@
 class BaseController
 {
 
+    /**
+     * Garde d'accès de toute la zone admin : exige une session administrateur,
+     * et un jeton CSRF valide sur les requêtes POST. Termine la requête (403)
+     * si l'une des deux conditions n'est pas remplie.
+     *
+     * Définie ici plutôt que dupliquée dans chaque contrôleur : les copies
+     * privées divergeaient (certaines ne testaient même pas le flag `admin`).
+     */
+    protected function checkAuth(): void
+    {
+        requireAdminPost();
+    }
+
     protected function view($template, $data = [])
     {
         return view($template, $data);

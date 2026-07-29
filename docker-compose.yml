@@ -14,6 +14,23 @@ services:
     volumes:
       - db-data:/var/lib/mysql
 
+  # phpMyAdmin reste accessible à distance, mais derrière une authentification
+  # HTTP gérée par Traefik.
+  #
+  # Avant : l'interface était atteignable directement par n'importe qui ; la
+  # seule barrière était le couple identifiant/mot de passe MySQL, sans aucune
+  # limitation de tentatives -> bruteforce possible (dont root), et prise de
+  # contrôle totale du site en cas de succès.
+  #
+  # Maintenant : le middleware basicAuth s'interpose AVANT phpMyAdmin. Sans les
+  # identifiants, l'attaquant ne voit jamais le formulaire de connexion MySQL.
+  #
+  # PMA_BASIC_AUTH est défini dans .env (non versionné), au format htpasswd :
+  #     utilisateur:$2y$05$<hash bcrypt>
+  # Voir .env.example pour la commande de génération.
+  #
+  # Accès de secours si le mot de passe basicAuth est perdu (loopback seule) :
+  #     ssh -L 8080:127.0.0.1:8080 <user>@<serveur>  puis  http://localhost:8080
   phpmyadmin:
     image: phpmyadmin:5
     container_name: ${NAME}_pma
@@ -22,12 +39,17 @@ services:
       PMA_HOST: database
       PMA_ABSOLUTE_URI: https://${NAME}.aeroliths.fr/phpmyadmin/
       UPLOAD_LIMIT: 128M
+    ports:
+      - "127.0.0.1:8080:80"
     labels:
       - traefik.enable=true
       - traefik.http.routers.pma_${NAME}.entrypoints=websecure
       - traefik.http.routers.pma_${NAME}.rule=Host(`${NAME}.aeroliths.fr`) && PathPrefix(`/phpmyadmin/`)
       - traefik.http.middlewares.pmapathstrip_${NAME}.stripprefix.prefixes=/phpmyadmin
-      - traefik.http.routers.pma_${NAME}.middlewares=pmapathstrip_${NAME}@docker
+      - traefik.http.middlewares.pmaauth_${NAME}.basicauth.users=${PMA_BASIC_AUTH}
+      - traefik.http.middlewares.pmaauth_${NAME}.basicauth.realm=Administration base de donnees
+      # Ordre important : l'authentification passe AVANT le strip de préfixe.
+      - traefik.http.routers.pma_${NAME}.middlewares=pmaauth_${NAME}@docker,pmapathstrip_${NAME}@docker
       - traefik.http.routers.pma_${NAME}.tls=true
       - traefik.http.routers.pma_${NAME}.tls.certresolver=myresolver
     networks:

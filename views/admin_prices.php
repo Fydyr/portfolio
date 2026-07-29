@@ -54,6 +54,7 @@
                             </a>
                             <form method="post" action="<?= url('admin/prices/delete') ?>" class="d-inline"
                                   onsubmit="return confirm('Supprimer ce tarif ?');">
+                                <?= csrfField() ?>
                                 <input type="hidden" name="id" value="<?= $p['id'] ?>">
                                 <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
                             </form>

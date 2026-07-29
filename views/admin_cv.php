@@ -37,6 +37,7 @@
                 </a>
                 <form method="post" action="<?= url('admin/cv/delete') ?>" class="d-inline"
                       onsubmit="return confirm('Supprimer le CV actuel ? Le lien public ne fonctionnera plus tant qu\'un nouveau n\'est pas uploadé.');">
+                    <?= csrfField() ?>
                     <button type="submit" class="btn btn-danger">
                         <i class="bi bi-trash"></i> Supprimer
                     </button>
@@ -59,6 +60,7 @@
         </div>
         <div class="card-body">
             <form method="post" action="<?= url('admin/cv/upload') ?>" enctype="multipart/form-data">
+                <?= csrfField() ?>
                 <div class="mb-3">
                     <label for="cv" class="form-label">Fichier PDF (max 10 Mo)</label>
                     <input type="file" name="cv" id="cv" class="form-control" accept="application/pdf,.pdf" required>

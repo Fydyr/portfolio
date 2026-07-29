@@ -73,6 +73,7 @@
                         </td>
                         <td style="width: 180px;">
                             <form action="<?= url('admin/projects') ?>" method="POST" class="d-inline">
+                                <?= csrfField() ?>
                                 <input type="hidden" name="projectId" value="<?= $project['id'] ?>">
                                 <input type="hidden" name="visible" value="0">
                                 <div class="form-check form-switch mb-0">
@@ -97,6 +98,7 @@
                             </a>
                             <form action="<?= url('admin/projects') ?>" method="POST" class="d-inline"
                                   onsubmit="return confirm('Supprimer le projet \'<?= htmlspecialchars(addslashes($project['title']), ENT_QUOTES) ?>\' ? Cette action est définitive.');">
+                                <?= csrfField() ?>
                                 <input type="hidden" name="projectId" value="<?= $project['id'] ?>">
                                 <input type="hidden" name="delete" value="1">
                                 <button type="submit" class="btn btn-sm btn-danger" title="Supprimer">

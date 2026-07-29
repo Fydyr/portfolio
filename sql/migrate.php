@@ -2,11 +2,13 @@
 /**
  * Migrations SQL portables.
  *
- * Usage :
- *   - CLI    : php sql/migrate.php  (depuis la racine du projet)
+ * Usage (CLI uniquement) :
+ *   - Local  : php sql/migrate.php  (depuis la racine du projet)
  *   - Docker : appelé automatiquement par docker/entrypoint.sh
- *   - MAMP   : ouvrir http://localhost:8888/mon_portfolio/sql/migrate.php?token=portfolio-migrate
- *              (token = sécurité minimale pour éviter qu'un visiteur trigger une migration)
+ *   - MAMP   : php sql/migrate.php depuis un terminal, dans le dossier du projet
+ *
+ * Ce script n'est PAS exposé en HTTP : il applique du DDL sur la base de prod et
+ * peut créer le compte admin initial. Il est aussi bloqué côté serveur (.htaccess).
  *
  * Parcourt les fichiers .sql de sql/migrations/ dans l'ordre lexicographique,
  * applique ceux qui ne sont pas encore dans la table schema_migrations.
@@ -14,17 +16,11 @@
 
 declare(strict_types=1);
 
-$isCli = (php_sapi_name() === 'cli');
-
-// En mode HTTP, exige un token de protection minimale (configurable via env)
-if (!$isCli) {
-    $expectedToken = getenv('MIGRATE_TOKEN') ?: 'portfolio-migrate';
-    if (($_GET['token'] ?? '') !== $expectedToken) {
-        http_response_code(403);
-        echo "Forbidden. Add ?token=$expectedToken or run from CLI.";
-        exit;
-    }
-    header('Content-Type: text/plain; charset=utf-8');
+// Refus catégorique hors CLI : pas de token, pas d'exception. 404 pour ne rien
+// révéler de l'existence du script.
+if (php_sapi_name() !== 'cli') {
+    http_response_code(404);
+    exit;
 }
 
 require_once __DIR__ . '/../includes/db.php';

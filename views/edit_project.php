@@ -41,6 +41,7 @@
     <form method="POST"
           action="<?= url('admin/projects/edit-project/' . htmlspecialchars($project['id'])) ?>"
           enctype="multipart/form-data" class="card">
+        <?= csrfField() ?>
         <div class="card-body">
             <div class="row g-3">
                 <div class="col-md-8">

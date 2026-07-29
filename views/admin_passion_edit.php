@@ -22,6 +22,7 @@
     ?>
 
     <form method="post" class="card">
+        <?= csrfField() ?>
         <div class="card-body">
             <div class="row g-3">
                 <div class="col-md-6">

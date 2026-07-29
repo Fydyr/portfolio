@@ -5,12 +5,12 @@ if (!function_exists('view')) {
     throw new Exception('Les fonctions helpers ne sont pas chargées');
 }
 
-// Middleware admin
+// Middleware admin. requireAdmin()/requireCsrf() terminent la requête (exit) :
+// sans ça le routeur enchaînait sur le handler malgré la page 403 affichée.
+// Note : ce middleware ne couvre pas `/admin` lui-même (pattern `/admin/.*`),
+// chaque contrôleur rappelle donc la garde de son côté.
 $router->before('GET|POST', '/admin/.*', function () {
-    if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin']) == 1) {
-        header('HTTP/1.1 403 Forbidden');
-            echo view('403', ['title' => '403 - Accès interdit']);
-    }
+    requireAdminPost();
 });
 
 // ===== SEO (sitemap + robots) =====
@@ -299,29 +299,9 @@ $router->post('/admin/prices/delete', function () {
     (new PricesAdminController())->delete();
 });
 
-// ==== Routes de test =====
-$router->get('/test', function () {
-    echo "<h1>✅ Test route fonctionne !</h1>";
-    echo "<p><strong>URL:</strong> " . $_SERVER['REQUEST_URI'] . "</p>";
-    echo "<p><strong>Base path configuré:</strong> /index.php</p>";
-    echo "<p><a href='" . url('') . "'>Retour accueil</a></p>";
-});
-
-$router->get('/debug', function () {
-    echo "<h1>🐛 Debug Router</h1>";
-    echo "<div style='background: #f0f0f0; padding: 1rem; font-family: monospace;'>";
-    echo "<strong>REQUEST_URI:</strong> " . $_SERVER['REQUEST_URI'] . "<br>";
-    echo "<strong>SCRIPT_NAME:</strong> " . $_SERVER['SCRIPT_NAME'] . "<br>";
-    echo "<strong>REQUEST_METHOD:</strong> " . $_SERVER['REQUEST_METHOD'] . "<br>";
-    echo "<strong>Base path Bramus:</strong> /index.php<br>";
-    echo "</div>";
-    echo "<h3>🧪 Tests :</h3>";
-    echo "<ul>";
-    echo "<li><a href='" . url('') . "'>Accueil</a></li>";
-    echo "<li><a href='" . url('test') . "'>Test</a></li>";
-    echo "<li><a href='" . url('contact') . "'>Contact</a></li>";
-    echo "</ul>";
-});
+// ==== Routes de debug ====
+// /test et /debug ont été supprimées : publiques, elles exposaient REQUEST_URI,
+// SCRIPT_NAME et REQUEST_METHOD sans échappement (fuite d'infos + puits XSS).
 
 // ==== 404 ====
 $router->set404(function () {

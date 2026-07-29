@@ -25,6 +25,7 @@
         </div>
         <div class="card-body">
             <form method="post" action="<?= url('admin/about/save') ?>">
+                <?= csrfField() ?>
                 <?php foreach ($settingsDef as $key => $def):
                     $value = $stored[$key]['value'] ?? '';
                     $rows  = $def['markdown'] ? 10 : 3;
@@ -97,6 +98,7 @@
                             </a>
                             <form method="post" action="<?= url('admin/about/section/delete') ?>" class="d-inline"
                                   onsubmit="return confirm('Supprimer cette section ?');">
+                                <?= csrfField() ?>
                                 <input type="hidden" name="id" value="<?= $s['id'] ?>">
                                 <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
                             </form>

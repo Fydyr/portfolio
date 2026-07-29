@@ -5,6 +5,11 @@
     RewriteCond %{THE_REQUEST} \s/+index\.php/([^\s?]*) [NC]
     RewriteRule ^ /%1 [R=301,L]
 
+    # Dossiers internes : jamais servis directement, même si le fichier existe.
+    # Sans ça, /sql/migrate.php, /includes/footer.php, /views/admin.php, etc. sont
+    # exécutés directement par Apache en court-circuitant le front controller.
+    RewriteRule ^(sql|controllers|includes|views|dev|docker)(/|$) - [F,L]
+
     # Si la requête correspond à un fichier ou dossier existant (assets, etc.) -> sert directement
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
@@ -19,6 +24,6 @@
     Require all denied
 </FilesMatch>
 
-# Bloque l'accès au dossier sql/migrations (les .sql sont déjà bloqués par FilesMatch,
-# mais on bloque aussi pour les listing de dossier au cas où).
-RedirectMatch 403 ^/sql/migrations/.*$
+# Filet de sécurité si mod_rewrite est indisponible : bloque tout /sql/*
+# (migrate.php applique du DDL sur la prod et peut créer le compte admin initial).
+RedirectMatch 404 ^/sql(/.*)?$

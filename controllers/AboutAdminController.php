@@ -34,15 +34,6 @@ class AboutAdminController extends BaseController
         ],
     ];
 
-    private function checkAuth(): void
-    {
-        if (!isset($_SESSION['user_id'])) {
-            header('HTTP/1.1 403 Forbidden');
-            echo view('403', ['title' => '403 - Accès interdit']);
-            exit;
-        }
-    }
-
     public function index(): void
     {
         $this->checkAuth();

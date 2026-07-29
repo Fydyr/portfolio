@@ -13,6 +13,7 @@
 <div class="container py-4">
     <h1><?= $price ? 'Modifier' : 'Ajouter' ?> un tarif</h1>
     <form method="post" class="card">
+        <?= csrfField() ?>
         <div class="card-body">
             <div class="row g-3">
                 <div class="col-md-6">

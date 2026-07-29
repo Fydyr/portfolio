@@ -15,6 +15,10 @@ class AccountController extends BaseController
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Anti login-CSRF : empêche un tiers de connecter la victime sur un
+            // compte qu'il contrôle pour ensuite observer/piéger son activité.
+            requireCsrf();
+
             $errors = [];
 
             $email = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
@@ -46,9 +50,13 @@ class AccountController extends BaseController
 
                 if ($user && password_verify($mdp, $user['password'])) {
                     recordLoginAttempt($ip, $email, true);
-                    if (session_status() === PHP_SESSION_NONE) {
-                        session_start();
-                    }
+
+                    // Anti-fixation de session : l'ID de session utilisé avant
+                    // authentification ne doit jamais rester valide après.
+                    session_regenerate_id(true);
+                    // On fait tourner aussi le jeton CSRF avec le changement de privilège.
+                    unset($_SESSION['csrf_token']);
+
                     $_SESSION['user_id']   = $user['id'];
                     $_SESSION['user_mail'] = $user['mail'];
                     $_SESSION['admin']     = (int)($user['admin'] ?? 0);
@@ -76,12 +84,23 @@ class AccountController extends BaseController
 
     public function logout()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        startSecureSession();
         session_unset();
         session_destroy();
-        header('Location: /');
+
+        // Détruit aussi le cookie côté navigateur, sinon l'ID reste présenté à
+        // chaque requête suivante.
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', [
+            'expires'  => time() - 42000,
+            'path'     => $params['path'],
+            'domain'   => $params['domain'],
+            'secure'   => $params['secure'],
+            'httponly' => $params['httponly'],
+            'samesite' => $params['samesite'] ?? 'Strict',
+        ]);
+
+        header('Location: ' . url(''));
         exit;
     }
 }

@@ -44,6 +44,7 @@
                     </a>
                     <form method="post" action="<?= url('admin/skills/category/delete') ?>" class="d-inline"
                           onsubmit="return confirm('Supprimer la catégorie ET tous ses skills ?');">
+                        <?= csrfField() ?>
                         <input type="hidden" name="id" value="<?= $cat['id'] ?>">
                         <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
                     </form>
@@ -88,6 +89,7 @@
                                         </a>
                                         <form method="post" action="<?= url('admin/skills/delete') ?>" class="d-inline"
                                               onsubmit="return confirm('Supprimer ce skill ?');">
+                                            <?= csrfField() ?>
                                             <input type="hidden" name="id" value="<?= $skill['id'] ?>">
                                             <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
                                         </form>

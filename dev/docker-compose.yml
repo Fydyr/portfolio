@@ -5,18 +5,21 @@
 # - Build avec dev/Dockerfile.dev (display_errors, composer avec deps dev)
 # - Bind-mount du code source pour edition à chaud
 # - Volume nommé pour vendor (évite d'utiliser celui de l'hôte)
-# - Expose les ports (8080 / 8081 / 3306) pour accès direct sans Traefik
+# - Expose les ports (8081 / 8082 / 3306) pour accès direct sans Traefik
 # - Désactive les labels Traefik et le réseau "web" (prod uniquement)
+#
+# Les ports sont bindés sur 127.0.0.1 : sans ça ils écoutent sur 0.0.0.0 et
+# exposent MySQL et phpMyAdmin à tout le réseau local de la machine.
 
 services:
 
   database:
     ports:
-      - "3306:3306"
+      - "127.0.0.1:3306:3306"
 
   phpmyadmin:
     ports:
-      - "8081:80"
+      - "127.0.0.1:8081:80"
     labels: []
     networks:
       - lan
@@ -26,7 +29,7 @@ services:
       context: .
       dockerfile: dev/Dockerfile.dev
     ports:
-      - "8082:80"
+      - "127.0.0.1:8082:80"
     labels: []
     networks:
       - lan
