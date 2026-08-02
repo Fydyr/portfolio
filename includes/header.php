@@ -409,6 +409,9 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             gap: 2rem;
             margin-bottom: 1.5rem;
+            /* Centre le bloc dans sa colonne. Reste correct si une seconde
+               stat est réintroduite : les items se répartissent autour du centre. */
+            justify-content: center;
         }
 
         .stat-item {
