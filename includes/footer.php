@@ -84,10 +84,6 @@ if (est_nouveau_visiteur()) {
                                 <span class="stat-number counter" data-target="<?= $project_count ?>"><?= $project_count ?></span>
                                 <span class="stat-label">Projets réalisé</span>
                             </div>
-                            <div class="stat-item">
-                                <span class="stat-number counter" data-target="3">3</span>
-                                <span class="stat-label">Années de BUT<br />(diplômé)</span>
-                            </div>
                         </div>
                     </div>
                 </div>
