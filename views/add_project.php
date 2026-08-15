@@ -101,13 +101,10 @@
                 </div>
 
                 <div class="col-12">
-                    <label for="images" class="form-label">Images du projet</label>
-                    <input type="file" class="form-control" name="images[]" id="images" accept="image/*" multiple>
-                    <div class="form-text">
-                        Sélectionnez-en autant que vous voulez. Formats : JPG, PNG, GIF, WebP.
-                        Max 5 Mo par image. La première sert de couverture — l'ordre se règle
-                        ensuite depuis la page d'édition.
-                    </div>
+                    <!-- Un <label> sans contrôle associé : le bloc en compte
+                         plusieurs, c'est un titre de section, pas une étiquette. -->
+                    <span class="form-label d-block">Images du projet</span>
+                    <?php partial('_project_images'); ?>
                 </div>
             </div>
 
@@ -120,6 +117,7 @@
         </div>
     </form>
 </div>
+<script src="/assets/js/admin-project-images.js" defer></script>
 </body>
 </html>
 <?php

@@ -101,42 +101,10 @@
                 </div>
 
                 <div class="col-12">
-                    <label class="form-label">Images du projet</label>
-
-                    <!-- Identifiants des images conservées, dans l'ordre. Le
-                         script le tient à jour ; ce qui n'y figure plus est
-                         supprimé à l'enregistrement. -->
-                    <input type="hidden" name="image_order" id="image-order" value="">
-
-                    <div class="row g-3" id="image-list">
-                        <?php foreach (($projectImages ?? []) as $img): ?>
-                            <div class="col-md-3 project-img" data-id="<?= (int)$img['id'] ?>" draggable="true">
-                                <div class="img-thumbnail p-2" style="cursor: grab;">
-                                    <img src="/assets/img/projects/<?= htmlspecialchars($img['filename']) ?>"
-                                         alt="" style="width:100%; height:110px; object-fit:cover; border-radius:6px;">
-                                    <div class="d-flex justify-content-between align-items-center mt-2">
-                                        <span class="badge bg-secondary js-cover-badge"></span>
-                                        <span class="btn-group btn-group-sm">
-                                            <button type="button" class="btn btn-outline-light js-img-left" title="Vers la gauche" aria-label="Déplacer vers la gauche">&larr;</button>
-                                            <button type="button" class="btn btn-outline-light js-img-right" title="Vers la droite" aria-label="Déplacer vers la droite">&rarr;</button>
-                                            <button type="button" class="btn btn-outline-danger js-img-del" title="Supprimer" aria-label="Supprimer l'image">&times;</button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-
-                    <p class="text-muted mt-2 mb-2" id="image-empty" hidden>
-                        Aucune image pour ce projet.
-                    </p>
-
-                    <label for="images" class="form-label mt-3">Ajouter des images</label>
-                    <input type="file" class="form-control" name="images[]" id="images" accept="image/*" multiple>
-                    <div class="form-text">
-                        Autant d'images que vous voulez, 5 Mo maximum chacune (JPG, PNG, GIF, WebP).
-                        La première de la liste sert de couverture sur les cartes et lors des partages.
-                    </div>
+                    <!-- Un <label> sans contrôle associé : le bloc en compte
+                         plusieurs, c'est un titre de section, pas une étiquette. -->
+                    <span class="form-label d-block">Images du projet</span>
+                    <?php partial('_project_images', ['projectImages' => $projectImages ?? []]); ?>
                 </div>
             </div>
 

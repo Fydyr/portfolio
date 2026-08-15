@@ -71,14 +71,18 @@
            panneau resserré au-dessus d'une grille large se lit comme un poste de
            commande au-dessus d'une galerie — la différence de largeur devient un
            choix, pas un accident. */
+        /* Ni `overflow: hidden`, qui rognerait le menu des technos, ni stacking
+           par défaut : sans z-index, ce menu passerait sous la grille de cartes
+           qui le suit dans le document. */
         .filter-panel {
+            position: relative;
+            z-index: 20;
             max-width: 960px;
             margin: 0 auto 3rem;
             background: rgba(30, 41, 59, 0.35);
             border: 1px solid rgba(148, 163, 184, 0.16);
             border-radius: var(--border-radius, 16px);
             backdrop-filter: blur(12px);
-            overflow: hidden;
         }
 
         .filter-panel-head {
@@ -188,12 +192,212 @@
             color: var(--text-muted);
         }
 
-        .filter-chips {
+        /* === Sélecteur de facette ===
+           Les deux rangées portent désormais le même composant : un bouton qui
+           ouvre une liste à cocher. Une rangée de puces ne tenait ni les 44
+           technos ni les 11 catégories sans être coupée quelque part, et une
+           coupure arbitraire n'apprend rien sur le portfolio.
+
+           Ce qui distingue les deux facettes n'est plus la mécanique mais la
+           couleur, déjà portée par les badges des cartes : violet pour les
+           catégories, qui structurent, cyan pour les technos, qui détaillent. */
+        .facet-picker {
+            /* `backdrop-filter` sur .filter-panel en ferait le bloc conteneur
+               des descendants absolus : c'est ce picker qui doit servir de
+               repère au menu. */
+            position: relative;
+            flex: 1;
             display: flex;
             flex-wrap: wrap;
+            align-items: center;
             gap: 0.45rem;
-            flex: 1;
         }
+
+        .facet-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.4rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.28);
+            background: rgba(10, 10, 15, 0.35);
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .facet-trigger:hover,
+        .facet-trigger[aria-expanded="true"] { color: var(--text-primary); }
+
+        .facet-picker[data-kind="cat"] .facet-trigger:hover,
+        .facet-picker[data-kind="cat"] .facet-trigger[aria-expanded="true"] {
+            border-color: rgba(114, 9, 183, 0.75);
+        }
+
+        .facet-picker[data-kind="tag"] .facet-trigger:hover,
+        .facet-picker[data-kind="tag"] .facet-trigger[aria-expanded="true"] {
+            border-color: var(--primary-color);
+        }
+
+        .facet-trigger:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Le total reprend le filet des puces : le bouton répond à « combien
+           y en a-t-il ? » sans qu'on ait à l'ouvrir. */
+        .facet-trigger .chip-count {
+            font-size: 0.68rem;
+            font-variant-numeric: tabular-nums;
+            opacity: 0.75;
+            padding-left: 0.45rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .facet-caret {
+            font-size: 0.6rem;
+            transition: transform 0.2s ease;
+        }
+
+        .facet-trigger[aria-expanded="true"] .facet-caret { transform: rotate(180deg); }
+
+        /* Les valeurs retenues se rangent dans la ligne du bouton, pas dans un
+           conteneur à elles : `display: contents` les remonte au picker. */
+        .facet-selected { display: contents; }
+
+        /* Le menu recouvre la grille au lieu de la pousser : les cartes filtrées
+           restent en place pendant qu'on coche. */
+        .facet-panel {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            z-index: 30;
+            width: min(320px, calc(100vw - 3rem));
+            background: #131c2e;
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            border-radius: var(--border-radius, 16px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+            overflow: hidden;
+        }
+
+        .facet-panel-search {
+            position: relative;
+            padding: 0.6rem 0.6rem 0.5rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        /* Centrée sur la hauteur du bloc plutôt qu'à une distance fixe du haut :
+           la loupe suit la taille du champ au lieu de dériver. */
+        .facet-panel-search > i {
+            position: absolute;
+            left: 1.35rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .facet-search {
+            width: 100%;
+            padding: 0.4rem 0.7rem 0.4rem 2rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: rgba(10, 10, 15, 0.45);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+        }
+
+        .facet-search::placeholder { color: var(--text-muted); }
+        .facet-search:focus { outline: none; border-color: var(--primary-color); }
+
+        .facet-panel-list {
+            max-height: 15rem;
+            overflow-y: auto;
+            padding: 0.3rem;
+        }
+
+        .facet-option {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            width: 100%;
+            margin: 0;
+            padding: 0.35rem 0.5rem;
+            border-radius: var(--border-radius-sm, 8px);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast, all 0.15s ease);
+        }
+
+        /* Technos en monospace *système* : aucune requête réseau de plus. */
+        .facet-panel[data-kind="tag"] .facet-option {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.78rem;
+        }
+
+        .facet-option:hover { background: rgba(148, 163, 184, 0.1); }
+
+        .facet-panel[data-kind="cat"] .facet-option:has(:checked) {
+            background: rgba(114, 9, 183, 0.2);
+            color: #c9a6ff;
+        }
+
+        .facet-panel[data-kind="tag"] .facet-option:has(:checked) {
+            background: rgba(0, 212, 255, 0.12);
+            color: var(--primary-color);
+        }
+
+        .facet-option:focus-within {
+            outline: 2px solid var(--primary-color);
+            outline-offset: -2px;
+        }
+
+        .facet-option input { accent-color: var(--primary-color); margin: 0; flex: none; }
+        .facet-option-name { flex: 1; }
+
+        /* Le compteur annonce ce qu'un clic donnerait. Sa largeur est réservée
+           pour le plus grand décompte possible (le script pose --chip-count-w) :
+           sans cela, chaque frappe dans la recherche ferait respirer toute la
+           liste au rythme des chiffres. */
+        .facet-option .chip-count {
+            font-size: 0.7rem;
+            font-variant-numeric: tabular-nums;
+            opacity: 0.7;
+            padding-left: 0.4rem;
+            min-width: calc(0.4rem + var(--chip-count-w, 2ch));
+            text-align: right;
+            border-left: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        /* Une valeur qui ne ramènerait rien s'efface, mais reste cochable : la
+           désactiver piégerait l'utilisateur dans son filtre. */
+        .facet-option.is-empty { opacity: 0.35; }
+        .facet-option.is-hidden { display: none; }
+
+        .facet-panel-none,
+        .facet-panel-foot {
+            padding: 0.6rem 0.85rem;
+            margin: 0;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .facet-panel-foot {
+            border-top: 1px solid rgba(148, 163, 184, 0.12);
+            text-align: right;
+        }
+
+        /* Rien à décocher : le pied n'a plus de raison d'occuper de la place. */
+        .facet-panel-foot:has(.js-facet-clear[hidden]) { display: none; }
+
+        /* --- Puces des valeurs retenues ---
+           Elles vivent hors du menu : un filtre en vigueur ne doit pas dépendre
+           de l'ouverture d'un panneau pour se voir. */
 
         .filter-chip {
             display: inline-flex;
@@ -201,65 +405,32 @@
             gap: 0.4rem;
             border-radius: 999px;
             border: 1px solid transparent;
-            background: transparent;
             cursor: pointer;
             transition: var(--transition);
         }
 
-        /* Le compteur est séparé du libellé par un filet, pas par un espace :
-           sans lui, « Outil 2 » se lit comme un seul mot. */
-        .filter-chip .chip-count {
-            font-size: 0.66rem;
-            font-variant-numeric: tabular-nums;
-            opacity: 0.7;
-            padding-left: 0.4rem;
-            border-left: 1px solid currentColor;
-            border-left-color: rgba(255, 255, 255, 0.18);
-        }
-
-        /* Une puce qui ne ramènerait aucun résultat s'efface, mais reste
-           cliquable : la désactiver piégerait l'utilisateur dans son filtre. */
-        .filter-chip.is-empty { opacity: 0.3; }
-
-        /* Catégories : pleines et affirmées, elles structurent — et reprennent
-           le violet des badges `is-cat` portés par les cartes. */
+        /* Catégories pleines et affirmées, technos plus discrètes : les puces
+           reprennent les badges `is-cat` / `is-tag` portés par les cartes. */
         .filter-chip.for-cat {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            padding: 0.4rem 0.9rem;
-            background: rgba(114, 9, 183, 0.14);
-            border-color: rgba(114, 9, 183, 0.35);
-            color: #c9a6ff;
-        }
-
-        .filter-chip.for-cat:hover { border-color: rgba(114, 9, 183, 0.75); }
-
-        .filter-chip.for-cat[aria-pressed="true"] {
+            padding: 0.35rem 0.8rem;
             background: var(--gradient-primary);
-            border-color: transparent;
             color: #fff;
         }
 
-        /* Technos : plus petites, en monospace système — elles détaillent.
-           Monospace *système* : aucune requête réseau supplémentaire. */
         .filter-chip.for-tag {
             font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
             font-size: 0.72rem;
             padding: 0.25rem 0.7rem;
-            border-color: rgba(148, 163, 184, 0.22);
-            color: var(--text-secondary);
-        }
-
-        .filter-chip.for-tag:hover {
-            border-color: var(--primary-color);
-            color: var(--text-primary);
-        }
-
-        .filter-chip.for-tag[aria-pressed="true"] {
             background: rgba(0, 212, 255, 0.14);
             border-color: var(--primary-color);
             color: var(--primary-color);
         }
+
+        /* La croix dit qu'un clic retire la valeur. */
+        .filter-chip > i { font-size: 0.62rem; opacity: 0.7; }
+        .filter-chip:hover > i { opacity: 1; }
 
         .filter-chip:focus-visible {
             outline: 2px solid var(--primary-color);
@@ -267,13 +438,16 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .filter-chip { transition: none; }
+            .filter-chip,
+            .facet-trigger,
+            .facet-option,
+            .facet-caret { transition: none; }
         }
 
         @media (max-width: 575px) {
             .filter-row { flex-direction: column; align-items: flex-start; gap: 0.45rem; }
             /* Empilé, l'alignement à droite n'a plus de colonne en face : il
-               laisserait le libellé flotter loin de ses puces. */
+               laisserait le libellé flotter loin de son contrôle. */
             .filter-row-label { flex: none; text-align: left; }
             .filter-panel-head { gap: 0.75rem; }
             .filter-search-wrap { max-width: none; }
@@ -357,33 +531,80 @@
                     </div>
 
                     <div class="filter-panel-body">
-                        <?php if (!empty($allCategories)): ?>
-                            <div class="filter-row">
-                                <span class="filter-row-label" id="lbl-cat">Catégories</span>
-                                <div class="filter-chips" role="group" aria-labelledby="lbl-cat">
-                                    <?php foreach ($allCategories as $c): ?>
-                                        <button type="button" class="filter-chip for-cat" aria-pressed="false"
-                                                data-kind="cat" data-value="<?= htmlspecialchars(mb_strtolower($c)) ?>">
-                                            <?= htmlspecialchars($c) ?><span class="chip-count"></span>
-                                        </button>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
+                        <?php
+                        /* Les deux facettes portent le même composant : seules
+                           changent leurs valeurs et leur couleur. Le tableau
+                           évite d'en dupliquer le balisage — et garantit qu'une
+                           correction sur l'une profite à l'autre. */
+                        $facets = [
+                            [
+                                'kind'   => 'cat',
+                                'label'  => 'Catégories',
+                                'browse' => 'Parcourir les catégories',
+                                'find'   => 'Filtrer la liste des catégories',
+                                'none'   => 'Aucune catégorie ne correspond.',
+                                'values' => $allCategories ?? [],
+                            ],
+                            [
+                                'kind'   => 'tag',
+                                'label'  => 'Technos',
+                                'browse' => 'Parcourir les technos',
+                                'find'   => 'Filtrer la liste des technos',
+                                'none'   => 'Aucune techno ne correspond.',
+                                'values' => $allTags ?? [],
+                            ],
+                        ];
+                        ?>
 
-                        <?php if (!empty($allTags)): ?>
+                        <?php foreach ($facets as $f): ?>
+                            <?php if (empty($f['values'])) continue; ?>
+                            <?php $k = $f['kind']; ?>
                             <div class="filter-row">
-                                <span class="filter-row-label" id="lbl-tag">Technos</span>
-                                <div class="filter-chips" role="group" aria-labelledby="lbl-tag">
-                                    <?php foreach ($allTags as $t): ?>
-                                        <button type="button" class="filter-chip for-tag" aria-pressed="false"
-                                                data-kind="tag" data-value="<?= htmlspecialchars(mb_strtolower($t)) ?>">
-                                            <?= htmlspecialchars($t) ?><span class="chip-count"></span>
-                                        </button>
-                                    <?php endforeach; ?>
+                                <span class="filter-row-label" id="lbl-<?= $k ?>"><?= htmlspecialchars($f['label']) ?></span>
+
+                                <div class="facet-picker" data-kind="<?= $k ?>">
+                                    <button type="button" class="facet-trigger js-facet-trigger"
+                                            aria-expanded="false" aria-controls="panel-<?= $k ?>">
+                                        <span><?= htmlspecialchars($f['browse']) ?></span>
+                                        <span class="chip-count"><?= count($f['values']) ?></span>
+                                        <i class="fas fa-chevron-down facet-caret" aria-hidden="true"></i>
+                                    </button>
+
+                                    <!-- Les valeurs retenues restent affichées hors du menu :
+                                         un filtre en vigueur ne doit pas dépendre de
+                                         l'ouverture d'un panneau pour se voir. -->
+                                    <div class="facet-selected js-facet-selected"></div>
+
+                                    <div class="facet-panel" id="panel-<?= $k ?>" data-kind="<?= $k ?>" hidden>
+                                        <div class="facet-panel-search">
+                                            <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+                                            <label for="find-<?= $k ?>" class="visually-hidden"><?= htmlspecialchars($f['find']) ?></label>
+                                            <input type="search" id="find-<?= $k ?>" class="facet-search js-facet-find"
+                                                   placeholder="Filtrer la liste…" autocomplete="off">
+                                        </div>
+
+                                        <div class="facet-panel-list" role="group" aria-labelledby="lbl-<?= $k ?>">
+                                            <?php foreach ($f['values'] as $v): ?>
+                                                <label class="facet-option">
+                                                    <input type="checkbox" data-kind="<?= $k ?>"
+                                                           data-value="<?= htmlspecialchars(mb_strtolower($v)) ?>">
+                                                    <span class="facet-option-name"><?= htmlspecialchars($v) ?></span>
+                                                    <span class="chip-count"></span>
+                                                </label>
+                                            <?php endforeach; ?>
+                                        </div>
+
+                                        <p class="facet-panel-none js-facet-none" hidden><?= htmlspecialchars($f['none']) ?></p>
+
+                                        <div class="facet-panel-foot">
+                                            <button type="button" class="filter-reset js-facet-clear" hidden>
+                                                Tout décocher
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             <?php endif; ?>
@@ -429,36 +650,51 @@
             if (!search) return; // aucun projet : pas de barre de filtres
 
             const items   = Array.from(document.querySelectorAll('.project-item'));
-            const chips   = Array.from(document.querySelectorAll('.filter-chip'));
             const countEl = document.getElementById('filter-count-text');
             const resetEl = document.getElementById('filter-reset');
             const noneEl  = document.getElementById('no-results');
+
+            /* Catégories et technos portent le même composant : un bouton qui
+               ouvre une liste à cocher. Les cases sont la source de vérité de
+               l'état des filtres — de vraies cases dans des <label>, que le
+               clavier, le lecteur d'écran et le clic manipulent nativement,
+               sans réimplémenter une liste ARIA. */
+            const boxes = Array.from(document.querySelectorAll('.facet-option input'));
+
+            // Aucun décompte ne peut dépasser le nombre de projets : on réserve
+            // cette largeur une fois pour toutes (voir .chip-count).
+            document.documentElement.style.setProperty(
+                '--chip-count-w', String(items.length).length + 'ch'
+            );
 
             // Retire les accents : « Réseau » doit se trouver en tapant « reseau ».
             // NFD sépare la lettre de son diacritique, puis \p{Diacritic} supprime
             // ce dernier.
             const fold = (s) => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 
-            const active = (kind) => chips
-                .filter(c => c.dataset.kind === kind && c.getAttribute('aria-pressed') === 'true')
-                .map(c => c.dataset.value);
+            const rowOf   = (box) => box.closest('.facet-option');
+            const labelOf = (box) => rowOf(box).querySelector('.facet-option-name').textContent;
+
+            const active = (kind) => boxes
+                .filter(b => b.dataset.kind === kind && b.checked)
+                .map(b => b.dataset.value);
 
             const listOf = (item, kind) =>
-                (kind === 'cat' ? item.dataset.cats : item.dataset.tags || '')
+                ((kind === 'cat' ? item.dataset.cats : item.dataset.tags) || '')
                     .split('|').filter(Boolean);
 
             /**
-             * Combien de projets resteraient si on cliquait cette puce ?
+             * Combien de projets resteraient si on cochait cette valeur ?
              *
-             * On applique la recherche et les filtres de l'AUTRE rangée, puis
-             * cette valeur — mais pas les puces déjà actives de la même rangée,
+             * On applique la recherche et les filtres de l'AUTRE facette, puis
+             * cette valeur — mais pas les cases déjà cochées de la même facette,
              * puisqu'elles s'y cumulent en OU. C'est le décompte à facettes
-             * habituel : il répond à « et si je cliquais là ? ».
+             * habituel : il répond à « et si je cochais là ? ».
              */
             function facetCount(kind, value) {
-                const q     = fold(search.value.trim());
-                const other = kind === 'cat' ? active('tag') : active('cat');
-                const otherKind = kind === 'cat' ? 'tag' : 'cat';
+                const q         = fold(search.value.trim());
+                const otherKind = (kind === 'cat') ? 'tag' : 'cat';
+                const other     = active(otherKind);
 
                 return items.filter(item => {
                     if (q !== '' && !fold(item.dataset.search || '').includes(q)) return false;
@@ -468,7 +704,7 @@
                 }).length;
             }
 
-            // Passe à true dès que l'utilisateur touche à la recherche ou aux puces.
+            // Passe à true dès que l'utilisateur touche à la recherche ou aux filtres.
             let interacted = false;
 
             function apply() {
@@ -481,7 +717,7 @@
                     const itemCats = (item.dataset.cats || '').split('|').filter(Boolean);
                     const itemTags = (item.dataset.tags || '').split('|').filter(Boolean);
 
-                    // ET entre les trois critères, OU à l'intérieur de chaque rangée.
+                    // ET entre les trois critères, OU à l'intérieur de chaque facette.
                     const okSearch = q === '' || fold(item.dataset.search || '').includes(q);
                     const okCats   = cats.length === 0 || cats.some(c => itemCats.includes(c));
                     const okTags   = tags.length === 0 || tags.some(t => itemTags.includes(t));
@@ -505,13 +741,17 @@
                     }
                 });
 
-                // Compteurs par puce : chacune annonce ce qu'un clic donnerait.
-                // Celles qui ne ramèneraient rien s'effacent, sans être désactivées.
-                chips.forEach(chip => {
-                    const n = facetCount(chip.dataset.kind, chip.dataset.value);
-                    chip.querySelector('.chip-count').textContent = n;
-                    chip.classList.toggle('is-empty', n === 0 && chip.getAttribute('aria-pressed') === 'false');
+                // Chaque ligne de menu annonce ce qu'un clic donnerait. Celles
+                // qui ne ramèneraient rien s'effacent, sans être désactivées :
+                // les désactiver piégerait l'utilisateur dans son filtre.
+                boxes.forEach(box => {
+                    const n = facetCount(box.dataset.kind, box.dataset.value);
+                    const row = rowOf(box);
+                    row.querySelector('.chip-count').textContent = n;
+                    row.classList.toggle('is-empty', n === 0 && !box.checked);
                 });
+
+                pickers.forEach(p => p.render());
 
                 const filtering = q !== '' || cats.length > 0 || tags.length > 0;
                 countEl.innerHTML = filtering
@@ -521,18 +761,111 @@
                 noneEl.hidden  = shown !== 0;
             }
 
-            search.addEventListener('input', () => { interacted = true; apply(); });
+            /**
+             * Câble un sélecteur de facette et renvoie de quoi le rafraîchir.
+             *
+             * Le menu ne détient aucun état : il ouvre, il ferme, il filtre sa
+             * propre liste. Ce sont les cases qu'il contient qui portent la
+             * sélection, et apply() les lit directement.
+             */
+            function initPicker(root) {
+                const kind     = root.dataset.kind;
+                const trigger  = root.querySelector('.js-facet-trigger');
+                const panel    = root.querySelector('.facet-panel');
+                const find     = root.querySelector('.js-facet-find');
+                const none     = root.querySelector('.js-facet-none');
+                const clear    = root.querySelector('.js-facet-clear');
+                const selected = root.querySelector('.js-facet-selected');
+                const mine     = boxes.filter(b => b.dataset.kind === kind);
 
-            chips.forEach(chip => chip.addEventListener('click', () => {
-                const on = chip.getAttribute('aria-pressed') === 'true';
-                chip.setAttribute('aria-pressed', on ? 'false' : 'true');
-                interacted = true;
-                apply();
-            }));
+                const open = (on) => {
+                    panel.hidden = !on;
+                    trigger.setAttribute('aria-expanded', on ? 'true' : 'false');
+                    if (on) find.focus();
+                };
+
+                trigger.addEventListener('click', () => open(panel.hidden));
+
+                mine.forEach(box => box.addEventListener('change', () => {
+                    interacted = true;
+                    apply();
+                }));
+
+                // Filtrage de la liste elle-même. Il ne touche pas aux cases
+                // cochées : une valeur retenue puis masquée par ce filtre reste
+                // active, et sa puce reste visible à côté du bouton.
+                find.addEventListener('input', () => {
+                    const q = fold(find.value.trim());
+                    let hits = 0;
+                    mine.forEach(box => {
+                        const hit = q === '' || fold(labelOf(box)).includes(q);
+                        rowOf(box).classList.toggle('is-hidden', !hit);
+                        if (hit) hits++;
+                    });
+                    none.hidden = hits > 0;
+                });
+
+                clear.addEventListener('click', () => {
+                    mine.forEach(box => { box.checked = false; });
+                    interacted = true;
+                    apply();
+                });
+
+                // Fermeture : clic au-dehors, ou Échap — qui rend la main au
+                // bouton, sinon le focus resterait dans un panneau disparu.
+                document.addEventListener('click', (e) => {
+                    if (!panel.hidden && !root.contains(e.target)) open(false);
+                });
+
+                root.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !panel.hidden) {
+                        open(false);
+                        trigger.focus();
+                    }
+                });
+
+                /** Les valeurs retenues, en puces retirables à côté du bouton. */
+                function render() {
+                    selected.textContent = '';
+
+                    mine.filter(b => b.checked).forEach(box => {
+                        const name = labelOf(box);
+                        const chip = document.createElement('button');
+                        chip.type = 'button';
+                        chip.className = 'filter-chip for-' + kind;
+                        chip.setAttribute('aria-label', 'Retirer le filtre ' + name);
+                        chip.textContent = name;
+
+                        const cross = document.createElement('i');
+                        cross.className = 'fas fa-xmark';
+                        cross.setAttribute('aria-hidden', 'true');
+                        chip.appendChild(cross);
+
+                        chip.addEventListener('click', () => {
+                            box.checked = false;
+                            interacted = true;
+                            apply();
+                            // apply() vient de reconstruire ces puces : le focus
+                            // était sur celle qu'on retire, il faut le reposer.
+                            trigger.focus();
+                        });
+
+                        selected.appendChild(chip);
+                    });
+
+                    clear.hidden = !mine.some(b => b.checked);
+                }
+
+                return { render };
+            }
+
+            const pickers = Array.from(document.querySelectorAll('.facet-picker')).map(initPicker);
+
+            search.addEventListener('input', () => { interacted = true; apply(); });
 
             resetEl.addEventListener('click', () => {
                 search.value = '';
-                chips.forEach(c => c.setAttribute('aria-pressed', 'false'));
+                boxes.forEach(box => { box.checked = false; });
                 interacted = true;
                 apply();
             });

@@ -22,29 +22,9 @@ class ProjectsController extends BaseController
         $stmt->execute();
         $projects = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-        // Collecte la liste unique des langages pour le filtre
-        $allTags = [];
-        foreach ($projects as $p) {
-            $tags = extractTagList($p['languages'] ?? '');
-            foreach ($tags as $t) {
-                $key = mb_strtolower($t);
-                if (!isset($allTags[$key])) $allTags[$key] = $t;
-            }
-        }
-        ksort($allTags);
-
-        // Même collecte pour les catégories. On ne réutilise pas collectDistinctTags()
-        // ici : elle interroge tous les projets, or cette page ne doit proposer que
-        // des filtres correspondant aux projets visibles — sinon un projet masqué
-        // ajouterait une puce ne ramenant jamais aucun résultat.
-        $allCategories = [];
-        foreach ($projects as $p) {
-            foreach (extractTagList($p['categories'] ?? '') as $c) {
-                $key = mb_strtolower($c);
-                if (!isset($allCategories[$key])) $allCategories[$key] = $c;
-            }
-        }
-        ksort($allCategories);
+        // Listes de puces du panneau de filtrage.
+        $allTags       = $this->facetValues($projects, 'languages');
+        $allCategories = $this->facetValues($projects, 'categories');
 
         // Pré-décoder les tags + générer un extrait plain text pour la liste
         foreach ($projects as &$p) {
@@ -68,6 +48,43 @@ class ProjectsController extends BaseController
             'allTags'       => array_values($allTags),
             'allCategories' => array_values($allCategories),
         ]);
+    }
+
+    /**
+     * Valeurs distinctes d'une colonne multivaluée, les plus portées d'abord.
+     *
+     * On ne réutilise pas collectDistinctTags() ici : elle interroge tous les
+     * projets, or cette page ne doit proposer que des filtres correspondant aux
+     * projets visibles — sinon un projet masqué ajouterait une puce ne ramenant
+     * jamais aucun résultat.
+     *
+     * L'ordre suit la fréquence et non l'alphabet : la barre de filtres replie
+     * les rangées trop longues à deux lignes, et ce sont les valeurs les plus
+     * portées qui doivent y rester. Trier de A à Z couperait la liste des
+     * technos à la lettre G, ce qui n'apprend rien sur le portfolio. À nombre
+     * égal, l'alphabet tranche, pour que l'ordre reste stable d'un rendu à
+     * l'autre.
+     */
+    private function facetValues(array $projects, string $column): array
+    {
+        $labels = [];   // clé minuscule => graphie affichée (la première rencontrée)
+        $counts = [];   // clé minuscule => nombre de projets porteurs
+
+        foreach ($projects as $p) {
+            // extractTagList déduplique déjà : un projet ne compte qu'une fois,
+            // même s'il liste deux fois la même valeur.
+            foreach (extractTagList($p[$column] ?? '') as $value) {
+                $key = mb_strtolower($value);
+                if (!isset($labels[$key])) {
+                    $labels[$key] = $value;
+                    $counts[$key] = 0;
+                }
+                $counts[$key]++;
+            }
+        }
+
+        uksort($labels, fn($a, $b) => [$counts[$b], $a] <=> [$counts[$a], $b]);
+        return array_values($labels);
     }
 
     public function projectDetail($id)

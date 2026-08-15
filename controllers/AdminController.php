@@ -195,6 +195,14 @@ class AdminController extends BaseController
 
         $uploadDir = $this->projectImageDir();
 
+        // Les nouveaux fichiers PASSENT EN PREMIER, avant la moindre écriture.
+        // uploadImage() lève une exception sur un fichier trop lourd ou d'un
+        // format refusé : si on téléversait en dernier, cette exception laissait
+        // derrière elle des suppressions déjà validées en base et un ordre déjà
+        // réécrit. Une image de 6 Mo suffisait à faire perdre les images qu'on
+        // venait de retirer, pour un message d'erreur générique.
+        $uploaded = $this->uploadedImageFiles($uploadDir);
+
         // État actuel en base : id => nom de fichier
         $stmt = $pdo->prepare("SELECT id, filename FROM project_images WHERE project_id = ?");
         $stmt->execute([$projectId]);
@@ -229,10 +237,11 @@ class AdminController extends BaseController
             $upd->execute([$rank + 1, $id, $projectId]);
         }
 
-        // Ajout des nouveaux fichiers, à la suite.
+        // Ajout des nouveaux fichiers, à la suite. Ils sont déjà sur le disque :
+        // il ne reste que les lignes à écrire.
         $next = count($keep) + 1;
         $ins  = $pdo->prepare("INSERT INTO project_images (project_id, filename, sort_order) VALUES (?, ?, ?)");
-        foreach ($this->uploadedImageFiles($uploadDir) as $filename) {
+        foreach ($uploaded as $filename) {
             $ins->execute([$projectId, $filename, $next++]);
         }
     }
