@@ -335,6 +335,30 @@ function fmtBytes($n) {
             </a>
         </div>
 
+        <div class="col-md-4">
+            <a href="<?= url('admin/featured') ?>" class="admin-card-link">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-star-fill" style="font-size:2rem;color:#ffaa00;"></i>
+                        <h5 class="card-title mt-2">Projets à la une</h5>
+                        <p class="card-text text-muted">Choisir et ordonner ceux de l'accueil</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="<?= url('admin/account') ?>" class="admin-card-link">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-shield-lock-fill" style="font-size:2rem;color:#00ff88;"></i>
+                        <h5 class="card-title mt-2">Mon compte</h5>
+                        <p class="card-text text-muted">Mot de passe &amp; codes de secours</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
     </div>
 </div>
 

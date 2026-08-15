@@ -1,6 +1,7 @@
 <?php
 
 require_once 'BaseController.php';
+require_once __DIR__ . '/../includes/tags.php';
 
 class AdminController extends BaseController
 {
@@ -100,7 +101,11 @@ class AdminController extends BaseController
             $this->processAddProject();
         } else {
             // Sinon, afficher le formulaire
-            echo $this->view('add_project');
+            include_once 'includes/db.php';
+            global $pdo;
+            echo $this->view('add_project', [
+                'knownCategories' => collectDistinctTags($pdo, 'categories'),
+            ]);
         }
     }
 
@@ -117,24 +122,21 @@ class AdminController extends BaseController
                 exit;
             }
 
-            // Traitement des images
-            $imageFiles = $this->processImages();
-
             // Préparation des données pour la base
             $projectData = [
                 'title' => trim($_POST['projectName']),
                 'description' => trim($_POST['projectDescription']),
                 'is_markdown' => isset($_POST['is_markdown']) ? 1 : 0,
                 'link' => trim($_POST['projectLink']) ?: null,
-                'img1' => $imageFiles[0] ?? null,
-                'img2' => $imageFiles[1] ?? null,
-                'img3' => $imageFiles[2] ?? null,
                 'visibilite' => (($_POST['projectStatus'] ?? '') === 'visible') ? 1 : 0,
                 'languages' => trim($_POST['projectLanguage']),
+                'categories' => trim($_POST['categories'] ?? '') ?: null,
             ];
 
-            // Insertion en base de données
-            $this->insertProject($projectData);
+            // Insertion en base de données, puis les images : elles vivent dans
+            // project_images et ont besoin de l'identifiant du projet.
+            $projectId = (int)$this->insertProject($projectData);
+            $this->syncProjectImages($projectId);
 
             // Message de succès
             $_SESSION['success'] = 'Le projet a été ajouté avec succès !';
@@ -175,50 +177,136 @@ class AdminController extends BaseController
         return $errors;
     }
 
-    private function processImages()
+    /**
+     * Aligne les images d'un projet sur ce que le formulaire a envoyé.
+     *
+     * Le formulaire poste `image_order` : la liste des identifiants d'images à
+     * CONSERVER, dans l'ordre voulu. Une seule donnée porte donc à la fois la
+     * suppression (tout ce qui n'y figure pas) et le réordonnancement — pas de
+     * risque de désaccord entre deux champs.
+     *
+     * Les nouveaux fichiers arrivent dans `images[]` et sont ajoutés à la suite.
+     * Aucun plafond : c'est tout l'objet de la table project_images.
+     */
+    private function syncProjectImages(int $projectId): void
     {
+        include_once 'includes/db.php';
+        global $pdo;
 
-        $uploadDir = __DIR__ . '/../assets/img/projects/';
+        $uploadDir = $this->projectImageDir();
 
-        // Vérifie si le dossier est accessible en écriture
-        if (!is_writable($uploadDir)) {
-            // Tente de changer les permissions à 0755
-            if (!chmod($uploadDir, 0755)) {
-                // Si échec, tente 0777
-                if (!chmod($uploadDir, 0777)) {
-                    die("Erreur : Le dossier '$uploadDir' n'est pas accessible en écriture et les permissions n'ont pas pu être modifiées.");
-                }
+        // État actuel en base : id => nom de fichier
+        $stmt = $pdo->prepare("SELECT id, filename FROM project_images WHERE project_id = ?");
+        $stmt->execute([$projectId]);
+        $current = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+
+        $keep = array_values(array_filter(
+            array_map('intval', explode(',', (string)($_POST['image_order'] ?? ''))),
+            fn($id) => $id > 0
+        ));
+        // On n'accepte que des identifiants appartenant réellement à ce projet :
+        // sans ce filtre, un identifiant forgé viserait l'image d'un autre projet.
+        $owned = array_map('intval', array_keys($current));
+        $keep  = array_values(array_unique(array_intersect($keep, $owned)));
+
+        // Suppression : la ligne, puis le fichier sur le disque. basename() évite
+        // qu'un nom de fichier trafiqué en base fasse sortir du dossier d'upload.
+        $del = $pdo->prepare("DELETE FROM project_images WHERE id = ? AND project_id = ?");
+        foreach ($current as $id => $filename) {
+            if (in_array((int)$id, $keep, true)) {
+                continue;
+            }
+            $del->execute([(int)$id, $projectId]);
+            $path = $uploadDir . basename((string)$filename);
+            if ($filename !== '' && is_file($path)) {
+                @unlink($path);
             }
         }
 
-
-        $uploadedFiles = [];
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/projects/';
-
-        // Créer le dossier s'il n'existe pas
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0755, true);
+        // Renumérotation dense des images conservées : 1, 2, 3…
+        $upd = $pdo->prepare("UPDATE project_images SET sort_order = ? WHERE id = ? AND project_id = ?");
+        foreach ($keep as $rank => $id) {
+            $upd->execute([$rank + 1, $id, $projectId]);
         }
 
-        // Traitement des 3 images possibles
-        for ($i = 0; $i < 3; $i++) {
-            if (isset($_FILES['projectImage']['name'][$i]) && !empty($_FILES['projectImage']['name'][$i])) {
-                $file = [
-                    'name' => $_FILES['projectImage']['name'][$i],
-                    'tmp_name' => $_FILES['projectImage']['tmp_name'][$i],
-                    'error' => $_FILES['projectImage']['error'][$i],
-                    'size' => $_FILES['projectImage']['size'][$i]
-                ];
-
-                $uploadedFile = $this->uploadImage($file, $uploadDir);
-                if ($uploadedFile) {
-                    $uploadedFiles[] = $uploadedFile;
-                }
-            }
+        // Ajout des nouveaux fichiers, à la suite.
+        $next = count($keep) + 1;
+        $ins  = $pdo->prepare("INSERT INTO project_images (project_id, filename, sort_order) VALUES (?, ?, ?)");
+        foreach ($this->uploadedImageFiles($uploadDir) as $filename) {
+            $ins->execute([$projectId, $filename, $next++]);
         }
-
-        return $uploadedFiles;
     }
+
+    /**
+     * Dossier de destination des images, créé et rendu inscriptible au besoin.
+     */
+    private function projectImageDir(): string
+    {
+        $dir = __DIR__ . '/../assets/img/projects/';
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+        if (!is_writable($dir)) {
+            @chmod($dir, 0755);
+            if (!is_writable($dir)) {
+                @chmod($dir, 0777);
+            }
+        }
+        return $dir;
+    }
+
+    /**
+     * Téléverse tous les fichiers reçus dans `images[]` et retourne leurs noms.
+     *
+     * Chaque fichier passe par uploadImage(), qui conserve les contrôles en place :
+     * 5 Mo maximum, extensions autorisées, et vérification par getimagesize() que
+     * le contenu est réellement une image.
+     */
+    private function uploadedImageFiles(string $uploadDir): array
+    {
+        $out = [];
+        if (empty($_FILES['images']['name']) || !is_array($_FILES['images']['name'])) {
+            return $out;
+        }
+
+        $count = count($_FILES['images']['name']);
+        for ($i = 0; $i < $count; $i++) {
+            // Un champ multiple laissé vide envoie une entrée UPLOAD_ERR_NO_FILE :
+            // ce n'est pas une erreur, seulement l'absence de fichier.
+            if (($_FILES['images']['error'][$i] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
+                continue;
+            }
+            if (trim((string)$_FILES['images']['name'][$i]) === '') {
+                continue;
+            }
+
+            $out[] = $this->uploadImage([
+                'name'     => $_FILES['images']['name'][$i],
+                'tmp_name' => $_FILES['images']['tmp_name'][$i],
+                'error'    => $_FILES['images']['error'][$i],
+                'size'     => $_FILES['images']['size'][$i],
+            ], $uploadDir);
+        }
+
+        return $out;
+    }
+
+    /**
+     * Les images d'un projet, dans l'ordre d'affichage.
+     */
+    private function fetchProjectImages(int $projectId): array
+    {
+        include_once 'includes/db.php';
+        global $pdo;
+
+        $stmt = $pdo->prepare(
+            "SELECT id, filename FROM project_images
+              WHERE project_id = ? ORDER BY sort_order, id"
+        );
+        $stmt->execute([$projectId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     private function uploadImage($file, $uploadDir)
     {
@@ -268,19 +356,17 @@ class AdminController extends BaseController
     {
         include_once 'includes/db.php';
         global $pdo;
-        $stmt = $pdo->prepare("INSERT INTO projects (title, description, is_markdown, link, img1, img2, img3, visibilite, languages)
-                VALUES (:title, :description, :is_markdown, :link, :img1, :img2, :img3, :visibilite, :languages)");
+        $stmt = $pdo->prepare("INSERT INTO projects (title, description, is_markdown, link, visibilite, languages, categories)
+                VALUES (:title, :description, :is_markdown, :link, :visibilite, :languages, :categories)");
 
         $result = $stmt->execute([
             ':title' => $data['title'],
             ':description' => $data['description'],
             ':is_markdown' => $data['is_markdown'],
             ':link' => $data['link'],
-            ':img1' => $data['img1'],
-            ':img2' => $data['img2'],
-            ':img3' => $data['img3'],
             ':visibilite' => $data['visibilite'],
             ':languages' => $data['languages'],
+            ':categories' => $data['categories'],
         ]);
 
         if (!$result) {
@@ -321,7 +407,14 @@ class AdminController extends BaseController
             include_once 'includes/db.php';
             global $pdo;
 
-            $stmt = $pdo->query("SELECT * FROM projects ORDER BY id DESC");
+            // La vignette est la première image du projet, exposée sous le nom
+            // `img1` : les vues consommatrices n'ont pas eu à changer quand les
+            // colonnes img1/img2/img3 ont laissé place à la table project_images.
+            $stmt = $pdo->query(
+                "SELECT p.*, (SELECT filename FROM project_images
+                               WHERE project_id = p.id ORDER BY sort_order, id LIMIT 1) AS img1
+                   FROM projects p ORDER BY p.id DESC"
+            );
             $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             echo $this->view('listProjects', ['projects' => $projects]);
@@ -383,17 +476,16 @@ class AdminController extends BaseController
 
             $projectId = (int)$_POST['projectId'];
 
-            // Récupérer les informations du projet avant suppression
-            $stmt = $pdo->prepare("SELECT img1, img2, img3 FROM projects WHERE id = :id");
+            $stmt = $pdo->prepare("SELECT id FROM projects WHERE id = :id");
             $stmt->execute([':id' => $projectId]);
-            $project = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if (!$project) {
+            if (!$stmt->fetch(PDO::FETCH_ASSOC)) {
                 throw new Exception('Le projet n\'existe pas.');
             }
 
-            // Supprimer les images du projet
-            $this->deleteProjectImages($project);
+            // Les fichiers d'abord : la clé étrangère de project_images est en
+            // ON DELETE CASCADE, une fois le projet supprimé on ne saurait plus
+            // quels fichiers effacer du disque.
+            $this->deleteProjectImages($projectId);
 
             // Supprimer le projet de la base de données
             $stmt = $pdo->prepare("DELETE FROM projects WHERE id = :id");
@@ -412,18 +504,23 @@ class AdminController extends BaseController
         exit;
     }
 
-    private function deleteProjectImages($project)
+    /**
+     * Efface du disque tous les fichiers images d'un projet.
+     *
+     * Les lignes de project_images, elles, partent d'elles-mêmes avec le projet :
+     * la clé étrangère est en ON DELETE CASCADE.
+     */
+    private function deleteProjectImages(int $projectId): void
     {
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/projects/';
+        $uploadDir = $this->projectImageDir();
 
-        foreach (['img1', 'img2', 'img3'] as $imgField) {
-            if (!empty($project[$imgField])) {
-                $filePath = $uploadDir . $project[$imgField];
-                if (file_exists($filePath)) {
-                    if (!unlink($filePath)) {
-                        // Log l'erreur mais ne pas interrompre le processus
-                        error_log("Impossible de supprimer le fichier : " . $filePath);
-                    }
+        foreach ($this->fetchProjectImages($projectId) as $img) {
+            $filePath = $uploadDir . basename((string)$img['filename']);
+            if ($img['filename'] !== '' && is_file($filePath)) {
+                if (!@unlink($filePath)) {
+                    // On journalise sans interrompre : un fichier manquant ou
+                    // verrouillé ne doit pas empêcher la suppression du projet.
+                    error_log("Impossible de supprimer le fichier : " . $filePath);
                 }
             }
         }
@@ -454,7 +551,11 @@ class AdminController extends BaseController
         }
 
         // Afficher le formulaire avec les données du projet
-        echo $this->view('edit_project', ['project' => $project]);
+        echo $this->view('edit_project', [
+            'project'         => $project,
+            'knownCategories' => collectDistinctTags($pdo, 'categories'),
+            'projectImages'   => $this->fetchProjectImages((int)$projectId),
+        ]);
     }
 
     private function processEditProject($projectId)
@@ -481,25 +582,21 @@ class AdminController extends BaseController
                 exit;
             }
 
-            // Traitement des nouvelles images
-            $images = $this->processEditImages($currentProject);
-
             // Préparation des données pour la base
             $projectData = [
                 'title' => trim($_POST['title']),
                 'description' => trim($_POST['description']),
                 'is_markdown' => isset($_POST['is_markdown']) ? 1 : 0,
                 'link' => trim($_POST['link']) ?: null,
-                'img1' => $images['img1'],
-                'img2' => $images['img2'],
-                'img3' => $images['img3'],
                 'visibilite' => (($_POST['projectStatus'] ?? '') === 'visible') ? 1 : 0,
                 'languages' => trim($_POST['tools']),
+                'categories' => trim($_POST['categories'] ?? '') ?: null,
                 'id' => $projectId
             ];
 
-            // Mise à jour en base de données
+            // Mise à jour en base de données, puis alignement des images
             $this->updateProject($projectData);
+            $this->syncProjectImages((int)$projectId);
 
             // Message de succès
             $_SESSION['success'] = 'Le projet a été modifié avec succès !';
@@ -539,37 +636,6 @@ class AdminController extends BaseController
         return $errors;
     }
 
-    private function processEditImages($currentProject)
-    {
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/projects/';
-        $images = [
-            'img1' => $currentProject['img1'],
-            'img2' => $currentProject['img2'],
-            'img3' => $currentProject['img3']
-        ];
-
-        // Traitement de chaque image
-        $imageFields = ['image1' => 'img1', 'image2' => 'img2', 'image3' => 'img3'];
-
-        foreach ($imageFields as $inputName => $dbField) {
-            if (isset($_FILES[$inputName]) && $_FILES[$inputName]['error'] === UPLOAD_ERR_OK) {
-                // Supprimer l'ancienne image si elle existe
-                if (!empty($currentProject[$dbField])) {
-                    $oldFilePath = $uploadDir . $currentProject[$dbField];
-                    if (file_exists($oldFilePath)) {
-                        unlink($oldFilePath);
-                    }
-                }
-
-                // Uploader la nouvelle image
-                $newImage = $this->uploadImage($_FILES[$inputName], $uploadDir);
-                $images[$dbField] = $newImage;
-            }
-        }
-
-        return $images;
-    }
-
     private function updateProject($data)
     {
         include_once 'includes/db.php';
@@ -580,11 +646,9 @@ class AdminController extends BaseController
                 description = :description,
                 is_markdown = :is_markdown,
                 link = :link,
-                img1 = :img1,
-                img2 = :img2,
-                img3 = :img3,
                 visibilite = :visibilite,
-                languages = :languages
+                languages = :languages,
+                categories = :categories
             WHERE id = :id");
 
         $result = $stmt->execute([
@@ -592,11 +656,9 @@ class AdminController extends BaseController
             ':description' => $data['description'],
             ':is_markdown' => $data['is_markdown'],
             ':link' => $data['link'],
-            ':img1' => $data['img1'],
-            ':img2' => $data['img2'],
-            ':img3' => $data['img3'],
             ':visibilite' => $data['visibilite'],
             ':languages' => $data['languages'],
+            ':categories' => $data['categories'],
             ':id' => $data['id']
         ]);
 

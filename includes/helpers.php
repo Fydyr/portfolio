@@ -90,6 +90,23 @@ function view($template, $data = [])
     return $content;
 }
 
+/**
+ * Inclut un fragment de vue depuis views/partials/.
+ *
+ * Différence avec view() : partial() écrit directement dans la sortie au lieu de
+ * retourner une chaîne, et ne touche pas aux meta tags. Il sert à découper une
+ * page, pas à en rendre une.
+ *
+ * $data est extrait dans la portée du fragment. EXTR_SKIP protège les variables
+ * déjà définies : un fragment ne peut pas écraser une variable de la page hôte
+ * par accident.
+ */
+function partial(string $name, array $data = []): void
+{
+    extract($data, EXTR_SKIP);
+    include __DIR__ . "/../views/partials/$name.php";
+}
+
 function json($data, $code = 200)
 {
     http_response_code($code);

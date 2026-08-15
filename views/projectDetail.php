@@ -47,10 +47,9 @@
 
     <!-- Main Image -->
     <?php
-    $images = [];
-    if (!empty($project['img1'])) $images[] = htmlspecialchars($project['img1']);
-    if (!empty($project['img2'])) $images[] = htmlspecialchars($project['img2']);
-    if (!empty($project['img3'])) $images[] = htmlspecialchars($project['img3']);
+    // Toutes les images du projet, sans plafond : elles viennent de la table
+    // project_images, dans l'ordre défini en administration.
+    $images = array_map('htmlspecialchars', $project['images'] ?? []);
     ?>
 
     <?php if (!empty($images)): ?>

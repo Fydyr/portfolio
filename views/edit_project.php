@@ -84,25 +84,59 @@
                     <div class="form-text">Séparés par des virgules (sert au filtre sur /projects).</div>
                 </div>
 
+                <div class="col-md-6">
+                    <label class="form-label">Catégories</label>
+                    <input type="text" name="categories" class="form-control" list="known-categories"
+                           value="<?= htmlspecialchars($project['categories'] ?? '') ?>"
+                           placeholder="Web, Scolaire">
+                    <datalist id="known-categories">
+                        <?php foreach (($knownCategories ?? []) as $c): ?>
+                            <option value="<?= htmlspecialchars($c) ?>"></option>
+                        <?php endforeach; ?>
+                    </datalist>
+                    <div class="form-text">
+                        Type de projet, séparé par des virgules. Distinct des langages :
+                        ici « Web », « Jeu », « Scolaire », pas « PHP ».
+                    </div>
+                </div>
+
                 <div class="col-12">
                     <label class="form-label">Images du projet</label>
-                    <div class="row g-3">
-                        <?php foreach (['image1' => 'img1', 'image2' => 'img2', 'image3' => 'img3'] as $inputName => $field):
-                            $idx = (int)substr($inputName, -1);
-                            $optional = $idx > 1 ? '(optionnelle)' : '';
-                        ?>
-                            <div class="col-md-4">
-                                <small class="text-secondary d-block mb-1">Image <?= $idx ?> <?= $optional ?></small>
-                                <input type="file" class="form-control mb-2" name="<?= $inputName ?>" accept="image/*">
-                                <?php if (!empty($project[$field])): ?>
-                                    <img src="/assets/img/projects/<?= htmlspecialchars($project[$field]) ?>"
-                                         alt="Image <?= $idx ?>" class="img-thumbnail"
-                                         style="max-width: 100%; max-height: 140px; object-fit: cover;">
-                                <?php endif; ?>
+
+                    <!-- Identifiants des images conservées, dans l'ordre. Le
+                         script le tient à jour ; ce qui n'y figure plus est
+                         supprimé à l'enregistrement. -->
+                    <input type="hidden" name="image_order" id="image-order" value="">
+
+                    <div class="row g-3" id="image-list">
+                        <?php foreach (($projectImages ?? []) as $img): ?>
+                            <div class="col-md-3 project-img" data-id="<?= (int)$img['id'] ?>" draggable="true">
+                                <div class="img-thumbnail p-2" style="cursor: grab;">
+                                    <img src="/assets/img/projects/<?= htmlspecialchars($img['filename']) ?>"
+                                         alt="" style="width:100%; height:110px; object-fit:cover; border-radius:6px;">
+                                    <div class="d-flex justify-content-between align-items-center mt-2">
+                                        <span class="badge bg-secondary js-cover-badge"></span>
+                                        <span class="btn-group btn-group-sm">
+                                            <button type="button" class="btn btn-outline-light js-img-left" title="Vers la gauche" aria-label="Déplacer vers la gauche">&larr;</button>
+                                            <button type="button" class="btn btn-outline-light js-img-right" title="Vers la droite" aria-label="Déplacer vers la droite">&rarr;</button>
+                                            <button type="button" class="btn btn-outline-danger js-img-del" title="Supprimer" aria-label="Supprimer l'image">&times;</button>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     </div>
-                    <div class="form-text">Laisser vide pour conserver l'image actuelle.</div>
+
+                    <p class="text-muted mt-2 mb-2" id="image-empty" hidden>
+                        Aucune image pour ce projet.
+                    </p>
+
+                    <label for="images" class="form-label mt-3">Ajouter des images</label>
+                    <input type="file" class="form-control" name="images[]" id="images" accept="image/*" multiple>
+                    <div class="form-text">
+                        Autant d'images que vous voulez, 5 Mo maximum chacune (JPG, PNG, GIF, WebP).
+                        La première de la liste sert de couverture sur les cartes et lors des partages.
+                    </div>
                 </div>
             </div>
 
@@ -115,6 +149,7 @@
         </div>
     </form>
 </div>
+<script src="/assets/js/admin-project-images.js" defer></script>
 </body>
 </html>
 <?php

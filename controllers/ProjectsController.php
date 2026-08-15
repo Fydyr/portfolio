@@ -3,6 +3,7 @@
 require_once 'BaseController.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/settings.php';
+require_once __DIR__ . '/../includes/tags.php';
 
 class ProjectsController extends BaseController
 {
@@ -10,14 +11,21 @@ class ProjectsController extends BaseController
     public function projects()
     {
         global $pdo;
-        $stmt = $pdo->prepare("SELECT id, title, description, is_markdown, link, img1, languages FROM projects WHERE visibilite = 1 ORDER BY id DESC");
+        // `img1` est la première image de project_images, exposée sous ce nom
+        // pour que le fragment de carte n'ait pas à connaître le nouveau modèle.
+        $stmt = $pdo->prepare(
+            "SELECT p.id, p.title, p.description, p.is_markdown, p.link, p.languages, p.categories,
+                    (SELECT filename FROM project_images
+                      WHERE project_id = p.id ORDER BY sort_order, id LIMIT 1) AS img1
+               FROM projects p WHERE p.visibilite = 1 ORDER BY p.id DESC"
+        );
         $stmt->execute();
         $projects = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         // Collecte la liste unique des langages pour le filtre
         $allTags = [];
         foreach ($projects as $p) {
-            $tags = self::extractTags($p['languages'] ?? '');
+            $tags = extractTagList($p['languages'] ?? '');
             foreach ($tags as $t) {
                 $key = mb_strtolower($t);
                 if (!isset($allTags[$key])) $allTags[$key] = $t;
@@ -25,10 +33,25 @@ class ProjectsController extends BaseController
         }
         ksort($allTags);
 
+        // Même collecte pour les catégories. On ne réutilise pas collectDistinctTags()
+        // ici : elle interroge tous les projets, or cette page ne doit proposer que
+        // des filtres correspondant aux projets visibles — sinon un projet masqué
+        // ajouterait une puce ne ramenant jamais aucun résultat.
+        $allCategories = [];
+        foreach ($projects as $p) {
+            foreach (extractTagList($p['categories'] ?? '') as $c) {
+                $key = mb_strtolower($c);
+                if (!isset($allCategories[$key])) $allCategories[$key] = $c;
+            }
+        }
+        ksort($allCategories);
+
         // Pré-décoder les tags + générer un extrait plain text pour la liste
         foreach ($projects as &$p) {
-            $p['tags']     = self::extractTags($p['languages'] ?? '');
+            $p['tags']     = extractTagList($p['languages'] ?? '');
             $p['tags_key'] = array_map(fn($t) => mb_strtolower($t), $p['tags']);
+            $p['cats']     = extractTagList($p['categories'] ?? '');
+            $p['cats_key'] = array_map(fn($c) => mb_strtolower($c), $p['cats']);
 
             // Extrait : si markdown -> on rend puis strip tags pour l'aperçu de la carte
             $raw = $p['description'] ?? '';
@@ -41,24 +64,10 @@ class ProjectsController extends BaseController
         unset($p);
 
         echo $this->view('projects', [
-            'projects' => $projects,
-            'allTags'  => array_values($allTags),
+            'projects'      => $projects,
+            'allTags'       => array_values($allTags),
+            'allCategories' => array_values($allCategories),
         ]);
-    }
-
-    /**
-     * Sépare la chaîne `languages` (formats possibles : "PHP, MySQL", "PHP/MySQL", etc.)
-     * en un tableau propre de tags trimés et dédupliqués.
-     */
-    private static function extractTags(string $raw): array
-    {
-        $parts = preg_split('/[,;\/|]/', $raw);
-        $tags = [];
-        foreach ($parts as $p) {
-            $p = trim($p);
-            if ($p !== '') $tags[] = $p;
-        }
-        return array_values(array_unique($tags));
     }
 
     public function projectDetail($id)
@@ -75,20 +84,29 @@ class ProjectsController extends BaseController
             return;
         }
 
+        // Toutes les images du projet, dans l'ordre choisi en administration.
+        // `img1` reste exposé pour les métadonnées Open Graph, qui n'ont besoin
+        // que de la couverture.
+        $imgStmt = $pdo->prepare(
+            "SELECT filename FROM project_images WHERE project_id = :id ORDER BY sort_order, id"
+        );
+        $imgStmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        $imgStmt->execute();
+        $project['images'] = $imgStmt->fetchAll(\PDO::FETCH_COLUMN);
+        $project['img1']   = $project['images'][0] ?? null;
+
         // Créer des meta tags personnalisés pour ce projet
         include_once __DIR__ . '/../includes/meta-config.php';
 
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'];
 
-        // Déterminer la meilleure image à utiliser (essayer img1, img2, img3, puis fallback)
+        // Image de partage : la couverture du projet, à défaut le logo du site.
+        // Le repli en cascade sur img2 puis img3 n'a plus lieu d'être — la
+        // couverture est simplement la première image de la liste.
         $projectImage = '/assets/img/img_logo.png';
         if (!empty($project['img1'])) {
             $projectImage = '/assets/img/projects/' . $project['img1'];
-        } elseif (!empty($project['img2'])) {
-            $projectImage = '/assets/img/projects/' . $project['img2'];
-        } elseif (!empty($project['img3'])) {
-            $projectImage = '/assets/img/projects/' . $project['img3'];
         }
 
         // S'assurer que l'image est une URL absolue

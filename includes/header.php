@@ -75,12 +75,20 @@ if (isset($_SESSION['user_id'])) {
         }
     ?>
 
+    <!-- Préconnexion aux CDN : ouvre les connexions TCP/TLS en parallèle de
+         l'analyse du document, au lieu d'attendre la découverte de chaque <link>. -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Une seconde copie de Bootstrap était chargée ici depuis jsdelivr, en
+         version 5.3.2. Supprimée : deux feuilles concurrentes pour le même
+         framework, et un écart de version avec le reste des pages, qui
+         référencent toutes la 5.3.0 de cdnjs. -->
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -671,6 +679,17 @@ if (isset($_SESSION['user_id'])) {
             }
         }
     </style>
+
+    <!-- Feuille de style principale.
+         Elle était jusqu'ici chargée par chaque vue dans son propre <head>, et
+         jamais ici : une vue qui n'émet pas son propre <head> — comme la page
+         d'accueil désormais — se retrouvait sans elle.
+         POSITION CRITIQUE : elle doit venir APRÈS le <style> inline ci-dessus.
+         Les deux définissent `body`, avec des dégradés différents. Placée avant,
+         c'est l'inline qui gagne et le fond vire au rose/vert au lieu du bleu
+         des autres pages. Chargée par les vues, elle arrivait toujours en
+         dernier ; on conserve cet ordre. -->
+    <link href="/assets/css/style.css" rel="stylesheet">
 </head>
 
 <body class="<?php echo $current_page; ?>-page">

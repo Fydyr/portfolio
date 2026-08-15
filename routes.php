@@ -102,6 +102,17 @@ $router->post('/login', function () {
     $controller->login();
 });
 
+// Récupération de compte par code de secours (route publique)
+$router->get('/recover', function () {
+    include_once 'controllers/AccountController.php';
+    (new AccountController())->recover();
+});
+
+$router->post('/recover', function () {
+    include_once 'controllers/AccountController.php';
+    (new AccountController())->recover();
+});
+
 // page de déconnexion
 $router->get('/logout', function () {
     include_once 'controllers/AccountController.php';
@@ -271,6 +282,30 @@ $router->post('/admin/cv/upload', function () {
 $router->post('/admin/cv/delete', function () {
     include_once 'controllers/CvAdminController.php';
     (new CvAdminController())->delete();
+});
+
+// ===== Admin Projets à la une =====
+$router->get('/admin/featured', function () {
+    include_once 'controllers/FeaturedAdminController.php';
+    (new FeaturedAdminController())->index();
+});
+$router->post('/admin/featured/save', function () {
+    include_once 'controllers/FeaturedAdminController.php';
+    (new FeaturedAdminController())->save();
+});
+
+// ===== Admin Compte =====
+$router->get('/admin/account', function () {
+    include_once 'controllers/AccountAdminController.php';
+    (new AccountAdminController())->index();
+});
+$router->post('/admin/account/password', function () {
+    include_once 'controllers/AccountAdminController.php';
+    (new AccountAdminController())->changePassword();
+});
+$router->post('/admin/account/recovery-codes', function () {
+    include_once 'controllers/AccountAdminController.php';
+    (new AccountAdminController())->generateCodes();
 });
 
 // ===== Admin Prices =====

@@ -84,23 +84,30 @@
                     <div class="form-text">Séparés par des virgules (sert au filtre sur /projects).</div>
                 </div>
 
-                <div class="col-12">
-                    <label class="form-label">Images du projet</label>
-                    <div class="row g-2">
-                        <div class="col-md-4">
-                            <small class="text-secondary d-block mb-1">Image 1 *</small>
-                            <input type="file" class="form-control" name="projectImage[]" accept="image/*" required>
-                        </div>
-                        <div class="col-md-4">
-                            <small class="text-secondary d-block mb-1">Image 2 (optionnelle)</small>
-                            <input type="file" class="form-control" name="projectImage[]" accept="image/*">
-                        </div>
-                        <div class="col-md-4">
-                            <small class="text-secondary d-block mb-1">Image 3 (optionnelle)</small>
-                            <input type="file" class="form-control" name="projectImage[]" accept="image/*">
-                        </div>
+                <div class="col-md-6">
+                    <label class="form-label">Catégories</label>
+                    <input type="text" name="categories" class="form-control" list="known-categories"
+                           value="<?= htmlspecialchars($_SESSION['form_data']['categories'] ?? '') ?>"
+                           placeholder="Web, Scolaire">
+                    <datalist id="known-categories">
+                        <?php foreach (($knownCategories ?? []) as $c): ?>
+                            <option value="<?= htmlspecialchars($c) ?>"></option>
+                        <?php endforeach; ?>
+                    </datalist>
+                    <div class="form-text">
+                        Type de projet, séparé par des virgules. Distinct des langages :
+                        ici « Web », « Jeu », « Scolaire », pas « PHP ».
                     </div>
-                    <div class="form-text">Formats : JPG, PNG, GIF, WebP. Max 5 Mo par image.</div>
+                </div>
+
+                <div class="col-12">
+                    <label for="images" class="form-label">Images du projet</label>
+                    <input type="file" class="form-control" name="images[]" id="images" accept="image/*" multiple>
+                    <div class="form-text">
+                        Sélectionnez-en autant que vous voulez. Formats : JPG, PNG, GIF, WebP.
+                        Max 5 Mo par image. La première sert de couverture — l'ordre se règle
+                        ensuite depuis la page d'édition.
+                    </div>
                 </div>
             </div>
 

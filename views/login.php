@@ -37,6 +37,12 @@
         <div class="card fade-in mb-4">
             <div class="card-body">
                 <div class="form-container">
+                    <?php $recoverSuccess = getFlash('success'); ?>
+                    <?php if ($recoverSuccess): ?>
+                        <div class="alert alert-success">
+                            <i class="bi bi-check-circle-fill"></i> <?= htmlspecialchars($recoverSuccess) ?>
+                        </div>
+                    <?php endif; ?>
                     <?php if (!empty($errors)): ?>
                         <div class="alert alert-danger">
                             <?= implode('<br>', $errors) ?>
@@ -54,6 +60,11 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Se connecter</button>
                     </form>
+                    <p class="mt-3 mb-0">
+                        <a href="<?= url('recover') ?>" class="text-muted">
+                            <i class="bi bi-life-preserver"></i> Compte perdu ?
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
