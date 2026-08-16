@@ -77,27 +77,27 @@
                            placeholder="https://github.com/…">
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Langages / outils *</label>
-                    <input type="text" name="projectLanguage" class="form-control" required
-                           value="<?= htmlspecialchars($_SESSION['form_data']['projectLanguage'] ?? '') ?>"
-                           placeholder="PHP, MySQL, Docker">
-                    <div class="form-text">Séparés par des virgules (sert au filtre sur /projects).</div>
+                    <?php partial('_tag_input', [
+                        'field'       => 'projectLanguage',
+                        'label'       => 'Langages / outils',
+                        'value'       => $_SESSION['form_data']['projectLanguage'] ?? '',
+                        'known'       => $knownTools ?? [],
+                        'required'    => true,
+                        'placeholder' => 'PHP, MySQL, Docker…',
+                        'hint'        => 'Sert au filtre sur /projects.',
+                    ]); ?>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">Catégories</label>
-                    <input type="text" name="categories" class="form-control" list="known-categories"
-                           value="<?= htmlspecialchars($_SESSION['form_data']['categories'] ?? '') ?>"
-                           placeholder="Web, Scolaire">
-                    <datalist id="known-categories">
-                        <?php foreach (($knownCategories ?? []) as $c): ?>
-                            <option value="<?= htmlspecialchars($c) ?>"></option>
-                        <?php endforeach; ?>
-                    </datalist>
-                    <div class="form-text">
-                        Type de projet, séparé par des virgules. Distinct des langages :
-                        ici « Web », « Jeu », « Scolaire », pas « PHP ».
-                    </div>
+                    <?php partial('_tag_input', [
+                        'field'       => 'categories',
+                        'label'       => 'Catégories',
+                        'value'       => $_SESSION['form_data']['categories'] ?? '',
+                        'known'       => $knownCategories ?? [],
+                        'placeholder' => 'Web, Scolaire…',
+                        'hint'        => 'Type de projet, distinct des langages : ici « Web », '
+                                       . '« Jeu », « Scolaire », pas « PHP ».',
+                    ]); ?>
                 </div>
 
                 <div class="col-12">
@@ -118,6 +118,7 @@
     </form>
 </div>
 <script src="/assets/js/admin-project-images.js" defer></script>
+<script src="/assets/js/admin-tag-input.js" defer></script>
 </body>
 </html>
 <?php

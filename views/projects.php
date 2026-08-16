@@ -683,6 +683,64 @@
                 ((kind === 'cat' ? item.dataset.cats : item.dataset.tags) || '')
                     .split('|').filter(Boolean);
 
+            /* === État dans l'URL ===
+             *
+             * Sans cela une sélection ne survit à rien : impossible d'envoyer un
+             * résultat filtré à quelqu'un, de le mettre en favori, ou de défaire
+             * un filtre — le bouton retour quittait la page.
+             *
+             * Deux poids, deux mesures sur l'historique : cocher une valeur ou
+             * réinitialiser sont des gestes délibérés, qui méritent une entrée à
+             * laquelle revenir (pushState). Taper dans la recherche est continu :
+             * une entrée par frappe rendrait le bouton retour inutilisable, on se
+             * contente donc de réécrire l'adresse en place (replaceState).
+             *
+             * Les valeurs ne peuvent pas contenir de virgule — extractTagList()
+             * découpe justement là-dessus — donc la joindre est sans ambiguïté.
+             */
+            const KINDS = ['cat', 'tag'];
+
+            function stateToUrl() {
+                const p = new URLSearchParams();
+                const q = search.value.trim();
+                if (q !== '') p.set('q', q);
+                KINDS.forEach(kind => {
+                    const on = active(kind);
+                    if (on.length > 0) p.set(kind, on.join(','));
+                });
+                const qs = p.toString();
+                return location.pathname + (qs === '' ? '' : '?' + qs);
+            }
+
+            function urlToState() {
+                const p = new URLSearchParams(location.search);
+                search.value = p.get('q') || '';
+                KINDS.forEach(kind => {
+                    // Les data-value sont posées en minuscules par PHP : on
+                    // compare sur le même pied, pour qu'une adresse tapée à la
+                    // main avec des majuscules fonctionne aussi.
+                    const want = new Set(
+                        (p.get(kind) || '').split(',').map(v => v.trim().toLowerCase()).filter(Boolean)
+                    );
+                    boxes.filter(b => b.dataset.kind === kind)
+                         .forEach(b => { b.checked = want.has(b.dataset.value); });
+                });
+            }
+
+            function syncUrl(push) {
+                const url = stateToUrl();
+                if (url === location.pathname + location.search) return;  // rien de neuf
+                history[push ? 'pushState' : 'replaceState']({}, '', url);
+            }
+
+            // Safari plafonne le nombre d'appels à l'historique : on ne réécrit
+            // l'adresse qu'une fois la frappe retombée.
+            let urlTimer = 0;
+            const syncUrlSoon = () => {
+                clearTimeout(urlTimer);
+                urlTimer = setTimeout(() => syncUrl(false), 250);
+            };
+
             /**
              * Combien de projets resteraient si on cochait cette valeur ?
              *
@@ -789,6 +847,7 @@
                 mine.forEach(box => box.addEventListener('change', () => {
                     interacted = true;
                     apply();
+                    syncUrl(true);
                 }));
 
                 // Filtrage de la liste elle-même. Il ne touche pas aux cases
@@ -809,6 +868,7 @@
                     mine.forEach(box => { box.checked = false; });
                     interacted = true;
                     apply();
+                    syncUrl(true);
                 });
 
                 // Fermeture : clic au-dehors, ou Échap — qui rend la main au
@@ -845,6 +905,7 @@
                             box.checked = false;
                             interacted = true;
                             apply();
+                            syncUrl(true);
                             // apply() vient de reconstruire ces puces : le focus
                             // était sur celle qu'on retire, il faut le reposer.
                             trigger.focus();
@@ -861,15 +922,34 @@
 
             const pickers = Array.from(document.querySelectorAll('.facet-picker')).map(initPicker);
 
-            search.addEventListener('input', () => { interacted = true; apply(); });
+            search.addEventListener('input', () => {
+                interacted = true;
+                apply();
+                syncUrlSoon();
+            });
 
             resetEl.addEventListener('click', () => {
                 search.value = '';
                 boxes.forEach(box => { box.checked = false; });
                 interacted = true;
                 apply();
+                syncUrl(true);
             });
 
+            // Retour ou avance dans l'historique : l'adresse fait foi, on relit
+            // tout depuis elle. Une réécriture en attente n'a plus lieu d'être,
+            // elle porterait l'état d'avant la navigation.
+            window.addEventListener('popstate', () => {
+                clearTimeout(urlTimer);
+                urlToState();
+                interacted = true;
+                apply();
+            });
+
+            // Premier rendu depuis l'adresse : une page ouverte sur un lien
+            // filtré doit s'afficher filtrée. `interacted` reste faux pour que
+            // l'animation d'entrée des cartes joue normalement.
+            urlToState();
             apply();
         })();
     </script>

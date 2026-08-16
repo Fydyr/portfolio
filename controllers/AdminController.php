@@ -105,6 +105,7 @@ class AdminController extends BaseController
             global $pdo;
             echo $this->view('add_project', [
                 'knownCategories' => collectDistinctTags($pdo, 'categories'),
+                'knownTools'      => collectDistinctTags($pdo, 'languages'),
             ]);
         }
     }
@@ -279,22 +280,37 @@ class AdminController extends BaseController
         }
 
         $count = count($_FILES['images']['name']);
-        for ($i = 0; $i < $count; $i++) {
-            // Un champ multiple laissé vide envoie une entrée UPLOAD_ERR_NO_FILE :
-            // ce n'est pas une erreur, seulement l'absence de fichier.
-            if (($_FILES['images']['error'][$i] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
-                continue;
-            }
-            if (trim((string)$_FILES['images']['name'][$i]) === '') {
-                continue;
-            }
 
-            $out[] = $this->uploadImage([
-                'name'     => $_FILES['images']['name'][$i],
-                'tmp_name' => $_FILES['images']['tmp_name'][$i],
-                'error'    => $_FILES['images']['error'][$i],
-                'size'     => $_FILES['images']['size'][$i],
-            ], $uploadDir);
+        try {
+            for ($i = 0; $i < $count; $i++) {
+                // Un champ multiple laissé vide envoie une entrée UPLOAD_ERR_NO_FILE :
+                // ce n'est pas une erreur, seulement l'absence de fichier.
+                if (($_FILES['images']['error'][$i] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
+                    continue;
+                }
+                if (trim((string)$_FILES['images']['name'][$i]) === '') {
+                    continue;
+                }
+
+                $out[] = $this->uploadImage([
+                    'name'     => $_FILES['images']['name'][$i],
+                    'tmp_name' => $_FILES['images']['tmp_name'][$i],
+                    'error'    => $_FILES['images']['error'][$i],
+                    'size'     => $_FILES['images']['size'][$i],
+                ], $uploadDir);
+            }
+        } catch (Throwable $e) {
+            // Un fichier refusé annule tout le lot, et l'appelant n'écrira
+            // aucune ligne en base. Les fichiers déjà posés sur le disque ne
+            // seraient donc plus référencés nulle part : plus rien ne pourrait
+            // les retrouver, ni pour les afficher ni pour les effacer.
+            foreach ($out as $filename) {
+                $path = $uploadDir . basename($filename);
+                if (is_file($path)) {
+                    @unlink($path);
+                }
+            }
+            throw $e;
         }
 
         return $out;
@@ -563,6 +579,7 @@ class AdminController extends BaseController
         echo $this->view('edit_project', [
             'project'         => $project,
             'knownCategories' => collectDistinctTags($pdo, 'categories'),
+            'knownTools'      => collectDistinctTags($pdo, 'languages'),
             'projectImages'   => $this->fetchProjectImages((int)$projectId),
         ]);
     }

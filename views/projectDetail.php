@@ -55,7 +55,10 @@
     <?php if (!empty($images)): ?>
         <div class="container">
             <div class="project-image-main fade-in-up" onclick="openLightbox(0)">
-                <img src="/assets/img/projects/<?= $images[0] ?>" alt="<?= htmlspecialchars($project['title']) ?>">
+                <!-- Pas de loading="lazy" ici : c'est l'image principale de la
+                     page, celle que le navigateur doit chercher en premier. -->
+                <img src="/assets/img/projects/<?= htmlspecialchars($images[0]) ?>"
+                     alt="<?= htmlspecialchars($project['title']) ?>">
             </div>
         </div>
     <?php endif; ?>
@@ -114,7 +117,13 @@
                 <div class="gallery-grid">
                     <?php foreach ($images as $i => $img): ?>
                         <div class="gallery-item" onclick="openLightbox(<?= $i ?>)">
-                            <img src="/assets/img/projects/<?= $img ?>" alt="<?= htmlspecialchars($project['title']) ?> - Image <?= $i + 1 ?>">
+                            <!-- Chargement différé : un projet à huit captures les
+                                 téléchargeait toutes d'un coup. La hauteur de la
+                                 vignette est fixée en CSS (.gallery-item img), donc
+                                 rien ne saute pendant l'arrivée des images. -->
+                            <img src="/assets/img/projects/<?= htmlspecialchars($img) ?>"
+                                 alt="<?= htmlspecialchars($project['title']) ?> - Image <?= $i + 1 ?>"
+                                 loading="lazy" decoding="async">
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -154,7 +163,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        const images = <?= json_encode($images) ?>;
+        // JSON_HEX_TAG échappe « < » et « > » : sans lui, un nom de fichier
+        // contenant </script> refermerait ce bloc. Les noms sont aujourd'hui
+        // générés par uniqid(), donc hors de portée d'un visiteur — c'est la
+        // marge qu'on garde si cette règle change un jour.
+        const images = <?= json_encode($images, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
         let currentIndex = 0;
 
         function openLightbox(index) {
