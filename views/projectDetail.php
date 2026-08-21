@@ -163,10 +163,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // JSON_HEX_TAG échappe « < » et « > » : sans lui, un nom de fichier
-        // contenant </script> refermerait ce bloc. Les noms sont aujourd'hui
-        // générés par uniqid(), donc hors de portée d'un visiteur — c'est la
-        // marge qu'on garde si cette règle change un jour.
+        // JSON_HEX_TAG échappe « < » et « > » : sans lui, un nom de fichier généré par uniqid(), 
+        // donc hors de portée d'un visiteur.
         const images = <?= json_encode($images, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
         let currentIndex = 0;
 
