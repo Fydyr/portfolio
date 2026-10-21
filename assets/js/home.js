@@ -27,6 +27,19 @@
         }
     }
 
+    function sanitizeDocUrl(url) {
+        if (typeof url !== 'string') return null;
+        try {
+            const parsed = new URL(url, window.location.origin);
+            if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+                return parsed.href;
+            }
+        } catch (e) {
+            // URL invalide
+        }
+        return null;
+    }
+
     // `passionData` est au SINGULIER : c'est le nom qu'utilise le code ci-dessous.
     const techData    = readJson('tech-data');
     const passionData = readJson('passions-data');
@@ -78,7 +91,8 @@
                 });
 
                 // Lien documentation
-                docBtn.href = tech.docUrl;
+                const safeDocUrl = sanitizeDocUrl(tech.docUrl);
+                docBtn.href = safeDocUrl || '#';
 
                 // Affichage de la modale
                 modal.style.display = 'flex';
