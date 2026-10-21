@@ -170,7 +170,10 @@
                 likesList.innerHTML = '';
                 passion.likes.forEach(like => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<i class="fas fa-check-circle"></i> ${like}`;
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-check-circle';
+                    li.appendChild(icon);
+                    li.appendChild(document.createTextNode(` ${like}`));
                     likesList.appendChild(li);
                 });
 
