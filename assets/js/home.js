@@ -70,7 +70,10 @@
                 featuresList.innerHTML = '';
                 tech.features.forEach(feature => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<i class="fas fa-check-circle"></i> ${feature}`;
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-check-circle';
+                    li.appendChild(icon);
+                    li.appendChild(document.createTextNode(` ${feature}`));
                     featuresList.appendChild(li);
                 });
 
