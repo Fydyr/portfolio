@@ -86,9 +86,19 @@
 
         const updatePreview = () => {
             const val = input.value.trim();
-            previewSpan.innerHTML = val
-                ? `<i class="${val}" style="font-size:1.25rem;"></i>`
-                : '<span class="text-muted small">?</span>';
+            previewSpan.textContent = '';
+
+            if (val) {
+                const icon = document.createElement('i');
+                icon.className = val;
+                icon.style.fontSize = '1.25rem';
+                previewSpan.appendChild(icon);
+            } else {
+                const fallback = document.createElement('span');
+                fallback.className = 'text-muted small';
+                fallback.textContent = '?';
+                previewSpan.appendChild(fallback);
+            }
         };
         input.addEventListener('input', updatePreview);
         updatePreview();
