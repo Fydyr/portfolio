@@ -7,3 +7,4 @@ assets/docs/.github-repos-cache.json
 /docs/compteur.txt
 .env
 postgres-data/
+/assets/img/projects/*
